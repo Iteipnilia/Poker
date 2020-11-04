@@ -1,0 +1,143 @@
+@startuml Klassdiagram
+Scale 1.3
+left to right direction
+class Deck
+{
+    -Card[] Cards
+    +Deck()
+    void Shuffle()
+    Card GetTopCard()
+    void PutBackCard(Card)
+}
+Deck --* Card
+class Card
+{
+   -Suite suite
+   -Rank rank
+   + Card()
+}
+Card --* Suite
+Card --* Rank
+Card *-* ICard
+class Player
+{
+    - string name
+      -Hand Hand
+      + Player()
+      + ICard[] Discard
+
+}
+Player --o Hand
+Player *-* IPlayer
+class Dealer
+{
+    -Deck Deck
+    Deal(Table)
+    void TakeCard(Card)
+    void GiveReplacementCard(Player)
+}
+Dealer --o Deck
+class Hand
+{
+  -Card[] cards
+  +Hand()
+  void HandValue()
+  void ReceiveReplacementCard(Card)
+  void SortHand()
+  void DiscardCard()
+  void CompareHands()
+}
+Hand --* Card
+Hand --*HandType
+class Table
+{
+    -Player[] Players
+    void ShowHand()
+}
+Table --* Player
+class Game
+{
+   -Dealer Dealer
+   -Table Table
+   void NewGame()
+   void Loadgame(string)
+   void WinnerPlayer()
+   void DrawPlayer()
+   void SaveGame(string)
+}
+Game --o Table
+Game --o Dealer
+Game *-* IPokerGame
+enum Suite
+{
+    {static} Clubs
+    {static} Diamonds
+    {static} Hearts
+    {static} Spades
+}
+enum Rank
+{
+    {static} Two = 2
+    {static} Three
+    {static} Four
+    {static} Five
+    {static} Six
+    {static} Seven
+    {static} Eight
+    {static} Nine
+    {static} Ten
+    {static} Jack
+    {static} Queen
+    {static} King
+    {static} Ace
+}
+enum HandType
+{
+    {static} HighCard
+    {static} Pair
+    {static} TwoPairs
+    {static} ThreeOfAKind
+    {static} Straight
+    {static} Flush
+    {static} FullHouse
+    {static} FourOfAKind
+    {static} StraightFlush
+    {static} RoyalStraightFlush
+}
+interface ICard
+{
+    + Suite Suite
+    + Rank Rank
+}
+
+interface IPlayer
+{
+    + string Name
+    + ICard[] Hand
+    + HandType HandType
+    + int Wins
+    + ICard[] Discard
+}
+IPlayer --o ICard
+interface IPokerGame
+{
+    IPlayer[] Players
+    void RunGame()
+    void SaveAndExit(string)
+    void Exit()
+    <<event>> NewDeal()
+    <<event>> SelectCardsToDiscard(IPlayer)
+    <<event>> RecievedReplacementCards(IPlayer)
+    <<event>> ShowAllHands()
+    <<event>> Winner(IPlayer)
+    <<event>> Draw(IPlayer[])
+}
+IPokerGame --o IPlayer
+class GameFactory
+{
+    {static} + IGame NewGame()
+    {static} + IGame LoadGame(string)
+}
+GameFactory --> IPokerGame
+GameFactory --> Game
+@enduml
