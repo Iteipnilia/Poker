@@ -16,6 +16,21 @@ namespace Poker
 
         }
 
+        public Hand Hand
+        {
+            get { return hand; }
+            set { value = hand; }
+        }
+
+        public Card[] Discard
+        {
+            get { return discard; }
+            set { value = discard; }
+        }
+
+        //public string Name=>name;
+        //public int Wins=>wins;
+
         // anropar metod i Hand för att tömma index på hand som ska bort
         // LÄgger till det borttagna kortet i array discard
         public void DiscardCard(int index)
