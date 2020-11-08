@@ -1,13 +1,14 @@
 namespace Poker
-{
-    class Card
+{  
+    class Card : ICard
     {
-        private Suite suite;
-        private Rank rank;
-
-        public Card()
+        public Card(Suite suite, Rank rank) 
         {
-
+            Suite = suite;
+            Rank = rank;
         }
+        public Suite Suite { get; set; }
+
+        public Rank Rank { get; set; }
     }
 }

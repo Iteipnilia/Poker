@@ -4,19 +4,19 @@ namespace Poker
     {
         private string name;
         private int wins;
-        private Hand hand;
+        private Hands hand;
         private Card[] discard;
 
         public Player(string name_)
         {
             name=name_;
             wins=0;
-            hand= new Hand();
+            hand= new Hands();
             discard= new Card[5];
 
         }
 
-        public Hand Hand
+        public Hands Hand
         {
             get { return hand; }
             set { value = hand; }
