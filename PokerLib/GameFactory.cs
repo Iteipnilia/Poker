@@ -4,12 +4,14 @@ namespace Poker.Lib
     {
         public static IPokerGame NewGame(string[] playerNames)
         {
-            return null;
+            var Game = new Game(playerNames);
+            return Game;
         }
 
         public static IPokerGame LoadGame(string fileName)
         {
-            return null;
+            var LoadGame = new Game(fileName);
+            return LoadGame;
         }
     }
 }

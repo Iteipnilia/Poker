@@ -1,13 +1,36 @@
+using System;
+using Poker.Lib;
+
 namespace Poker
 {
-    class Game
+    class Game : IPokerGame
     {
-        private Dealer dealer;
-        private Table table;
+        public event OnNewDeal NewDeal;
+        public event OnSelectCardsToDiscard SelectCardsToDiscard;
+        public event OnRecievedReplacementCards RecievedReplacementCards;
+        public event OnShowAllHands ShowAllHands;
+        public event OnWinner Winner;
+        public event OnDraw Draw;
 
-        public void NewGame()
+
+        public IPlayer[] Players { get; set;}
+
+        public Game(string[] playerNames)
+        {
+        
+        }
+        public Game(string fileName)
         {
 
+        }
+
+        public void RunGame()
+        {
+            Deck deck = new Deck();
+            Dealer dealer = new Dealer();
+            dealer.Shuffle();
+            NewDeal();
+            //dealer.Deal(Table);
         }
 
         public void LoadGame(string file)
@@ -15,7 +38,7 @@ namespace Poker
 
         }
 
-        public void WinnerPlayer()
+        public void WinnerPlayer(IPlayer winner)
         {
 
         }
@@ -25,9 +48,14 @@ namespace Poker
 
         }
 
-        public void SaveGame(string save)
+        public void SaveGameAndExit(string fileName)
         {
+            throw new NotImplementedException();
+        }
 
+        public void Exit()
+        {
+            Environment.Exit(0);
         }
     }
 }

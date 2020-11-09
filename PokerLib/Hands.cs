@@ -10,7 +10,7 @@ namespace Poker
         public Card[] Hand { get; set; }
         bool Contains(Rank Rk) => Cards.Where(c => c.Rank == Rk).Any();
 
-        public Hands(List<Card> card)
+        public Hands()
         {
             Hand = new Card[5];
         }
@@ -134,16 +134,12 @@ namespace Poker
             Hand = Hand.OrderBy(card => card.Suite).ToArray();
         }
 
-        //public void DiscardCard(){} ersatt?
-
         public Card RemoveCardFromHand(int index)
         {
             Hand[index] = null;
             return Hand[index];
         }
         //Lägg till kort på hand??
-
-        //public void ReceiveReplacementCard(Card card){} ersatt?
         public void AddCardToHand(Card card)
         {
             for (int i = 0; i < 5; i++)
@@ -155,8 +151,5 @@ namespace Poker
                 }
             }
         }
-
-
-
     }
 }
