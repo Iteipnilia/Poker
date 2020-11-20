@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Xml.Serialization;
 using Poker.Lib;
-
 namespace Poker
 {
     class Game : IPokerGame
@@ -52,15 +51,11 @@ namespace Poker
             //winner/draw samt ta tillbaka korten till leken kvar
             
         }
-
         public void WinnerPlayer(IPlayer winner)
         {
-
         }
-
         public void DrawPlayer()
         {
-
         }
 
         public void SaveGameAndExit(string fileName)

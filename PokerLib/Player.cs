@@ -1,6 +1,7 @@
-namespace Poker
-{
-    class Player: IPlayer
+using Poker;
+using System;
+
+class Player : IPlayer
     {
         private string name;
         public string Name{get=> name;}
@@ -14,7 +15,7 @@ namespace Poker
 
         public Player(string name_)
         {
-            name=name_;
+            this.name = name_;
             wins=0;
             hand= new Hands();
             //discard= new Card[5];
@@ -31,12 +32,20 @@ namespace Poker
             get { return discard; }
             set { value = discard; }
         }
+        //public string Name=>name;
+       // public int Wins=>wins;
+
+        public void DetermineHandType(Hands hand)
+        {
+            hand.Eval();
+        }
 
         // anropar metod i Hand för att tömma index på hand som ska bort
         // LÄgger till det borttagna kortet i array discard
         public void DiscardCard(int index)
         {            
-           discard[index] = hand.RemoveCardFromHand(index);
+           discard[index] = hand.Hand[index];//======!!!!!!!!!!!!!!!!!==========
+           Hands.RemoveCardFromHand(index);
         }
 
         public void ReceiveCards(Card card)

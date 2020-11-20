@@ -4,17 +4,19 @@ namespace Poker
 {
     class Table
     {
-        private Dealer dealer;
-        public Player[] players;
+        private Deck deck;
+        private Player[] players;
         private Card[] playersDiscardedCards;
         private int numberOfPlayers;
 
         public Table()// number of players som inparameter???
         {
-            dealer=new Dealer();
-            players= new Player[numberOfPlayers];
+            deck=new Deck();
+            players= new Player[numberOfPlayers_];
             playersDiscardedCards= new Card[52];
         }
+
+        public Player[] Players=> players;
         
         public void AddPlayerToTable(string name)
         {
@@ -28,7 +30,7 @@ namespace Poker
             }
         }
 
-        public Hands ShowHands(Player player)
+        public Hands ShowHands(Player player)// ta bort inparameter
         {
             return player.Hands;
         }
@@ -40,7 +42,7 @@ namespace Poker
             {
                 for(int j=0; j<numberOfPlayers; numberOfPlayers++)
                 {
-                    player.ReceiveCards(dealer.GiveCard());
+                    player.ReceiveCards(deck.GetTopCard());
                 }
             }
         }
@@ -49,7 +51,7 @@ namespace Poker
         {
             for(int i=0;i<nrOfCards; i++)
             {
-                player.ReceiveCards(dealer.GiveCard());
+                player.ReceiveCards(deck.GetTopCard());
             }
         }
         public void CompareHands()
@@ -58,11 +60,25 @@ namespace Poker
             // bästa handen vinner
             // Om två eller fler spelare har samma hand, jämförs rank
             // Om två spelare har samma rank: oavgjort
+            
+            foreach(Player player in players)
+            {
+                player.DetermineHandType(player.Hands);
+            }
+            
+            HandType tempHand=0;
+            for(int i=0; i<numberOfPlayers; i++)
+            {
+                if(players[i].HandType>tempHand)
+                {
+                    tempHand=players[i].HandType;
+                }
+            }
         }
 
         public void DiscardedCardPile(int playerIndex)
         {
-            foreach(var card in players[playerIndex].Discard)
+            foreach(var card in players[playerIndex].Discard_)
             {
                 for(int i=0; i<playersDiscardedCards.Length; i++)
                 {
@@ -76,11 +92,11 @@ namespace Poker
             }
         }
 
-        public void DealerCollectCards()
+        public void CollectCardsFromTable()
         {
             foreach(Card card in playersDiscardedCards)
             {
-                dealer.PutBackCardsInDeck(card);
+                deck.PutBackCard(card);
             }
         }
     }
