@@ -4,7 +4,8 @@ namespace Poker.Lib
     {
         public static IPokerGame NewGame(string[] playerNames)
         {
-            return null;
+            Game game= new Game(playerNames);
+            return game;
         }
 
         public static IPokerGame LoadGame(string fileName)

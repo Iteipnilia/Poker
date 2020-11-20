@@ -24,12 +24,8 @@ namespace Poker
         {
             int i=0;
             Card drawnCard;
-            do
-            {
-               i++;
-            }
-            while(cards[i] ==null);
-            
+            while(cards[i] ==null&&i<cards.Length){i++;}
+
             drawnCard= cards[i];
             cards[i]=null; // blir den tom???
             
@@ -48,7 +44,9 @@ namespace Poker
         }
         
         //Flytta Shuffle() till Dealer??
-        public void Shuffle()//Fisher-Yates
+        // Ha deck som inparameter??
+        // ändra cards i metoden till deck
+        public void Shuffle(Deck deck)//Fisher-Yates
         {
             Random random= new Random();
 
