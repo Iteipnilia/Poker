@@ -1,3 +1,4 @@
+using System;
 namespace Poker
 {
     class Deck
@@ -40,7 +41,6 @@ namespace Poker
                 }
             }
         }
-<<<<<<< HEAD
         
         //Flytta Shuffle() till Dealer??
         // Ha deck som inparameter??
@@ -58,7 +58,5 @@ namespace Poker
                 cards[randomIndex] = temp; // kort på random index blir kortet från 1a index
             }
         }
-=======
->>>>>>> bc01e700bceb1e64a7c0bf601c5f6f9725713b66
     }
 }
