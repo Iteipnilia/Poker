@@ -5,16 +5,15 @@ namespace Poker
     class Table
     {
         private Dealer dealer;
-        private Player[] players;
+        public Player[] players;
         private Card[] playersDiscardedCards;
         private int numberOfPlayers;
 
-        public Table(int numberOfPlayers_)// number of players som inparameter???
+        public Table()// number of players som inparameter???
         {
             dealer=new Dealer();
-            players= new Player[numberOfPlayers_];
+            players= new Player[numberOfPlayers];
             playersDiscardedCards= new Card[52];
-            numberOfPlayers=numberOfPlayers_;
         }
         
         public void AddPlayerToTable(string name)
@@ -31,7 +30,7 @@ namespace Poker
 
         public Hands ShowHands(Player player)
         {
-            return player.Hand;
+            return player.Hands;
         }
 
         // Delar ut ett kort i taget fem gånger till alla spelare
