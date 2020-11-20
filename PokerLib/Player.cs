@@ -1,11 +1,11 @@
-using Poker;
-using System;
+namespace Poker
+{
 
-class Player : IPlayer
+    class Player : IPlayer
     {
         private string name;
         public string Name{get=> name;}
-        private int wins;
+        public int wins;
         public int Wins{get=> wins;}
         private Card[] discard= new Card[5];
         public ICard[] Discard {set => Discard = discard;}
@@ -18,7 +18,6 @@ class Player : IPlayer
             this.name = name_;
             wins=0;
             hand= new Hands();
-            //discard= new Card[5];
 
         }
         public Hands Hands
@@ -32,8 +31,6 @@ class Player : IPlayer
             get { return discard; }
             set { value = discard; }
         }
-        //public string Name=>name;
-       // public int Wins=>wins;
 
         public void DetermineHandType(Hands hand)
         {
@@ -47,7 +44,6 @@ class Player : IPlayer
            discard[index] = hand.Hand[index];//======!!!!!!!!!!!!!!!!!==========
            Hands.RemoveCardFromHand(index);
         }
-
         public void ReceiveCards(Card card)
         {
             hand.AddCardToHand(card);

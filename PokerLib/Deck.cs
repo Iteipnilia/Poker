@@ -42,7 +42,6 @@ namespace Poker
             }
         }
         
-        //Flytta Shuffle() till Dealer??
         // Ha deck som inparameter??
         // ändra cards i metoden till deck
         public void Shuffle(Deck deck)//Fisher-Yates

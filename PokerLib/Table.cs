@@ -1,22 +1,18 @@
-using System;
-
 namespace Poker
 {
     class Table
     {
         private Deck deck;
+        public Player[] Players=> players;
         private Player[] players;
         private Card[] playersDiscardedCards;
         private int numberOfPlayers;
 
-        public Table()// number of players som inparameter???
+        public Table()
         {
-            deck=new Deck();
-            players= new Player[numberOfPlayers_];
+            players= new Player[numberOfPlayers];
             playersDiscardedCards= new Card[52];
         }
-
-        public Player[] Players=> players;
         
         public void AddPlayerToTable(string name)
         {
@@ -28,11 +24,6 @@ namespace Poker
                     break;
                 }
             }
-        }
-
-        public Hands ShowHands(Player player)// ta bort inparameter
-        {
-            return player.Hands;
         }
 
         // Delar ut ett kort i taget fem gånger till alla spelare
@@ -92,11 +83,18 @@ namespace Poker
             }
         }
 
-        public void CollectCardsFromTable()
+        public void RebuildDeck()
         {
             foreach(Card card in playersDiscardedCards)
             {
                 deck.PutBackCard(card);
+            }
+            foreach (Player player in players)
+            {
+                foreach (Card card in player.Hand)
+                {
+                    deck.PutBackCard(card);
+                }
             }
         }
     }

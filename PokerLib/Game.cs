@@ -1,6 +1,7 @@
 using System;
 using System.IO;
-using System.Xml.Serialization;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 using Poker.Lib;
 namespace Poker
 {
@@ -15,54 +16,67 @@ namespace Poker
 
         public IPlayer[] Players { get; set;}
 
-        public LoadGame(string fileName)
+        public Game(string fileName)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(Player));
-            FileStream fs = new FileStream(fileName, FileMode.Open);
+            if (File.Exists(fileName))
+            {
+                string json = File.ReadAllText(fileName);
+                List<Player> players = JsonConvert.DeserializeObject<List<Player>>(json);
+                this.Players = new Player[players.Count];
+                this.Players = players.ToArray();
+            }
         }
 
         public Game(string[] playerNames)
         {
-            Table.AddPlayerToTable();
+            Table.AddPlayerToTable(playerNames);
         }
 
         public void RunGame()
         {
             Deck deck = new Deck();
-            Dealer dealer = new Dealer();
             Table table = new Table();
             Hands Hand = new Hands();
-            dealer.Shuffle();
+            deck.Shuffle(deck);
             NewDeal();
-            table.DealTable();
             foreach (Player player in Players)
             {
+                table.DealTable(player);
                 Hand.SortHand();
                 Hand.Eval();
                 SelectCardsToDiscard(player);
-                player.DiscardCard(index);
-                player.ReceiveCards(dealer.GiveCard());
+                player.DiscardCard(cards);
+                player.ReceiveCards(card);
                 RecievedReplacementCards(player);
                 Hand.SortHand();
                 Hand.Eval();
             }
             ShowAllHands();
             table.CompareHands();
-            //winner/draw samt ta tillbaka korten till leken kvar
+            List<Player> win = Table.Result();
+                if (win.Count == 1)
+                {
+                    if (Winner != null)
+                    {
+                        Winner(win[0]);
+                        win[0].wins += 1;
+                    }
+                }
+                else
+                {
+                    if (Draw != null)
+                    {
+                        Draw(win.ToArray());
+                    }
+                }    
+            table.RebuildDeck();
             
         }
-        public void WinnerPlayer(IPlayer winner)
-        {
-        }
-        public void DrawPlayer()
-        {
-        }
-
         public void SaveGameAndExit(string fileName)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(Player)); 
-            TextWriter Writer = new StreamWriter(fileName);
-            Writer.Close();
+            string json = JsonConvert.SerializeObject(Players);
+            File.WriteAllText(fileName, json);
+            Environment.Exit(0);
         }
 
         public void Exit()
