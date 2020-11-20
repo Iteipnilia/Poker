@@ -1,4 +1,5 @@
 namespace Poker
+<<<<<<< HEAD
 {
     class Card: ICard
     {
@@ -12,5 +13,18 @@ namespace Poker
             this.suite=suite;
             this.rank=rank;
         } 
+=======
+{  
+    class Card : ICard
+    {
+        public Card(Suite suite, Rank rank) 
+        {
+            Suite = suite;
+            Rank = rank;
+        }
+        public Suite Suite { get; set; }
+
+        public Rank Rank { get; set; }
+>>>>>>> bc01e700bceb1e64a7c0bf601c5f6f9725713b66
     }
 }
