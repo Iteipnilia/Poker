@@ -33,11 +33,9 @@ namespace Poker
         {
             Players = new IPlayer[playerNames.Length];
             for(int i=0; i<playerNames.Length; i++)
-            while (i<=5)
+            if (i<=5)
             {
-                {
-                    Players[i]=new Player(playerNames[i]);
-                }
+                Players[i]=new Player(playerNames[i]);
             }
         }
 
