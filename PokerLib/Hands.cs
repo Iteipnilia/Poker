@@ -1,13 +1,17 @@
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace Poker
 {
-    class Hands
+    class Hands : IComparable
     {
         public IEnumerable<Card> Cards { get; set; }
         public HandType HandType { get; set; }
         public Card[] Hand { get; set; }
+        public List<Rank> CardRank { get; private set; }
+        public List<Rank> DuplicateRank { get; private set; }
+        public List<Rank> ThreeDuplicateRank { get; private set; }
         bool Contains(Rank Rk) => Cards.Where(c => c.Rank == Rk).Any();
 
         public Hands()
@@ -15,30 +19,57 @@ namespace Poker
             Hand = new Card[5];
         }
 
+        public int CompareTo(object other)
+        {   
+            Hands otherHand=(Hands)other;
+            if (this.HandType < otherHand.HandType){return 1;}
+            if (this.HandType > otherHand.HandType){return -1;}
+            return 0;
+        }
+
         public HandType Eval() //returns the hands value and type
         {
             if (IsRoyalStraightFlush)
-                return HandType = HandType.RoyalStraightFlush;
+                 HandType = HandType.RoyalStraightFlush;
             else if (IsStraightFlush)
-                return HandType = HandType.StraightFlush;
+                 HandType = HandType.StraightFlush;
             else if (IsFourOfAKind)
-                return HandType = HandType.FourOfAKind;
+                 HandType = HandType.FourOfAKind;
             else if (IsFullHouse)
-                return HandType = HandType.FullHouse;
+                 HandType = HandType.FullHouse;
             else if (IsFlush)
-                return HandType = HandType.Flush;
+                 HandType = HandType.Flush;
             else if (IsStraight)
-                return HandType = HandType.Straight;
+                 HandType = HandType.Straight;
             else if (IsThreeOfAKind)
-                return HandType = HandType.ThreeOfAKind;
+                 HandType = HandType.ThreeOfAKind;
             else if (IsTwoPair)
-                return HandType = HandType.TwoPairs;
+                 HandType = HandType.TwoPairs;
             else if (IsPair)
-                return HandType = HandType.Pair;
+                 HandType = HandType.Pair;
             else
             {
-                return HandType = HandType.HighCard;
+                 HandType = HandType.HighCard;
             }
+
+            CardRank = Cards.Select(card => card.Rank)
+                    .OrderBy(r => r).ToList();
+
+            if (HandType == HandType.Pair || HandType == HandType.TwoPairs || HandType == HandType.ThreeOfAKind || HandType == HandType.FourOfAKind)
+            {
+                DuplicateRank = Cards.GroupBy(card => card.Rank)
+                .Where(group => group.Count() == 2)
+                .Select(group => group.Key)
+                .OrderByDescending(x => x).ToList();
+            }
+            if (HandType == HandType.FullHouse)
+            {
+                ThreeDuplicateRank = Cards.GroupBy(card => card.Rank)
+                .Where(group => group.Count() == 3)
+                .Select(group => group.Key)
+                .OrderByDescending(x => x).ToList();
+            }
+            return HandType;
         }
 
         public bool IsPair
@@ -139,7 +170,7 @@ namespace Poker
             Hand[index] = null;
             return Hand[index];
         }
-        //Lägg till kort på hand??
+
         public void AddCardToHand(Card card)
         {
             for (int i = 0; i < 5; i++)

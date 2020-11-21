@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace Poker
 {
     class Table
@@ -6,32 +10,20 @@ namespace Poker
         public Player[] Players=> players;
         private Player[] players;
         private Card[] playersDiscardedCards;
-        private int numberOfPlayers;
 
         public Table()
         {
-            players= new Player[numberOfPlayers];
+            players= new Player[Players.Length];
             playersDiscardedCards= new Card[52];
         }
         
-        public void AddPlayerToTable(string name)
-        {
-            for(int i=0; i<numberOfPlayers; i++)
-            {
-                if(players[i]==null)
-                {
-                    players[i]=new Player(name);
-                    break;
-                }
-            }
-        }
 
         // Delar ut ett kort i taget fem gånger till alla spelare
         public void DealTable(Player player)
         {
             for(int i=0; i<5; i++)
             {
-                for(int j=0; j<numberOfPlayers; numberOfPlayers++)
+                for(int j=0; j<Players.Length; j++)
                 {
                     player.ReceiveCards(deck.GetTopCard());
                 }
@@ -43,27 +35,6 @@ namespace Poker
             for(int i=0;i<nrOfCards; i++)
             {
                 player.ReceiveCards(deck.GetTopCard());
-            }
-        }
-        public void CompareHands()
-        {
-            // Varje spelares handtype jämförs
-            // bästa handen vinner
-            // Om två eller fler spelare har samma hand, jämförs rank
-            // Om två spelare har samma rank: oavgjort
-            
-            foreach(Player player in players)
-            {
-                player.DetermineHandType(player.Hands);
-            }
-            
-            HandType tempHand=0;
-            for(int i=0; i<numberOfPlayers; i++)
-            {
-                if(players[i].HandType>tempHand)
-                {
-                    tempHand=players[i].HandType;
-                }
             }
         }
 

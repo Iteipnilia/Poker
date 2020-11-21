@@ -1,3 +1,5 @@
+using System;
+
 namespace Poker
 {
 
@@ -6,7 +8,7 @@ namespace Poker
         private string name;
         public string Name{get=> name;}
         public int wins;
-        public int Wins{get=> wins;}
+        public int Wins{get; set;}
         private Card[] discard= new Card[5];
         public ICard[] Discard {set => Discard = discard;}
         public HandType HandType {get=>hand.HandType;}
@@ -47,6 +49,11 @@ namespace Poker
         public void ReceiveCards(Card card)
         {
             hand.AddCardToHand(card);
+        }
+
+        public void Win()
+        {
+            Wins++;
         }
     }
 }
