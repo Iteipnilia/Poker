@@ -34,11 +34,7 @@ namespace Poker
             Players = new IPlayer[playerNames.Length];
             for(int i=0; i<playerNames.Length; i++)
             {
-                if(Players[i]==null)
-                {
-                    Players[i]=new Player(playerNames[i]);
-                    break;
-                }
+                Players[i]=new Player(playerNames[i]);
             }
         }
 
@@ -51,14 +47,14 @@ namespace Poker
                 Hands Hand = new Hands();
                 deck.Shuffle(deck);
                 NewDeal();
+                table.DealTable(Players);
                 foreach (Player player in Players)
                 {
-                    table.DealTable(player);
                     Hand.SortHand();
                     Hand.Eval();
                     SelectCardsToDiscard(player);
                     player.DiscardCard();
-                    player.ReceiveCards(cards);
+                    player.ReceiveCards(deck.GetTopCard());
                     RecievedReplacementCards(player);
                     Hand.SortHand();
                     Hand.Eval();

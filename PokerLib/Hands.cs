@@ -164,13 +164,6 @@ namespace Poker
             Hand = Hand.OrderBy(card => card.Rank).ToArray();
             Hand = Hand.OrderBy(card => card.Suite).ToArray();
         }
-
-        public Card RemoveCardFromHand(int index)
-        {
-            Hand[index] = null;
-            return Hand[index];
-        }
-
         public void AddCardToHand(Card card)
         {
             for (int i = 0; i < 5; i++)

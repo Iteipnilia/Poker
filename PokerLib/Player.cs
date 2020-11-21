@@ -1,5 +1,4 @@
-using System;
-
+using System.Linq;
 namespace Poker
 {
 
@@ -10,10 +9,10 @@ namespace Poker
         public int wins;
         public int Wins{get; set;}
         private Card[] discard= new Card[5];
-        public ICard[] Discard {set => Discard = discard;}
+        public ICard[] Discard {get; set;}
         public HandType HandType {get=>hand.HandType;}
         private Hands hand{get; set;}
-        public ICard[] Hand{get=> Hands.Hand;}
+        public ICard[] Hand{get; set;}
 
         public Player(string name_)
         {
@@ -41,14 +40,14 @@ namespace Poker
 
         // anropar metod i Hand för att tömma index på hand som ska bort
         // LÄgger till det borttagna kortet i array discard
-        public void DiscardCard(int index)
-        {            
-           discard[index] = hand.Hand[index];//======!!!!!!!!!!!!!!!!!==========
-           Hands.RemoveCardFromHand(index);
-        }
         public void ReceiveCards(Card card)
         {
             hand.AddCardToHand(card);
+        }
+        
+        public void DiscardCard()
+        {            
+           Hand = Hand.Except(Discard).ToArray();
         }
 
         public void Win()

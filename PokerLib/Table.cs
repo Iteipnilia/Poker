@@ -7,25 +7,29 @@ namespace Poker
     class Table
     {
         private Deck deck;
+
         public Player[] Players=> players;
+
+        internal Deck Deck { get => deck; set => deck = value; }
+
         private Player[] players;
-        private Card[] playersDiscardedCards;
+        private Card[] DiscardedCards;
 
         public Table()
         {
             players= new Player[Players.Length];
-            playersDiscardedCards= new Card[52];
+            DiscardedCards= new Card[52];
         }
         
 
         // Delar ut ett kort i taget fem gånger till alla spelare
-        public void DealTable(Player player)
+        public void DealTable(IPlayer[] Player)
         {
             for(int i=0; i<5; i++)
             {
                 for(int j=0; j<Players.Length; j++)
                 {
-                    player.ReceiveCards(deck.GetTopCard());
+                    Deck.GetTopCard();
                 }
             }
         }
@@ -34,7 +38,7 @@ namespace Poker
         {
             for(int i=0;i<nrOfCards; i++)
             {
-                player.ReceiveCards(deck.GetTopCard());
+                Deck.GetTopCard();
             }
         }
 
@@ -42,11 +46,11 @@ namespace Poker
         {
             foreach(var card in players[playerIndex].Discard_)
             {
-                for(int i=0; i<playersDiscardedCards.Length; i++)
+                for(int i=0; i<DiscardedCards.Length; i++)
                 {
-                    if(playersDiscardedCards[i]==null)
+                    if(DiscardedCards[i]==null)
                     {
-                        playersDiscardedCards[i]=card;
+                        DiscardedCards[i]=card;
                         players[playerIndex].Discard=null;// tar den bort alla kort eller bara ett???
                         break;
                     }
@@ -56,15 +60,15 @@ namespace Poker
 
         public void RebuildDeck()
         {
-            foreach(Card card in playersDiscardedCards)
+            foreach(Card card in DiscardedCards)
             {
-                deck.PutBackCard(card);
+                Deck.PutBackCard(card);
             }
             foreach (Player player in players)
             {
                 foreach (Card card in player.Hand)
                 {
-                    deck.PutBackCard(card);
+                    Deck.PutBackCard(card);
                 }
             }
         }
