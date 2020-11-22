@@ -16,7 +16,7 @@ namespace Poker
         public event OnWinner Winner;
         public event OnDraw Draw;
 
-        public IPlayer[] Players { get=>table.Players; set=>Players=table.Players;}//ÄNDRAD
+        public IPlayer[] Players { get=>table.Players.ToArray(); set=>Players=table.Players.ToArray();}//ÄNDRAD
         private Table table;//=new Table();//ÄNDRAD
 
         public Game(string fileName)
@@ -30,15 +30,13 @@ namespace Poker
             }
         }
 
-        public Game(string[] playerNames)
+        public Game(string[] playerNames)//ÄNDRAD
         {
-            table = new Table(playerNames.Length);
-            for(int i=0; i<playerNames.Length; i++)
+            table = new Table();
+
+            foreach(string name in playerNames)
             {
-                if(playerNames !=null)
-                {
-                    table.AddPlayerToTable(playerNames[i]);
-                }
+                table.AddPlayerToTable(name);
             }
         }
 

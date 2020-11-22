@@ -32,13 +32,7 @@ namespace Poker
 
         public void PutBackCard(Card card)
         {
-            for (int i = 0; i < cards.Count; i++)
-            {
-                if (cards[i] == null)
-                {
-                    cards[i] = card;
-                }
-            }
+            cards.Add(card);
         }
 
         public void Shuffle()//Fisher-Yates

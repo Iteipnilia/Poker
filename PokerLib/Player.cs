@@ -52,7 +52,7 @@ namespace Poker
         
         public void DiscardCard()
         {            
-           //Hand = Hand.Except(Discard).ToArray();          
+           //Hands = Hand.Except(Discard).ToArray();          
         }
 
         public void Win()
