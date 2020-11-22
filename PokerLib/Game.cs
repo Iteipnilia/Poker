@@ -46,20 +46,20 @@ namespace Poker
             while (true)
             {
                 Deck deck = new Deck();
-                Hands Hand = new Hands();
+                Hands hand = new Hands();
                 deck.Shuffle();
                 NewDeal();
                 table.DealTable();
                 foreach (Player player in Players)
                 {
-                    player.SortPlayerHand();
-                    Hand.Eval();
+                    player.SortPlayerHand(hand);
+                    hand.Eval();
                     SelectCardsToDiscard(player);
                     player.DiscardCard();
                     player.ReceiveCards(deck.GetTopCard());
                     RecievedReplacementCards(player);
-                    Hand.SortHand();
-                    Hand.Eval();
+                    hand.SortHand();
+                    hand.Eval();
                 }
                 ShowAllHands();
                 CompareHands();

@@ -5,7 +5,7 @@ namespace Poker
     class Deck
     {
 
-        private List<Card> cards;
+        public List<Card> cards;
 
         public Deck()
         {
@@ -25,20 +25,14 @@ namespace Poker
             Card drawnCard;
 
             drawnCard = cards[0];
-            cards.RemoveAt(0);
+            this.cards.RemoveAt(0);
 
             return drawnCard;
         }
 
         public void PutBackCard(Card card)
         {
-            for (int i = 0; i < cards.Count; i++)
-            {
-                if (cards == null)
-                {
-                    cards = card;
-                }
-            }
+            this.cards.Add(card);
         }
 
         public void Shuffle()//Fisher-Yates
