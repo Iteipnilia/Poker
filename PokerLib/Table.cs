@@ -42,7 +42,7 @@ namespace Poker
             }
         }
 
-        public void DiscardedCardPile()// ändrad
+        public void DiscardedCardPile()
         {
             foreach(Player player in players)
             {

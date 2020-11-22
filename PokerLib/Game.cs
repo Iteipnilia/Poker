@@ -52,7 +52,10 @@ namespace Poker
                     player.SortPlayerHand(hand);
                     hand.Eval();
                     SelectCardsToDiscard(player);
-                    player.DiscardCard();
+                    foreach (Card card in player.Discard)
+                    {
+                        player.DiscardCard(card);
+                    }
                     player.ReceiveCards(deck.GetTopCard());
                     RecievedReplacementCards(player);
                     hand.SortHand();
