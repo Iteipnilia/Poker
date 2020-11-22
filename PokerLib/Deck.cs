@@ -1,14 +1,14 @@
 using System;
+using System.Collections.Generic;
 namespace Poker
 {
     class Deck
     {
 
-        private Card[] cards;
+        List<Card> cards = new List<Card>(52);
 
         public Deck()
         {
-            cards = new Card[52];
 
             for (int suite = 0; suite < 4; suite++)// Använd en foreach istället??
             {
@@ -21,23 +21,18 @@ namespace Poker
 
         public Card GetTopCard()
         {
-            int i = 0;
-            Card drawnCard;
-            while (cards[i] == null && i < cards.Length) { i++; }
-
-            drawnCard = cards[i];
-            cards[i] = null; // blir den tom???
-
-            return drawnCard;
+            Card drawnCard = cards[0];
+                cards.RemoveAt(0);
+                return drawnCard;
         }
 
         public void PutBackCard(Card card)
         {
-            for (int i = 0; i < cards.Length; i++)
+            for (int i = cards.Count;)
             {
-                if (cards[i] == null)
+                if (cards == null)
                 {
-                    cards[i] = card;
+                    cards = card;
                 }
             }
         }
@@ -45,15 +40,16 @@ namespace Poker
         public void Shuffle()//Fisher-Yates
         {
             Random random = new Random();
-
-            for (int i = cards.Length - 1; i > 0; i--)
-            {
-                int randomIndex = random.Next(0, i + 1);
-
-                Card temp = cards[i];// temporärt kort = 1a index
-                cards[i] = cards[randomIndex]; // kort på 1a index blir kortet på random index
-                cards[randomIndex] = temp; // kort på random index blir kortet från 1a index
-            }
+            {  
+            int c = cards.Count;  
+            while (c > 1)
+            {  
+                c--;  
+                int k = random.Next(c + 1);  
+                Card value = cards[k];  
+                cards[k] = cards[c];  
+                cards[c] = value;  
+            }  
         }
     }
 }

@@ -162,7 +162,7 @@ namespace Poker
 
         public void SortHand() //sorts the hand first by rank and then by suit
         {
-            hand = hand.OrderBy(card => card.Rank).ToArray();//stop
+            hand = hand.OrderBy(card => card.Rank).ToArray();
             hand = hand.OrderBy(card => card.Suite).ToArray();
         }
         public void AddCardToHand(Card card)
