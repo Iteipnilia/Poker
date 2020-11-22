@@ -1,31 +1,25 @@
+using System.Collections.Generic;
 namespace Poker
 {
     class Table
     {
         private Deck deck{get;set;}
-
-        public Player[] Players=> players;
-
+        public List<Player> Players=> players;
+        private List<Player> players;
         internal Deck Deck { get => deck; set => deck = value; }
+        private List<Card> discardedCards;
 
-        private Player[] players;
-        private Card[] DiscardedCards;
-
-        public Table(int nrOfPlayers)
+        public Table()
         {
-            players= new Player[nrOfPlayers];//ÄNDRAD
-            DiscardedCards= new Card[52];
+            players= new List<Player>();//ÄNDRAD
+            discardedCards= new List<Card>();
             deck=new Deck();
         }
         public void AddPlayerToTable(string name)
         {
-            for(int i=0; i<players.Length; i++)
+            if(name !=null)
             {
-                if(players[i]==null)
-                {
-                    players[i]=new Player(name);
-                    //break;
-                }
+                players.Add(new Player(name));
             }
         }
         // Delar ut ett kort i taget fem gånger till alla spelare
@@ -33,9 +27,9 @@ namespace Poker
         {
             for(int i=0; i<5; i++)
             {
-                for(int j=0; j<Players.Length; j++)
+                foreach(Player player in players)
                 {
-                    players[j].ReceiveCards(Deck.GetTopCard());
+                    player.ReceiveCards(Deck.GetTopCard());
                 }
             }
         }
@@ -48,25 +42,21 @@ namespace Poker
             }
         }
 
-        public void DiscardedCardPile(int playerIndex)
+        public void DiscardedCardPile()// ändrad
         {
-            foreach(var card in players[playerIndex].Discard_)
+            foreach(Player player in players)
             {
-                for(int i=0; i<DiscardedCards.Length; i++)
+                foreach(Card card in player.Discard_)
                 {
-                    if(DiscardedCards[i]==null)
-                    {
-                        DiscardedCards[i]=card;
-                        players[playerIndex].Discard=null;// tar den bort alla kort eller bara ett???
-                        break;
-                    }
-                }             
+                    discardedCards.Add(card);
+                    player.Discard_.RemoveAt(0);
+                }
             }
         }
 
         public void RebuildDeck()
         {
-            foreach(Card card in DiscardedCards)
+            foreach(Card card in discardedCards)
             {
                 Deck.PutBackCard(card);
             }
