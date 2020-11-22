@@ -7,7 +7,7 @@ namespace Poker
     {
         private string name;
         public string Name { get => name; }
-        public int wins;
+        private int wins;
         public int Wins { get; set; }
         private List<Card> discard = new List<Card>();
         public ICard[] Discard { get; set; }
@@ -15,9 +15,9 @@ namespace Poker
         private Hands hands = new Hands();
         public ICard[] Hand { get => (hands.Hand).ToArray(); }
 
-        public Player(string name_)
+        public Player(string name)
         {
-            this.name = name_;
+            this.name = name;
             wins = 0;
 
         }
@@ -43,8 +43,6 @@ namespace Poker
             hand.SortHand();
         }
 
-        // anropar metod i Hand för att tömma index på hand som ska bort
-        // LÄgger till det borttagna kortet i array discard
         public void ReceiveCards(Card card)
         {
             hands.AddCardToHand(card);
@@ -52,12 +50,12 @@ namespace Poker
 
         public void DiscardCard()
         {
-            //Hand = Hand.Except(Discard).ToArray();
+            
         }
 
         public void Win()
         {
-            Wins++;
+            wins++;
         }
     }
 }

@@ -42,21 +42,21 @@ namespace Poker
         {
             while (true)
             {
-                Deck deck = new Deck();
-                Hands hand = new Hands();
-                deck.Shuffle();
+                //Deck deck = new Deck();
+                //Hands hand = new Hands();
+                //deck.Shuffle(deck);
                 NewDeal();
                 table.DealTable();
                 foreach (Player player in Players)
                 {
-                    player.SortPlayerHand(hand);
-                    hand.Eval();
+                    player.SortPlayerHand(player.Hands);// ÄNDRAD
+                    player.Hands.Eval();// ÄNDRAD
                     SelectCardsToDiscard(player);
                     player.DiscardCard();
-                    player.ReceiveCards(deck.GetTopCard());
+                    table.ReplacementCards(player,2);// ÄNDRAD SKA INTE VARA 2!!!!
                     RecievedReplacementCards(player);
-                    hand.SortHand();
-                    hand.Eval();
+                    player.SortPlayerHand(player.Hands);// ÄNDRAD
+                    player.Hands.Eval();// ÄNDRAD
                 }
                 ShowAllHands();
                 CompareHands();

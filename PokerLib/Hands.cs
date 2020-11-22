@@ -160,7 +160,7 @@ namespace Poker
 
         public void SortHand() //sorts the hand first by rank and then by suit
         {
-            Hand = Hand.OrderBy(card => card.Rank).ToList();//stop
+            Hand = Hand.OrderBy(card => card.Rank).ToList();
             Hand = Hand.OrderBy(card => card.Suite).ToList();
         }
         public void AddCardToHand(Card card)

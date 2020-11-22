@@ -14,6 +14,7 @@ namespace Poker
             players= new List<Player>();//ÄNDRAD
             discardedCards= new List<Card>();
             deck=new Deck();
+            deck.Shuffle();
         }
         public void AddPlayerToTable(string name)
         {
@@ -40,7 +41,7 @@ namespace Poker
         {
             for(int i=0;i<nrOfCards; i++)
             {
-                player.ReceiveCards(Deck.GetTopCard());
+                player.ReceiveCards(deck.GetTopCard());
             }
         }
 
