@@ -1,39 +1,38 @@
 using System;
+using System.Collections.Generic;
 namespace Poker
 {
     class Deck
     {
 
-        private Card[] cards;
+        private List<Card> cards;
 
         public Deck()
         {
-            cards = new Card[52];
+            cards = new List<Card>(52);
 
-            for (int suite = 0; suite < 4; suite++)// Använd en foreach istället??
+            foreach(Suite s in Enum.GetValues(typeof(Suite)))
             {
-                for (int rank = 2; rank < 15; rank++)
+                foreach(Rank r in Enum.GetValues(typeof(Rank)))
                 {
-                    cards[suite * 13 + rank - 2] = new Card((Suite)suite, (Rank)rank);
+                    cards.Add(new Card((Suite)s, (Rank)r));
                 }
             }
         }
 
         public Card GetTopCard()
         {
-            int i = 0;
             Card drawnCard;
-            while (cards[i] == null && i < cards.Length) { i++; }
 
-            drawnCard = cards[i];
-            cards[i] = null; // blir den tom???
+            drawnCard = cards[0];
+            cards.RemoveAt(0); // blir den tom???
 
             return drawnCard;
         }
 
         public void PutBackCard(Card card)
         {
-            for (int i = 0; i < cards.Length; i++)
+            for (int i = 0; i < cards.Count; i++)
             {
                 if (cards[i] == null)
                 {
@@ -46,7 +45,7 @@ namespace Poker
         {
             Random random = new Random();
 
-            for (int i = cards.Length - 1; i > 0; i--)
+            for (int i = cards.Count - 1; i > 0; i--)
             {
                 int randomIndex = random.Next(0, i + 1);
 
