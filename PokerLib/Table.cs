@@ -2,7 +2,7 @@ namespace Poker
 {
     class Table
     {
-        private Deck deck;
+        private Deck deck{get;set;}
 
         public Player[] Players=> players;
 
@@ -11,21 +11,33 @@ namespace Poker
         private Player[] players;
         private Card[] DiscardedCards;
 
-        public Table()
+        public Table(int nrOfPlayers)
         {
-            players= new Player[Players.Length];
+            players= new Player[nrOfPlayers];//ÄNDRAD
             DiscardedCards= new Card[52];
+            deck=new Deck();
+        }
+        public void AddPlayerToTable(string name)
+        {
+            for(int i=0; i<players.Length; i++)
+            {
+                if(players[i]==null)
+                {
+                    players[i]=new Player(name);
+                    //break;
+                }
+            }
         }
         
 
         // Delar ut ett kort i taget fem gånger till alla spelare
-        public void DealTable(IPlayer[] Player)
+        public void DealTable()
         {
             for(int i=0; i<5; i++)
             {
                 for(int j=0; j<Players.Length; j++)
                 {
-                    Deck.GetTopCard();
+                    players[j].ReceiveCards(Deck.GetTopCard());//funkar ej
                 }
             }
         }
@@ -34,7 +46,7 @@ namespace Poker
         {
             for(int i=0;i<nrOfCards; i++)
             {
-                Deck.GetTopCard();
+                player.ReceiveCards(Deck.GetTopCard());
             }
         }
 

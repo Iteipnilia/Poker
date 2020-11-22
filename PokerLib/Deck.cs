@@ -42,7 +42,7 @@ namespace Poker
             }
         }
 
-        public void Shuffle(Deck deck)//Fisher-Yates
+        public void Shuffle()//Fisher-Yates
         {
             Random random = new Random();
 
