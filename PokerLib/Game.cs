@@ -42,9 +42,9 @@ namespace Poker
         {
             while (true)
             {
-                //Deck deck = new Deck();
+                Deck deck = new Deck();
                 //Hands hand = new Hands();
-                //deck.Shuffle(deck);
+                deck.Shuffle();
                 NewDeal();
                 table.DealTable();
                 foreach (Player player in Players)
@@ -52,8 +52,11 @@ namespace Poker
                     player.SortPlayerHand(player.Hands);// ÄNDRAD
                     player.Hands.Eval();// ÄNDRAD
                     SelectCardsToDiscard(player);
-                    player.DiscardCard();
-                    table.ReplacementCards(player,2);// ÄNDRAD SKA INTE VARA 2!!!!
+                    foreach (Card card in player.Discard)
+                    {
+                        player.DiscardCard(card);
+                    }
+                    player.ReceiveCards(deck.GetTopCard());
                     RecievedReplacementCards(player);
                     player.SortPlayerHand(player.Hands);// ÄNDRAD
                     player.Hands.Eval();// ÄNDRAD

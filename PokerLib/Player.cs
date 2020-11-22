@@ -1,5 +1,7 @@
 using System.Linq;
 using System.Collections.Generic;
+using System;
+
 namespace Poker
 {
 
@@ -11,9 +13,9 @@ namespace Poker
         public int Wins { get; set; }
         private List<Card> discard = new List<Card>();
         public ICard[] Discard { get; set; }
-        public HandType HandType { get => hands.HandType; }
-        private Hands hands = new Hands();
-        public ICard[] Hand { get => (hands.Hand).ToArray(); }
+        public HandType HandType { get => hand.HandType; }
+        private Hands hand = new Hands();
+        public ICard[] Hand { get => (hand.Hand).ToArray(); }
 
         public Player(string name)
         {
@@ -23,8 +25,8 @@ namespace Poker
         }
         public Hands Hands
         {
-            get { return hands; }
-            set { value = hands; }
+            get { return hand; }
+            set { value = hand; }
         }
 
         public List<Card> Discard_
@@ -45,12 +47,12 @@ namespace Poker
 
         public void ReceiveCards(Card card)
         {
-            hands.AddCardToHand(card);
+            hand.AddCardToHand(card);
         }
 
-        public void DiscardCard()
+        public void DiscardCard(Card card)
         {
-            
+            Hands.RemoveCard(card);
         }
 
         public void Win()

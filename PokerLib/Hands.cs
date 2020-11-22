@@ -167,5 +167,9 @@ namespace Poker
         {
             Hand.Add(card);
         }
+        public void RemoveCard(Card card)
+        {
+            Hand.Remove(card);
+        }
     }
 }
