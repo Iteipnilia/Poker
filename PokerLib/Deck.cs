@@ -4,11 +4,11 @@ namespace Poker
     class Deck
     {
 
-        private ICard[] cards;
+        private Card[] cards;
 
         public Deck()
         {
-            cards = new ICard[52];
+            cards = new Card[52];
 
             for (int suite = 0; suite < 4; suite++)// Använd en foreach istället??
             {
@@ -19,10 +19,10 @@ namespace Poker
             }
         }
 
-        public ICard GetTopCard()
+        public Card GetTopCard()
         {
             int i = 0;
-            ICard drawnCard;
+            Card drawnCard;
             while (cards[i] == null && i < cards.Length) { i++; }
 
             drawnCard = cards[i];
@@ -31,7 +31,7 @@ namespace Poker
             return drawnCard;
         }
 
-        public void PutBackCard(ICard card)
+        public void PutBackCard(Card card)
         {
             for (int i = 0; i < cards.Length; i++)
             {
@@ -50,7 +50,7 @@ namespace Poker
             {
                 int randomIndex = random.Next(0, i + 1);
 
-                ICard temp = cards[i];// temporärt kort = 1a index
+                Card temp = cards[i];// temporärt kort = 1a index
                 cards[i] = cards[randomIndex]; // kort på 1a index blir kortet på random index
                 cards[randomIndex] = temp; // kort på random index blir kortet från 1a index
             }

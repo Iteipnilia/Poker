@@ -16,8 +16,7 @@ namespace Poker
         public event OnWinner Winner;
         public event OnDraw Draw;
 
-        public IPlayer[] Players { get => table.Players; set => Players = table.Players; }//ÄNDRAD
-        private Table table;//=new Table();//ÄNDRAD
+        public IPlayer[] Players { get; set;}
 
         public Game(string fileName)
         {
@@ -32,13 +31,11 @@ namespace Poker
 
         public Game(string[] playerNames)
         {
-            table = new Table(playerNames.Length);
-            for (int i = 0; i < 5; i++)
+            Players = new IPlayer[playerNames.Length];
+            for(int i=0; i<playerNames.Length; i++)
+            if (i<=5)
             {
-                for (int j = 0; j < playerNames.Length; j++)
-                {
-                    table.AddPlayerToTable(playerNames[j]);
-                }
+                Players[i]=new Player(playerNames[i]);
             }
         }
 
@@ -47,7 +44,8 @@ namespace Poker
             while (true)
             {
                 Deck deck = new Deck();
-                Hand hand = new Hand();
+                Table table = new Table();
+                Hands Hand = new Hands();
                 deck.Shuffle(deck);
                 NewDeal();
                 table.DealTable(Players);
@@ -65,7 +63,7 @@ namespace Poker
                 ShowAllHands();
                 CompareHands();
                 table.RebuildDeck();
-            }
+            } 
         }
 
         public void CompareHands()
@@ -77,14 +75,14 @@ namespace Poker
 
             List<Player> BestHandTypeTied = new List<Player>();
             HandType BestHand = HandType.HighCard;
-
-            foreach (Player player in Players)
+            
+            foreach(Player player in Players)
             {
                 player.DetermineHandType(player.Hands);
                 player.Hands.CompareTo(player.HandType);
             }
             Array.Sort(Players);
-            if (Players[0].HandType > Players[1].HandType)
+            if(Players[0].HandType>Players[1].HandType)
             {
                 //Players[0] = this.Player;
                 //this.Player.Win();
@@ -92,9 +90,9 @@ namespace Poker
             }
             else
             {
-                foreach (Player player in Players)
+                foreach(Player player in Players)
                 {
-                    if (player.HandType == Players[0].HandType)
+                    if(player.HandType==Players[0].HandType)
                     {
                         BestHandTypeTied.Add(player);
                     }
@@ -123,7 +121,7 @@ namespace Poker
                         BestHandTypeTied = HighestRankCards(BestHandTypeTied);
                     }
                 }
-                else if (BestHand == HandType.FullHouse)
+                 else if (BestHand == HandType.FullHouse)
                 {
                     BestHandTypeTied = BestThreeDuplicate(BestHandTypeTied);
                     if (BestHandTypeTied.Count > 1)

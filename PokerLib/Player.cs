@@ -5,28 +5,29 @@ namespace Poker
     class Player : IPlayer
     {
         private string name;
-        public string Name { get => name; }
+        public string Name{get=> name;}
         public int wins;
-        public int Wins { get; set; }
-        private ICard[] discard = new ICard[5];
-        public ICard[] Discard { get; set; }
-        public HandType HandType { get; set; }
-        public ICard[] Hand { get; set; }
+        public int Wins{get; set;}
+        private Card[] discard= new Card[5];
+        public ICard[] Discard {get; set;}
+        public HandType HandType {get=>hand.HandType;}
+        private Hands hand{get; set;}
+        public ICard[] Hand{get; set;}
 
         public Player(string name_)
         {
             this.name = name_;
-            wins = 0;
-            Hand = new ICard[5];
+            wins=0;
+            hand= new Hands();
 
         }
         public Hands Hands
         {
-            get { return Hands; }
-            set { value = Hands; }
+            get { return hand; }
+            set { value = hand; }
         }
 
-        public ICard[] Discard_
+        public Card[] Discard_
         {
             get { return discard; }
             set { value = discard; }
@@ -39,14 +40,14 @@ namespace Poker
 
         // anropar metod i Hand för att tömma index på hand som ska bort
         // LÄgger till det borttagna kortet i array discard
-        public void ReceiveCards(ICard card)
+        public void ReceiveCards(Card card)
         {
-            Hands.AddCardToHand(card);
+            hand.AddCardToHand(card);
         }
-
+        
         public void DiscardCard()
-        {
-            Hand = Hand.Except(Discard).ToArray();
+        {            
+           Hand = Hand.Except(Discard).ToArray();
         }
 
         public void Win()

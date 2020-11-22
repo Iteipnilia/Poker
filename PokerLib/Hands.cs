@@ -6,17 +6,17 @@ namespace Poker
 {
     class Hands : IComparable
     {
-        public IEnumerable<ICard> Cards { get; set; }
+        public IEnumerable<Card> Cards { get; set; }
         public HandType HandType { get; set; }
-        public ICard[] Hand { get; set; }
+        public Card[] Hand { get; set; }
         public List<Rank> CardRank { get; private set; }
         public List<Rank> DuplicateRank { get; private set; }
         public List<Rank> ThreeDuplicateRank { get; private set; }
         bool Contains(Rank Rk) => Cards.Where(c => c.Rank == Rk).Any();
 
-        public Hand()
+        public Hands()
         {
-            Hand = new ICard[5];
+            Hand = new Card[5];
         }
 
         public int CompareTo(object other)
@@ -161,10 +161,10 @@ namespace Poker
 
         public void SortHand() //sorts the hand first by rank and then by suit
         {
-            Hand = Hand.OrderBy(ICard => CardRank).ToArray();
+            Hand = Hand.OrderBy(card => card.Rank).ToArray();
             Hand = Hand.OrderBy(card => card.Suite).ToArray();
         }
-        public void AddCardToHand(ICard card)
+        public void AddCardToHand(Card card)
         {
             for (int i = 0; i < 5; i++)
             {
