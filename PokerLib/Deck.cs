@@ -5,30 +5,34 @@ namespace Poker
     class Deck
     {
 
-        List<Card> cards = new List<Card>(52);
+        private List<Card> cards;
 
         public Deck()
         {
+            cards = new List<Card>(52);
 
-            for (int suite = 0; suite < 4; suite++)// Använd en foreach istället??
+            foreach(Suite s in Enum.GetValues(typeof(Suite)))
             {
-                for (int rank = 2; rank < 15; rank++)
+                foreach(Rank r in Enum.GetValues(typeof(Rank)))
                 {
-                    cards[suite * 13 + rank - 2] = new Card((Suite)suite, (Rank)rank);
+                    cards.Add(new Card((Suite)s, (Rank)r));
                 }
             }
         }
 
         public Card GetTopCard()
         {
-            Card drawnCard = cards[0];
-                cards.RemoveAt(0);
-                return drawnCard;
+            Card drawnCard;
+
+            drawnCard = cards[0];
+            cards.RemoveAt(0);
+
+            return drawnCard;
         }
 
         public void PutBackCard(Card card)
         {
-            for (int i = cards.Count;)
+            for (int i = 0; i < cards.Count; i++)
             {
                 if (cards == null)
                 {
@@ -40,16 +44,15 @@ namespace Poker
         public void Shuffle()//Fisher-Yates
         {
             Random random = new Random();
-            {  
-            int c = cards.Count;  
-            while (c > 1)
-            {  
-                c--;  
-                int k = random.Next(c + 1);  
-                Card value = cards[k];  
-                cards[k] = cards[c];  
-                cards[c] = value;  
-            }  
+
+            for (int i = cards.Count - 1; i > 0; i--)
+            {
+                int randomIndex = random.Next(0, i + 1);
+
+                Card temp = cards[i];// temporärt kort = 1a index
+                cards[i] = cards[randomIndex]; // kort på 1a index blir kortet på random index
+                cards[randomIndex] = temp; // kort på random index blir kortet från 1a index
+            }
         }
     }
 }
