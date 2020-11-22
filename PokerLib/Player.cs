@@ -6,19 +6,19 @@ namespace Poker
     class Player : IPlayer
     {
         private string name;
-        public string Name{get=> name;}
+        public string Name { get => name; }
         public int wins;
-        public int Wins{get; set;}
+        public int Wins { get; set; }
         private List<Card> discard = new List<Card>();
-        public ICard[] Discard {get; set;}
-        public HandType HandType {get=>hands.HandType;}
-        private Hands hands=new Hands();
-        public ICard[] Hand{get=>(hands.Hand).ToArray();}
+        public ICard[] Discard { get; set; }
+        public HandType HandType { get => hands.HandType; }
+        private Hands hands = new Hands();
+        public ICard[] Hand { get => (hands.Hand).ToArray(); }
 
         public Player(string name_)
         {
             this.name = name_;
-            wins=0;
+            wins = 0;
 
         }
         public Hands Hands
@@ -38,9 +38,9 @@ namespace Poker
             hand.Eval();
         }
 
-        public void SortPlayerHand()
+        public void SortPlayerHand(Hands hand)
         {
-            hands.SortHand();
+            hand.SortHand();
         }
 
         // anropar metod i Hand för att tömma index på hand som ska bort
@@ -49,10 +49,10 @@ namespace Poker
         {
             hands.AddCardToHand(card);
         }
-        
+
         public void DiscardCard()
-        {            
-           //Hands = Hand.Except(Discard).ToArray();          
+        {
+            //Hand = Hand.Except(Discard).ToArray();
         }
 
         public void Win()

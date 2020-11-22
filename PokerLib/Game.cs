@@ -15,7 +15,6 @@ namespace Poker
         public event OnShowAllHands ShowAllHands;
         public event OnWinner Winner;
         public event OnDraw Draw;
-
         public IPlayer[] Players { get=>table.Players.ToArray(); set=>Players=table.Players.ToArray();}//ÄNDRAD
         private Table table;//=new Table();//ÄNDRAD
 
@@ -33,7 +32,6 @@ namespace Poker
         public Game(string[] playerNames)//ÄNDRAD
         {
             table = new Table();
-
             foreach(string name in playerNames)
             {
                 table.AddPlayerToTable(name);
@@ -45,21 +43,20 @@ namespace Poker
             while (true)
             {
                 Deck deck = new Deck();
-                //Table table = new Table();
-                Hands Hand = new Hands();
+                Hands hand = new Hands();
                 deck.Shuffle();
                 NewDeal();
                 table.DealTable();
                 foreach (Player player in Players)
                 {
-                    player.SortPlayerHand();
-                    Hand.Eval();
+                    player.SortPlayerHand(hand);
+                    hand.Eval();
                     SelectCardsToDiscard(player);
                     player.DiscardCard();
                     player.ReceiveCards(deck.GetTopCard());
                     RecievedReplacementCards(player);
-                    Hand.SortHand();
-                    Hand.Eval();
+                    hand.SortHand();
+                    hand.Eval();
                 }
                 ShowAllHands();
                 CompareHands();
