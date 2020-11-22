@@ -8,7 +8,7 @@ namespace Poker
     {
         public IEnumerable<ICard> Cards { get; set; }
         public HandType HandType { get; set; }
-        //public ICard[] Hand { get; set; }
+        public ICard[] Hand { get; set; }
         public List<Rank> CardRank { get; private set; }
         public List<Rank> DuplicateRank { get; private set; }
         public List<Rank> ThreeDuplicateRank { get; private set; }
@@ -16,7 +16,7 @@ namespace Poker
 
         public Hand()
         {
-            
+            Hand = new ICard[5];
         }
 
         public int CompareTo(object other)
