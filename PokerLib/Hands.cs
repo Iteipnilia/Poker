@@ -8,7 +8,8 @@ namespace Poker
     {
         public IEnumerable<Card> Cards { get; set; }
         public HandType HandType { get; set; }
-        public Card[] Hand { get; set; }
+        private Card[] hand{get;set;}
+        public Card[] Hand{get;set;}
         public List<Rank> CardRank { get; private set; }
         public List<Rank> DuplicateRank { get; private set; }
         public List<Rank> ThreeDuplicateRank { get; private set; }
@@ -16,7 +17,7 @@ namespace Poker
 
         public Hands()
         {
-            Hand = new Card[5];
+            hand = new Card[5];
         }
 
         public int CompareTo(object other)
@@ -131,7 +132,7 @@ namespace Poker
         {
             get
             {
-                var ordered = Cards.OrderBy(h => h.Rank).ToArray();
+                var ordered = Cards.OrderBy(h => h.Rank).ToArray();//STOP
                 var straightStart = (int)ordered.First().Rank;
                 for (var i = 1; i < ordered.Length; i++)
                 {
@@ -161,16 +162,16 @@ namespace Poker
 
         public void SortHand() //sorts the hand first by rank and then by suit
         {
-            Hand = Hand.OrderBy(card => card.Rank).ToArray();
-            Hand = Hand.OrderBy(card => card.Suite).ToArray();
+            hand = hand.OrderBy(card => card.Rank).ToArray();//stop
+            hand = hand.OrderBy(card => card.Suite).ToArray();
         }
         public void AddCardToHand(Card card)
         {
             for (int i = 0; i < 5; i++)
             {
-                if (Hand[i] == null)
+                if (hand[i] == null)
                 {
-                    Hand[i] = card;
+                    hand[i] = card;
                     break;
                 }
             }

@@ -34,7 +34,10 @@ namespace Poker
             table = new Table(playerNames.Length);
             for(int i=0; i<playerNames.Length; i++)
             {
-                table.AddPlayerToTable(playerNames[i]);
+                if(playerNames !=null)
+                {
+                    table.AddPlayerToTable(playerNames[i]);
+                }
             }
         }
 
@@ -44,12 +47,12 @@ namespace Poker
             {
                 Deck deck = new Deck();
                 Hands Hand = new Hands();
-                deck.Shuffle(deck);
+                deck.Shuffle();
                 NewDeal();
                 table.DealTable();
                 foreach (Player player in Players)
                 {
-                    Hand.SortHand();
+                    player.SortPlayerHand();
                     Hand.Eval();
                     SelectCardsToDiscard(player);
                     player.DiscardCard();

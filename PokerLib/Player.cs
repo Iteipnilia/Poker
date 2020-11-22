@@ -10,21 +10,20 @@ namespace Poker
         public int Wins{get; set;}
         private Card[] discard= new Card[5];
         public ICard[] Discard {get; set;}
-        public HandType HandType {get=>hand.HandType;}
-        private Hands hand{get; set;}
-        public ICard[] Hand{get; set;}
+        public HandType HandType {get=>hands.HandType;}
+        private Hands hands=new Hands();
+        public ICard[] Hand{get=>hands.Hand;}
 
         public Player(string name_)
         {
             this.name = name_;
             wins=0;
-            hand= new Hands();
 
         }
         public Hands Hands
         {
-            get { return hand; }
-            set { value = hand; }
+            get { return hands; }
+            set { value = hands; }
         }
 
         public Card[] Discard_
@@ -38,16 +37,21 @@ namespace Poker
             hand.Eval();
         }
 
+        public void SortPlayerHand()
+        {
+            hands.SortHand();
+        }
+
         // anropar metod i Hand för att tömma index på hand som ska bort
         // LÄgger till det borttagna kortet i array discard
         public void ReceiveCards(Card card)
         {
-            hand.AddCardToHand(card);
+            hands.AddCardToHand(card);
         }
         
         public void DiscardCard()
         {            
-           Hand = Hand.Except(Discard).ToArray();
+           //Hand = Hand.Except(Discard).ToArray();          
         }
 
         public void Win()

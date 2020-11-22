@@ -2,7 +2,7 @@ namespace Poker
 {
     class Table
     {
-        private Deck deck;
+        private Deck deck{get;set;}
 
         public Player[] Players=> players;
 
@@ -15,9 +15,8 @@ namespace Poker
         {
             players= new Player[nrOfPlayers];//ÄNDRAD
             DiscardedCards= new Card[52];
-            Deck = new Deck();
+            deck=new Deck();
         }
-        
         public void AddPlayerToTable(string name)
         {
             for(int i=0; i<players.Length; i++)
@@ -25,6 +24,7 @@ namespace Poker
                 if(players[i]==null)
                 {
                     players[i]=new Player(name);
+                    //break;
                 }
             }
         }
@@ -44,7 +44,7 @@ namespace Poker
         {
             for(int i=0;i<nrOfCards; i++)
             {
-                Deck.GetTopCard();
+                player.ReceiveCards(Deck.GetTopCard());
             }
         }
 
