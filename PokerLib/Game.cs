@@ -47,7 +47,7 @@ namespace Poker
             while (true)
             {
                 Deck deck = new Deck();
-                Hands Hand = new Hands();
+                Hand hand = new Hand();
                 deck.Shuffle(deck);
                 NewDeal();
                 table.DealTable(Players);
