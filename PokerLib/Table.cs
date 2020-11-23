@@ -32,7 +32,7 @@ namespace Poker
             {
                 foreach(Player player in players)
                 {
-                    player.ReceiveCards(Deck.GetTopCard());
+                    player.ReceiveCards(deck.GetTopCard());
                 }
             }
         }
@@ -68,6 +68,7 @@ namespace Poker
                 foreach (Card card in player.Hand)
                 {
                     deck.PutBackCard(card);
+                    player.DiscardCard(card);//?????
                 }
             }
         }
