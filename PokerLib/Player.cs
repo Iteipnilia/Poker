@@ -1,58 +1,63 @@
 using System.Linq;
 using System.Collections.Generic;
 using System;
-using System.Collections;
 
 namespace Poker
 {
 
-    class Player : IPlayer, IEnumerable<Hand>
+    class Player : IPlayer
     {
-        public string Name { get; set; }
-        string IPlayer.Name => Name;
+        private string name;
+        public string Name { get => name; }
+        private int wins;
         public int Wins { get; set; }
-        int IPlayer.Wins => Wins;
+        private List<Card> discard = new List<Card>();
         public ICard[] Discard { get; set; }
-        ICard[] IPlayer.Discard { set { Discard = value; } }
-        public Hand Hand {get; set;}
-        ICard[] IPlayer.Hand => Hand.ToArray();
-        HandType IPlayer.HandType => Hand.HandType;
+        public HandType HandType { get => hand.HandType; }
+        private Hands hand = new Hands();
+        public ICard[] Hand { get => (hand.Hand).ToArray(); }
+
+        public Player(string name)
+        {
+            this.name = name;
+            wins = 0;
+
+        }
+        public Hands Hands
+        {
+            get { return hand; }
+            set { value = hand; }
+        }
+
+        public List<Card> Discard_
+        {
+            get { return discard; }
+            set { value = discard; }
+        }
+
+        public void DetermineHandType(Hands hand)
+        {
+            hand.Eval();
+        }
+
+        public void SortPlayerHand()
+        {
+            Hands.SortHand();
+        }
 
         public void ReceiveCards(Card card)
         {
-            if (Hand == null || Hand.Count() == 0)
-            {
-                Hand = new Hand();
-                Discard = new ICard[0];
-            }
-            Hand.AddCardToHand(card);
-        }
-
-        public void SortPlayerHand(Hand Hand)
-        {
-            Hand.SortHand();
+            Hands.AddCardToHand(card);
         }
 
         public void DiscardCard(Card card)
         {
-            Hand.RemoveCard(card);
+            Hands.RemoveCard(card);
         }
 
         public void Win()
         {
-            Wins++;
-        }
-
-        public override string ToString()
-        {
-            return $"{Name} {Wins}";
-        }
-
-        public IEnumerator GetEnumerator() => Hand.GetEnumerator();
-
-        IEnumerator<Hand> IEnumerable<Hand>.GetEnumerator()
-        {
-            return (IEnumerator<Hand>)Hand.GetEnumerator();
+            wins++;
         }
     }
 }
