@@ -9,7 +9,6 @@ namespace Poker
     {
 
         private List<Card>cards;
-        //public List<Card> Newcards=>cards;
 
         public Deck()
         {
@@ -27,6 +26,10 @@ namespace Poker
 
         public Card GetTopCard()
         {
+            if (!cards.Any())
+            {
+                throw new NullReferenceException("Leken är tom!");
+            }
             Card drawnCard;
 
             drawnCard = cards.First();

@@ -23,43 +23,50 @@ namespace Poker
             if (File.Exists(fileName))
             {
                 string json = File.ReadAllText(fileName);
-                List<Player> players = JsonConvert.DeserializeObject<List<Player>>(json);
-                this.Players = new Player[players.Count];
-                this.Players = players.ToArray();
+                string[] data = json.Split(' ');
+                string[] names = JsonConvert.DeserializeObject<String[]>(data[0]);
+                int[] wins = JsonConvert.DeserializeObject<int[]>(data[1]);
+                this.Players = new Player[names.Length];
+                for (int i = 0; i < names.Length; i++)
+                {
+                    //this.Players[i] = new Player(names[i], wins[i]);   
+                }
             }
         }
-
+ 
         public Game(string[] playerNames)//ÄNDRAD
         {
             table = new Table();
-            foreach(string name in playerNames)
+            if (playerNames.Length == 0)
+            {
+                throw new Exception("Inga spelarnamn angivna!");
+            }
+            foreach(var name in playerNames)
             {
                 table.AddPlayerToTable(name);
             }
         }
 
+        
+
         public void RunGame()
         {
             while (true)
             {
-                //Deck deck = new Deck();
-                //Hands hand = new Hands();
-                //deck.Shuffle();
                 NewDeal();
                 table.DealTable();
                 foreach (Player player in Players)
                 {
                     player.SortPlayerHand();
-                    player.Hands.Eval();// ÄNDRAD
                     SelectCardsToDiscard(player);
                     foreach (Card card in player.Discard)
                     {
                         player.DiscardCard(card);
                     }
                     table.ReplacementCards(player, player.Discard.Length);// HJÄLP
-                    RecievedReplacementCards(player);
                     player.SortPlayerHand();
-                    player.Hands.Eval();// ÄNDRAD
+                    RecievedReplacementCards(player);
+                    player.Hands.Eval();
                 }
                 ShowAllHands();
                 CompareHands();
@@ -93,7 +100,7 @@ namespace Poker
                 BestHand[0].Win();
                 Winner(BestHand[0]);
             }
-            if (BestHand.Count > 1)
+            else if (BestHand.Count > 1)
             {
                 if (BestHandType == HandType.Pair || BestHandType == HandType.ThreeOfAKind || BestHandType == HandType.FourOfAKind)
                 {
@@ -178,7 +185,20 @@ namespace Poker
 
         public void SaveGameAndExit(string fileName)
         {
-            string json = JsonConvert.SerializeObject(Players);
+            string[] names;
+            int[] wins;
+
+            names = new string[Players.Length];
+            wins = new int[Players.Length];
+
+            for (int i = 0; i < Players.Length; i++)
+            {
+                names[i] = Players[i].Name;
+                wins[i] = Players[i].Wins;
+            }
+     
+            string json = JsonConvert.SerializeObject(names);
+            json += (" " + JsonConvert.SerializeObject(wins));
             File.WriteAllText(fileName, json);
             Environment.Exit(0);
         }
