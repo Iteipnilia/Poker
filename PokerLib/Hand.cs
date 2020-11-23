@@ -3,18 +3,18 @@ using System.Linq;
 
 namespace Poker
 {
-    class Hand : Deck
+    class Hands
     {
         public HandType HandType { get; set; }
-        public List<Card> hand{get;set;}
-        public List<Rank> CardRank { get; set; }
-        public List<Rank> DuplicateRank { get; set; }
-        public List<Rank> ThreeDuplicateRank { get; set; }
-        bool Contains(Rank Rk) => cards.Where(c => c.Rank == Rk).Any();
+        public List<Card> Hand{get;set;}
+        public List<Rank> CardRank { get; private set; }
+        public List<Rank> DuplicateRank { get; private set; }
+        public List<Rank> ThreeDuplicateRank { get; private set; }
+        bool Contains(Rank Rk) => Hand.Where(c => c.Rank == Rk).Any();
 
-        public Hand()
+        public Hands()
         {
-            hand = new List<Card>(5);
+            Hand = new List<Card>(5);
         }
 
         public HandType Eval() //returns the hands value and type
@@ -42,20 +42,18 @@ namespace Poker
             {
                  handType = HandType.HighCard;
             }
-
-            CardRank = cards.Select(card => card.Rank)
+            CardRank = Hand.Select(card => card.Rank)
                     .OrderBy(r => r).ToList();
-
             if (HandType == HandType.Pair || HandType == HandType.TwoPairs || HandType == HandType.ThreeOfAKind || HandType == HandType.FourOfAKind)
             {
-                DuplicateRank = cards.GroupBy(card => card.Rank)
+                DuplicateRank = Hand.GroupBy(card => card.Rank)
                 .Where(group => group.Count() == 2)
                 .Select(group => group.Key)
                 .OrderByDescending(x => x).ToList();
             }
             if (HandType == HandType.FullHouse)
             {
-                ThreeDuplicateRank = cards.GroupBy(card => card.Rank)
+                ThreeDuplicateRank = Hand.GroupBy(card => card.Rank)
                 .Where(group => group.Count() == 3)
                 .Select(group => group.Key)
                 .OrderByDescending(x => x).ToList();
@@ -68,7 +66,7 @@ namespace Poker
         {
             get
             {
-                return cards.GroupBy(h => h.Rank)
+                return Hand.GroupBy(h => h.Rank)
                 .Where(g => g.Count() == 2)
                 .Count() == 1;
             }
@@ -77,7 +75,7 @@ namespace Poker
         {
             get
             {
-                return cards.GroupBy(h => h.Rank)
+                return Hand.GroupBy(h => h.Rank)
                 .Where(g => g.Count() == 2)
                 .Count() == 2;
             }
@@ -87,7 +85,7 @@ namespace Poker
         {
             get
             {
-                return cards.GroupBy(h => h.Rank)
+                return Hand.GroupBy(h => h.Rank)
                 .Where(g => g.Count() == 3)
                 .Any();
             }
@@ -97,7 +95,7 @@ namespace Poker
         {
             get
             {
-                return cards.GroupBy(h => h.Rank)
+                return Hand.GroupBy(h => h.Rank)
                 .Where(g => g.Count() == 4)
                 .Any();
             }
@@ -107,7 +105,7 @@ namespace Poker
         {
             get
             {
-                return cards.GroupBy(h => h.Suite).Count() == 1;
+                return Hand.GroupBy(h => h.Suite).Count() == 1;
             }
         }
 
@@ -123,7 +121,7 @@ namespace Poker
         {
             get
             {
-                var ordered = cards.OrderBy(h => h.Rank).ToList();//STOP
+                var ordered = Hand.OrderBy(h => h.Rank).ToList();//STOP
                 var straightStart = (int)ordered.First().Rank;
                 for (var i = 1; i< ordered.Count; i++)
                 {
@@ -153,16 +151,16 @@ namespace Poker
 
         public void SortHand() //sorts the hand first by rank and then by suit
         {
-            cards = cards.OrderBy(card => card.Rank).ToList();//stop
-            cards = cards.OrderBy(card => card.Suite).ToList();
+            Hand = Hand.OrderBy(card => card.Rank).ThenBy(cards=>cards.Suite).ToList();
+            //Hand = Hand.OrderBy(card => card.Suite).ToList();
         }
         public void AddCardToHand(Card card)
         {
-            cards.Add(card);
+            Hand.Add(card);
         }
         public void RemoveCard(Card card)
         {
-            cards.Remove(card);
+            Hand.Remove(card);
         }
     }
 }

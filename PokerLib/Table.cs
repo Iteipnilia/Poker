@@ -1,28 +1,26 @@
-using System.Linq;
 using System.Collections.Generic;
 namespace Poker
 {
-    class Table : Player
+    class Table
     {
-        public Deck Deck{get;set;}
-        public List<IPlayer> Players=> players;
-        private List<IPlayer> players;
+        private Deck deck{get;set;}
+        public List<Player> Players=> players;
+        private List<Player> players;
+        internal Deck Deck { get => deck; set => deck = value; }
         private List<Card> discardedCards;
-        private const int CardPerPlayer = 5;
 
         public Table()
         {
-            players= new List<IPlayer>();//ÄNDRAD
+            players= new List<Player>();//ÄNDRAD
             discardedCards= new List<Card>();
-            Deck = new Deck();
+            deck=new Deck();
+            deck.Shuffle();
         }
         public void AddPlayerToTable(string name)
         {
             if(name !=null)
             {
-                {
-                players.Add(new Player{Name = name});
-                }
+                players.Add(new Player(name));
             }
         }
         
@@ -30,20 +28,20 @@ namespace Poker
         // Delar ut ett kort i taget fem gånger till alla spelare
         public void DealTable()
         {
-            for(int i=1; i<=CardPerPlayer; i++)
+            for(int i=0; i<5; i++)
             {
                 foreach(Player player in players)
                 {
-                    player.ReceiveCards(Deck.GetTopCard());
+                    player.ReceiveCards(deck.GetTopCard());
                 }
             }
         }
 
-        public void ReplacementCards(Player player)
+        public void ReplacementCards(Player player, int nrOfCards)
         {
-            while (player.Hand.Count() < CardPerPlayer)
+            for(int i=0;i<nrOfCards; i++)
             {
-                player.ReceiveCards(Deck.GetTopCard());
+                player.ReceiveCards(deck.GetTopCard());
             }
         }
 
@@ -51,11 +49,11 @@ namespace Poker
         {
             foreach(Player player in players)
             {
-                foreach(Card card in player.Discard)
+                foreach(Card card in player.Discard_)
                 {
                     discardedCards.Add(card);
+                    player.Discard_.RemoveAt(0);
                 }
-                player.Discard=null;
             }
         }
 
@@ -63,13 +61,14 @@ namespace Poker
         {
             foreach(Card card in discardedCards)
             {
-                Deck.PutBackCard(card);
+                deck.PutBackCard(card);
             }
             foreach (Player player in players)
             {
                 foreach (Card card in player.Hand)
                 {
-                    Deck.PutBackCard(card);
+                    deck.PutBackCard(card);
+                    player.DiscardCard(card);//?????
                 }
             }
         }

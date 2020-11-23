@@ -42,20 +42,24 @@ namespace Poker
         {
             while (true)
             {
+                //Deck deck = new Deck();
+                //Hands hand = new Hands();
+                //deck.Shuffle();
                 NewDeal();
                 table.DealTable();
                 foreach (Player player in Players)
                 {
-                    player.SortPlayerHand(player.Hand);
+                    player.SortPlayerHand();
+                    player.Hands.Eval();// ÄNDRAD
                     SelectCardsToDiscard(player);
                     foreach (Card card in player.Discard)
                     {
                         player.DiscardCard(card);
-                        player.ReceiveCards(table.Deck.GetTopCard());
                     }
+                    table.ReplacementCards(player, player.Discard.Length);// HJÄLP
                     RecievedReplacementCards(player);
-                    player.SortPlayerHand(player.Hand);
-                    player.Hand.Eval();
+                    player.SortPlayerHand();
+                    player.Hands.Eval();// ÄNDRAD
                 }
                 ShowAllHands();
                 CompareHands();
@@ -72,15 +76,14 @@ namespace Poker
 
             List<Player> BestHand = new List<Player>();
             HandType BestHandType = HandType.HighCard;
-            
             foreach(Player player in Players)
             {
-                if ((int)player.Hand.HandType > (int)BestHandType)
+                if ((int)player.Hands.HandType > (int)BestHandType)
                 {
-                    BestHandType = player.Hand.HandType;
+                    BestHandType = player.Hands.HandType;
                     BestHand.Clear();
                 }
-                if ((int)player.Hand.HandType >= (int)BestHandType)
+                if ((int)player.Hands.HandType >= (int)BestHandType)
                 {
                     BestHand.Add(player);
                 }
@@ -90,7 +93,6 @@ namespace Poker
                 BestHand[0].Win();
                 Winner(BestHand[0]);
             }
-        
             if (BestHand.Count > 1)
             {
                 if (BestHandType == HandType.Pair || BestHandType == HandType.ThreeOfAKind || BestHandType == HandType.FourOfAKind)
@@ -105,8 +107,8 @@ namespace Poker
                 {
                     for (int i = 0; i < 2; i++)
                     {
-                        Rank highestRank = BestHand.Select(player => player.Hand.DuplicateRank[i]).Max();
-                        BestHand = BestHand.Where(player => player.Hand.DuplicateRank[i] == highestRank).ToList();
+                        Rank highestRank = BestHand.Select(player => player.Hands.DuplicateRank[i]).Max();
+                        BestHand = BestHand.Where(player => player.Hands.DuplicateRank[i] == highestRank).ToList();
                         if (BestHand.Count == 1) break;
                     }
                     if (BestHand.Count > 1)
@@ -141,32 +143,32 @@ namespace Poker
             }
         }
 
-        private List<Player> HighestRankCards(List<Player> Players)
+        private List<Player> HighestRankCards(List<Player> players)
         {
             for (int i = 0; i < 5; i++)
             {
-                Rank highest = Players.Select(player => player.Hand.CardRank[i]).Max();
-                Players = Players.Where(player => player.Hand.CardRank[i] == highest).ToList();
-                if (Players.Count == 1) break;
+                Rank highest = players.Select(player => player.Hands.CardRank[i]).Max();
+                players = players.Where(player => player.Hands.CardRank[i] == highest).ToList();
+                if (players.Count == 1) break;
             }
-            return Players;
+            return players;
         }
 
-        private List<Player> BestDuplicate(List<Player> Players)
+        private List<Player> BestDuplicate(List<Player> players)
         {
-            Rank BestDuplicate = Players.Select(player => player.Hand.DuplicateRank.First()).Max();
-            Players = Players.Where(player => player.Hand.DuplicateRank.First() == BestDuplicate).ToList();
-            if (Players.Count > 1)
+            Rank BestDuplicate = players.Select(player => player.Hands.DuplicateRank.First()).Max();//STOPP========!!!!!!========
+            players = players.Where(player => player.Hands.DuplicateRank.First() == BestDuplicate).ToList();
+            if (players.Count > 1)
             {
-                Players = HighestRankCards(Players);
+                players = HighestRankCards(players);
             }
-            return Players;
+            return players;
         }
 
         private List<Player> BestThreeDuplicate(List<Player> players)
         {
-            Rank BestThreeDuplicate = players.Select(player => player.Hand.ThreeDuplicateRank.First()).Max();
-            players = players.Where(player => player.Hand.ThreeDuplicateRank.First() == BestThreeDuplicate).ToList();
+            Rank BestThreeDuplicate = players.Select(player => player.Hands.ThreeDuplicateRank.First()).Max();
+            players = players.Where(player => player.Hands.ThreeDuplicateRank.First() == BestThreeDuplicate).ToList();
             if (players.Count > 1)
             {
                 players = HighestRankCards(players);
