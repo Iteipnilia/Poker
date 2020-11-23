@@ -1,38 +1,31 @@
 using System.Linq;
 using System.Collections.Generic;
 using System;
+using System.Collections;
 
 namespace Poker
 {
 
-    class Player : IPlayer
+    class Player : IPlayer, IEnumerable<Hand>
     {
-        private string name;
-        public string Name { get => name; }
-        public int wins;
+        public string Name { get; set; }
+        string IPlayer.Name => Name;
         public int Wins { get; set; }
-        private List<Card> discard = new List<Card>();
+        int IPlayer.Wins => Wins;
         public ICard[] Discard { get; set; }
-        public HandType HandType { get => Hand.HandType; }
+        ICard[] IPlayer.Discard { set { Discard = value; } }
         public Hand Hand {get; set;}
         ICard[] IPlayer.Hand => Hand.ToArray();
+        HandType IPlayer.HandType => Hand.HandType;
 
-        public Player(string name_)
+        public void ReceiveCards(Card card)
         {
-            this.name = name_;
-            wins = 0;
-
-        }
-        public Hand Hands
-        {
-            get { return Hand; }
-            set { value = Hand; }
-        }
-
-        public List<Card> Discard_
-        {
-            get { return discard; }
-            set { value = discard; }
+            if (Hand == null || Hand.Count() == 0)
+            {
+                Hand = new Hand();
+                Discard = new ICard[0];
+            }
+            Hand.AddCardToHand(card);
         }
 
         public void SortPlayerHand(Hand Hand)
@@ -40,19 +33,26 @@ namespace Poker
             Hand.SortHand();
         }
 
-        public void ReceiveCards(Card card)
-        {
-            Hand.AddCardToHand(card);
-        }
-
         public void DiscardCard(Card card)
         {
-            Hands.RemoveCard(card);
+            Hand.RemoveCard(card);
         }
 
         public void Win()
         {
             Wins++;
+        }
+
+        public override string ToString()
+        {
+            return $"{Name} {Wins}";
+        }
+
+        public IEnumerator GetEnumerator() => Hand.GetEnumerator();
+
+        IEnumerator<Hand> IEnumerable<Hand>.GetEnumerator()
+        {
+            return (IEnumerator<Hand>)Hand.GetEnumerator();
         }
     }
 }

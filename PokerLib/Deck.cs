@@ -1,31 +1,32 @@
 using System;
+using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
+
 namespace Poker
 {
-    class Deck
+    class Deck : IEnumerable<Card>
     {
-
-        public List<Card> cards;
+         public List<Card> cards = new List<Card>();
 
         public Deck()
         {
-            cards = new List<Card>(52);
-
             foreach(Suite s in Enum.GetValues(typeof(Suite)))
             {
                 foreach(Rank r in Enum.GetValues(typeof(Rank)))
                 {
-                    cards.Add(new Card((Suite)s, (Rank)r));
+                    this.cards.Add(new Card((Suite)s, (Rank)r));
                 }
             }
+            Shuffle();
         }
 
         public Card GetTopCard()
         {
             Card drawnCard;
 
-            drawnCard = cards[0];
-            this.cards.RemoveAt(0);
+            drawnCard = this.cards.First();
+            this.cards.Remove(drawnCard);
 
             return drawnCard;
         }
@@ -47,6 +48,12 @@ namespace Poker
                 cards[i] = cards[randomIndex]; // kort på 1a index blir kortet på random index
                 cards[randomIndex] = temp; // kort på random index blir kortet från 1a index
             }
+        }
+        public IEnumerator GetEnumerator() => cards.GetEnumerator();
+
+        IEnumerator<Card> IEnumerable<Card>.GetEnumerator()
+        {
+            return cards.GetEnumerator();
         }
     }
 }

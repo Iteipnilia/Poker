@@ -1,17 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Poker
 {
-    class Hand : Deck, IEnumerable<Card>
+    class Hand : Deck
     {
-        public IEnumerator GetEnumerator() => cards.GetEnumerator();
-
-        IEnumerator<Card> IEnumerable<Card>.GetEnumerator()
-        {
-            return cards.GetEnumerator();
-        }
         public HandType HandType { get; set; }
         public List<Rank> CardRank { get; set; }
         public List<Rank> DuplicateRank { get; set; }
@@ -23,7 +16,7 @@ namespace Poker
 
         }
 
-        public HandType Eval(Hand hand) //returns the hands value and type
+        public HandType Eval() //returns the hands value and type
         {
             HandType handType;
             if (IsRoyalStraightFlush)

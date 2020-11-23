@@ -1,42 +1,42 @@
+using System.Linq;
 using System.Collections.Generic;
 namespace Poker
 {
-    class Table
+    class Table : Player
     {
-        private Deck deck{get;set;}
-        public List<Player> Players=> players;
-        private List<Player> players;
-        internal Deck Deck { get => deck; set => deck = value; }
+        public Deck Deck{get;set;}
+        public List<IPlayer> Players=> players;
+        private List<IPlayer> players;
         private List<Card> discardedCards;
+        private const int CardPerPlayer = 5;
 
         public Table()
         {
-            players= new List<Player>();//ÄNDRAD
+            players= new List<IPlayer>();//ÄNDRAD
             discardedCards= new List<Card>();
-            deck=new Deck();
+            Deck = new Deck();
         }
         public void AddPlayerToTable(string name)
         {
             if(name !=null)
             {
-                players.Add(new Player(name));
-            }
-        }
-        // Delar ut ett kort i taget fem gånger till alla spelare
-        public void DealTable()
-        {
-            for(int i=0; i<5; i++)
-            {
-                foreach(Player player in players)
                 {
-                    player.ReceiveCards(Deck.GetTopCard());
+                players.Add(new Player{Name = name});
                 }
             }
         }
-
-        public void ReplacementCards(Player player, int nrOfCards)
+        // Delar ut ett kort i taget fem gånger till alla spelare
+        public void DealTable(Player player)
         {
-            for(int i=0;i<nrOfCards; i++)
+            for(int i=1; i<=CardPerPlayer; i++)
+            {
+                player.ReceiveCards(Deck.GetTopCard());
+            }
+        }
+
+        public void ReplacementCards(Player player)
+        {
+            while (player.Hand.Count() < CardPerPlayer)
             {
                 player.ReceiveCards(Deck.GetTopCard());
             }
@@ -46,11 +46,11 @@ namespace Poker
         {
             foreach(Player player in players)
             {
-                foreach(Card card in player.Discard_)
+                foreach(Card card in player.Discard)
                 {
                     discardedCards.Add(card);
-                    player.Discard_.RemoveAt(0);
                 }
+                player.Discard=null;
             }
         }
 
