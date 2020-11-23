@@ -4,7 +4,7 @@ using System;
 
 namespace Poker
 {
-    class Hands : Deck, IComparable
+    class Hands : Deck//, IComparable
     {
         public HandType HandType { get; set; }
         public List<Card> Hand{get;set;}
@@ -18,13 +18,13 @@ namespace Poker
             Hand = new List<Card>(5);
         }
 
-        public int CompareTo(object other)
-        {   
-            Hands otherHand=(Hands)other;
-            if (this.HandType < otherHand.HandType){return 1;}
-            if (this.HandType > otherHand.HandType){return -1;}
-            return 0;
-        }
+        //public int CompareTo(object other)
+        //{   
+           // Hands otherHand=(Hands)other;
+           // if (this.HandType < otherHand.HandType){return 1;}
+            //if (this.HandType > otherHand.HandType){return -1;}
+            //return 0;
+        //}
 
         public HandType Eval() //returns the hands value and type
         {

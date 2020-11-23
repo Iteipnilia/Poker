@@ -40,14 +40,14 @@ namespace Poker
             hand.Eval();
         }
 
-        public void SortPlayerHand(Hands hand)
+        public void SortPlayerHand()
         {
-            hand.SortHand();
+            Hands.SortHand();
         }
 
         public void ReceiveCards(Card card)
         {
-            hand.AddCardToHand(card);
+            Hands.AddCardToHand(card);
         }
 
         public void DiscardCard(Card card)

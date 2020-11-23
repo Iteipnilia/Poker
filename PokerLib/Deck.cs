@@ -6,6 +6,7 @@ namespace Poker
     {
 
         public List<Card> cards;
+        //public List<Card> Newcards=>cards;
 
         public Deck()
         {

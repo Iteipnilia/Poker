@@ -42,23 +42,23 @@ namespace Poker
         {
             while (true)
             {
-                Deck deck = new Deck();
+                //Deck deck = new Deck();
                 //Hands hand = new Hands();
-                deck.Shuffle();
+                //deck.Shuffle();
                 NewDeal();
                 table.DealTable();
                 foreach (Player player in Players)
                 {
-                    player.SortPlayerHand(player.Hands);// ÄNDRAD
+                    player.SortPlayerHand();
                     player.Hands.Eval();// ÄNDRAD
                     SelectCardsToDiscard(player);
                     foreach (Card card in player.Discard)
                     {
                         player.DiscardCard(card);
                     }
-                    player.ReceiveCards(deck.GetTopCard());
+                    table.ReplacementCards(player, player.Discard.Length);// HJÄLP
                     RecievedReplacementCards(player);
-                    player.SortPlayerHand(player.Hands);// ÄNDRAD
+                    player.SortPlayerHand();
                     player.Hands.Eval();// ÄNDRAD
                 }
                 ShowAllHands();
@@ -80,9 +80,9 @@ namespace Poker
             foreach(Player player in Players)
             {
                 player.DetermineHandType(player.Hands);
-                player.Hands.CompareTo(player.HandType);
+               // player.Hands.CompareTo(player.HandType);
             }
-            Array.Sort(Players);
+            //Array.Sort(Players);
             if(Players[0].HandType>Players[1].HandType)
             {
                 //Players[0] = this.Player;
