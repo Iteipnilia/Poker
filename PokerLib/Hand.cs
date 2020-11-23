@@ -6,6 +6,7 @@ namespace Poker
     class Hand : Deck
     {
         public HandType HandType { get; set; }
+        public List<Card> hand{get;set;}
         public List<Rank> CardRank { get; set; }
         public List<Rank> DuplicateRank { get; set; }
         public List<Rank> ThreeDuplicateRank { get; set; }
@@ -13,7 +14,7 @@ namespace Poker
 
         public Hand()
         {
-
+            hand = new List<Card>(5);
         }
 
         public HandType Eval() //returns the hands value and type
@@ -122,9 +123,9 @@ namespace Poker
         {
             get
             {
-                var ordered = cards.OrderBy(h => h.Rank).ToArray();//STOP
+                var ordered = cards.OrderBy(h => h.Rank).ToList();//STOP
                 var straightStart = (int)ordered.First().Rank;
-                for (var i = 1; i < ordered.Length; i++)
+                for (var i = 1; i< ordered.Count; i++)
                 {
                     if ((int)ordered[i].Rank != straightStart + i)
                         return false;

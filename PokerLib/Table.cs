@@ -25,12 +25,17 @@ namespace Poker
                 }
             }
         }
+        
+
         // Delar ut ett kort i taget fem gånger till alla spelare
-        public void DealTable(Player player)
+        public void DealTable()
         {
             for(int i=1; i<=CardPerPlayer; i++)
             {
-                player.ReceiveCards(Deck.GetTopCard());
+                foreach(Player player in players)
+                {
+                    player.ReceiveCards(Deck.GetTopCard());
+                }
             }
         }
 

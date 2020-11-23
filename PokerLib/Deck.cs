@@ -7,15 +7,19 @@ namespace Poker
 {
     class Deck : IEnumerable<Card>
     {
-         public List<Card> cards = new List<Card>();
+
+        public List<Card> cards;
+        //public List<Card> Newcards=>cards;
 
         public Deck()
         {
+            cards = new List<Card>(52);
+
             foreach(Suite s in Enum.GetValues(typeof(Suite)))
             {
                 foreach(Rank r in Enum.GetValues(typeof(Rank)))
                 {
-                    this.cards.Add(new Card((Suite)s, (Rank)r));
+                    cards.Add(new Card((Suite)s, (Rank)r));
                 }
             }
             Shuffle();
@@ -25,15 +29,15 @@ namespace Poker
         {
             Card drawnCard;
 
-            drawnCard = this.cards.First();
-            this.cards.Remove(drawnCard);
+            drawnCard = cards.First();
+            cards.Remove(drawnCard);
 
             return drawnCard;
         }
 
         public void PutBackCard(Card card)
         {
-            this.cards.Add(card);
+            cards.Add(card);
         }
 
         public void Shuffle()//Fisher-Yates

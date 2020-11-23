@@ -43,9 +43,9 @@ namespace Poker
             while (true)
             {
                 NewDeal();
+                table.DealTable();
                 foreach (Player player in Players)
                 {
-                    table.DealTable(player);
                     player.SortPlayerHand(player.Hand);
                     SelectCardsToDiscard(player);
                     foreach (Card card in player.Discard)
@@ -152,15 +152,15 @@ namespace Poker
             return Players;
         }
 
-        private List<Player> BestDuplicate(List<Player> players)
+        private List<Player> BestDuplicate(List<Player> Players)
         {
-            Rank BestDuplicate = players.Select(player => player.Hand.DuplicateRank.First()).Max();
-            players = players.Where(player => player.Hand.DuplicateRank.First() == BestDuplicate).ToList();
-            if (players.Count > 1)
+            Rank BestDuplicate = Players.Select(player => player.Hand.DuplicateRank.First()).Max();
+            Players = Players.Where(player => player.Hand.DuplicateRank.First() == BestDuplicate).ToList();
+            if (Players.Count > 1)
             {
-                players = HighestRankCards(players);
+                Players = HighestRankCards(Players);
             }
-            return players;
+            return Players;
         }
 
         private List<Player> BestThreeDuplicate(List<Player> players)
