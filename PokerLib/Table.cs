@@ -45,7 +45,7 @@ namespace Poker
             }
         }
 
-        public void DiscardedCardPile()
+        public void CollectPlayersDiscardedCards()
         {
             foreach(Player player in players)
             {

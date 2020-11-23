@@ -1,6 +1,4 @@
-using System.Linq;
 using System.Collections.Generic;
-using System;
 
 namespace Poker
 {
@@ -50,6 +48,7 @@ namespace Poker
         public void DiscardCard(Card card)
         {
             Hands.RemoveCard(card);
+            discard.Add(card);
         }
 
         public void Win()

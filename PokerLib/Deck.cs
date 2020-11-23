@@ -26,10 +26,7 @@ namespace Poker
 
         public Card GetTopCard()
         {
-            if (!cards.Any())
-            {
-                throw new NullReferenceException("Leken är tom!");
-            }
+            
             Card drawnCard;
 
             drawnCard = cards.First();
