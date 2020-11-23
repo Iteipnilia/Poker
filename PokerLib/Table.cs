@@ -45,6 +45,14 @@ namespace Poker
             }
         }
 
+        public void DetermineDuplicates()
+        {
+            foreach(Player player in players)
+            {
+                
+            }
+        }
+
         public void DiscardedCardPile()
         {
             foreach(Player player in players)

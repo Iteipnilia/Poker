@@ -23,9 +23,14 @@ namespace Poker
             if (File.Exists(fileName))
             {
                 string json = File.ReadAllText(fileName);
-                List<Player> players = JsonConvert.DeserializeObject<List<Player>>(json);
-                this.Players = new Player[players.Count];
-                this.Players = players.ToArray();
+                string[] data = json.Split(' ');
+                string[] names = JsonConvert.DeserializeObject<String[]>(data[0]);
+                int[] wins = JsonConvert.DeserializeObject<int[]>(data[1]);
+                this.Players = new Player[names.Length];
+                for (int i = 0; i < names.Length; i++)
+                {
+                    this.Players[i] = new Player(names[i], wins[i]);   
+                }
             }
         }
 
@@ -42,24 +47,20 @@ namespace Poker
         {
             while (true)
             {
-                //Deck deck = new Deck();
-                //Hands hand = new Hands();
-                //deck.Shuffle();
                 NewDeal();
                 table.DealTable();
                 foreach (Player player in Players)
                 {
                     player.SortPlayerHand();
-                    player.Hands.Eval();// ÄNDRAD
                     SelectCardsToDiscard(player);
                     foreach (Card card in player.Discard)
                     {
                         player.DiscardCard(card);
                     }
-                    table.ReplacementCards(player, player.Discard.Length);// HJÄLP
-                    RecievedReplacementCards(player);
+                    table.ReplacementCards(player, player.Discard.Length);
                     player.SortPlayerHand();
-                    player.Hands.Eval();// ÄNDRAD
+                    RecievedReplacementCards(player);
+                    player.Hands.Eval();
                 }
                 ShowAllHands();
                 CompareHands();
@@ -73,7 +74,6 @@ namespace Poker
             // bästa handen vinner
             // Om två eller fler spelare har samma hand, jämförs rank
             // Om två spelare har samma rank: oavgjort
-
             List<Player> BestHand = new List<Player>();
             HandType BestHandType = HandType.HighCard;
             foreach(Player player in Players)
@@ -93,13 +93,15 @@ namespace Poker
                 BestHand[0].Win();
                 Winner(BestHand[0]);
             }
-            if (BestHand.Count > 1)
+            else
             {
-                if (BestHandType == HandType.Pair || BestHandType == HandType.ThreeOfAKind || BestHandType == HandType.FourOfAKind)
+                if (BestHandType == HandType.Pair || BestHandType == HandType.ThreeOfAKind || 
+                    BestHandType == HandType.FourOfAKind)
                 {
                     BestHand = BestDuplicate(BestHand);
                 }
-                else if (BestHandType == HandType.HighCard || BestHandType == HandType.Straight || BestHandType == HandType.Flush || BestHandType == HandType.StraightFlush)
+                else if (BestHandType == HandType.HighCard || BestHandType == HandType.Straight || 
+                            BestHandType == HandType.Flush || BestHandType == HandType.StraightFlush)
                 {
                     BestHand = HighestRankCards(BestHand);
                 }
@@ -158,11 +160,11 @@ namespace Poker
         {
             Rank BestDuplicate = players.Select(player => player.Hands.DuplicateRank.First()).Max();//STOPP========!!!!!!========
             players = players.Where(player => player.Hands.DuplicateRank.First() == BestDuplicate).ToList();
-            if (players.Count > 1)
-            {
-                players = HighestRankCards(players);
-            }
-            return players;
+                if (players.Count > 1)
+                {
+                    players = HighestRankCards(players);
+                }
+                return players;
         }
 
         private List<Player> BestThreeDuplicate(List<Player> players)

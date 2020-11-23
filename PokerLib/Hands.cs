@@ -43,16 +43,19 @@ namespace Poker
             {
                  handType = HandType.HighCard;
             }
+
             CardRank = Hand.Select(card => card.Rank)
                     .OrderBy(r => r).ToList();
-            if (HandType == HandType.Pair || HandType == HandType.TwoPairs || HandType == HandType.ThreeOfAKind || HandType == HandType.FourOfAKind)
+
+            if (handType == HandType.Pair || handType == HandType.TwoPairs ||
+                handType == HandType.ThreeOfAKind || handType == HandType.FourOfAKind)
             {
                 DuplicateRank = Hand.GroupBy(card => card.Rank)
                 .Where(group => group.Count() == 2)
                 .Select(group => group.Key)
                 .OrderByDescending(x => x).ToList();
             }
-            if (HandType == HandType.FullHouse)
+            if (handType == HandType.FullHouse)
             {
                 ThreeDuplicateRank = Hand.GroupBy(card => card.Rank)
                 .Where(group => group.Count() == 3)
@@ -153,7 +156,6 @@ namespace Poker
         public void SortHand() //sorts the hand first by rank and then by suit
         {
             Hand = Hand.OrderBy(card => card.Rank).ThenBy(cards=>cards.Suite).ToList();
-            //Hand = Hand.OrderBy(card => card.Suite).ToList();
         }
         public void AddCardToHand(Card card)
         {
