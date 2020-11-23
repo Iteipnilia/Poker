@@ -43,23 +43,22 @@ namespace Poker
             while (true)
             {
                 Deck deck = new Deck();
-                Hands hand = new Hands();
+                Hand Hand = new Hand();
                 deck.Shuffle();
                 NewDeal();
                 table.DealTable();
                 foreach (Player player in Players)
                 {
-                    player.SortPlayerHand(hand);
-                    hand.Eval();
+                    player.SortPlayerHand(Hand);
                     SelectCardsToDiscard(player);
                     foreach (Card card in player.Discard)
                     {
                         player.DiscardCard(card);
+                        player.ReceiveCards(deck.GetTopCard());
                     }
-                    player.ReceiveCards(deck.GetTopCard());
                     RecievedReplacementCards(player);
-                    hand.SortHand();
-                    hand.Eval();
+                    player.SortPlayerHand(Hand);
+                    Hand.Eval(Hand);
                 }
                 ShowAllHands();
                 CompareHands();
@@ -74,90 +73,86 @@ namespace Poker
             // Om två eller fler spelare har samma hand, jämförs rank
             // Om två spelare har samma rank: oavgjort
 
-            List<Player> BestHandTypeTied = new List<Player>();
-            HandType BestHand = HandType.HighCard;
+            List<Player> BestHand = new List<Player>();
+            HandType BestHandType = HandType.HighCard;
             
             foreach(Player player in Players)
             {
-                player.DetermineHandType(player.Hands);
-                player.Hands.CompareTo(player.HandType);
-            }
-            Array.Sort(Players);
-            if(Players[0].HandType>Players[1].HandType)
-            {
-                //Players[0] = this.Player;
-                //this.Player.Win();
-                Winner(Players[0]);
-            }
-            else
-            {
-                foreach(Player player in Players)
+                if ((int)player.Hand.HandType > (int)BestHandType)
                 {
-                    if(player.HandType==Players[0].HandType)
-                    {
-                        BestHandTypeTied.Add(player);
-                    }
+                    BestHandType = player.Hand.HandType;
+                    BestHand.Clear();
+                }
+                if ((int)player.Hand.HandType >= (int)BestHandType)
+                {
+                    BestHand.Add(player);
                 }
             }
-            if (BestHandTypeTied.Count > 1)
+            if (BestHand.Count == 1)
             {
-                if (BestHand == HandType.Pair || BestHand == HandType.ThreeOfAKind || BestHand == HandType.FourOfAKind)
+                BestHand[0].Win();
+                Winner(BestHand[0]);
+            }
+        
+            if (BestHand.Count > 1)
+            {
+                if (BestHandType == HandType.Pair || BestHandType == HandType.ThreeOfAKind || BestHandType == HandType.FourOfAKind)
                 {
-                    BestHandTypeTied = BestDuplicate(BestHandTypeTied);
+                    BestHand = BestDuplicate(BestHand);
                 }
-                else if (BestHand == HandType.HighCard || BestHand == HandType.Straight || BestHand == HandType.Flush || BestHand == HandType.StraightFlush)
+                else if (BestHandType == HandType.HighCard || BestHandType == HandType.Straight || BestHandType == HandType.Flush || BestHandType == HandType.StraightFlush)
                 {
-                    BestHandTypeTied = HighestRankCards(BestHandTypeTied);
+                    BestHand = HighestRankCards(BestHand);
                 }
-                else if (BestHand == HandType.TwoPairs)
+                else if (BestHandType == HandType.TwoPairs)
                 {
                     for (int i = 0; i < 2; i++)
                     {
-                        Rank highestRank = BestHandTypeTied.Select(player => player.Hands.DuplicateRank[i]).Max();
-                        BestHandTypeTied = BestHandTypeTied.Where(player => player.Hands.DuplicateRank[i] == highestRank).ToList();
-                        if (BestHandTypeTied.Count == 1) break;
+                        Rank highestRank = BestHand.Select(player => player.Hands.DuplicateRank[i]).Max();
+                        BestHand = BestHand.Where(player => player.Hands.DuplicateRank[i] == highestRank).ToList();
+                        if (BestHand.Count == 1) break;
                     }
-                    if (BestHandTypeTied.Count > 1)
+                    if (BestHand.Count > 1)
                     {
-                        BestHandTypeTied = HighestRankCards(BestHandTypeTied);
+                        BestHand = HighestRankCards(BestHand);
                     }
                 }
-                 else if (BestHand == HandType.FullHouse)
+                 else if (BestHandType == HandType.FullHouse)
                 {
-                    BestHandTypeTied = BestThreeDuplicate(BestHandTypeTied);
-                    if (BestHandTypeTied.Count > 1)
+                    BestHand = BestThreeDuplicate(BestHand);
+                    if (BestHand.Count > 1)
                     {
-                        BestHandTypeTied = BestDuplicate(BestHandTypeTied);
+                        BestHand = BestDuplicate(BestHand);
                     }
                 }
-                else if (BestHand == HandType.RoyalStraightFlush)
+                else if (BestHandType == HandType.RoyalStraightFlush)
                 {
-                    Draw(BestHandTypeTied.ToArray());
+                    Draw(BestHand.ToArray());
                 }
                 foreach (Player player in Players)
                 {
-                    if (BestHandTypeTied.Count == 1)
+                    if (BestHand.Count == 1)
                     {
-                        BestHandTypeTied[0].Win();
-                        Winner(BestHandTypeTied[0]);
+                        BestHand[0].Win();
+                        Winner(BestHand[0]);
                     }
                     else
                     {
-                        Draw(BestHandTypeTied.ToArray());
+                        Draw(BestHand.ToArray());
                     }
                 }
             }
         }
 
-        private List<Player> HighestRankCards(List<Player> players)
+        private List<Player> HighestRankCards(List<Player> Players)
         {
             for (int i = 0; i < 5; i++)
             {
-                Rank highest = players.Select(player => player.Hands.CardRank[i]).Max();
-                players = players.Where(player => player.Hands.CardRank[i] == highest).ToList();
-                if (players.Count == 1) break;
+                Rank highest = Players.Select(player => player.Hands.CardRank[i]).Max();
+                Players = Players.Where(player => player.Hands.CardRank[i] == highest).ToList();
+                if (Players.Count == 1) break;
             }
-            return players;
+            return Players;
         }
 
         private List<Player> BestDuplicate(List<Player> players)

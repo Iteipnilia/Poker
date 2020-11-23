@@ -13,9 +13,9 @@ namespace Poker
         public int Wins { get; set; }
         private List<Card> discard = new List<Card>();
         public ICard[] Discard { get; set; }
-        public HandType HandType { get => hand.HandType; }
-        private Hands hand = new Hands();
-        public ICard[] Hand { get => (hand.Hand).ToArray(); }
+        public HandType HandType { get => Hand.HandType; }
+        public Hand Hand {get; set;}
+        ICard[] IPlayer.Hand => Hand.ToArray();
 
         public Player(string name_)
         {
@@ -23,10 +23,10 @@ namespace Poker
             wins = 0;
 
         }
-        public Hands Hands
+        public Hand Hands
         {
-            get { return hand; }
-            set { value = hand; }
+            get { return Hand; }
+            set { value = Hand; }
         }
 
         public List<Card> Discard_
@@ -35,19 +35,14 @@ namespace Poker
             set { value = discard; }
         }
 
-        public void DetermineHandType(Hands hand)
+        public void SortPlayerHand(Hand Hand)
         {
-            hand.Eval();
-        }
-
-        public void SortPlayerHand(Hands hand)
-        {
-            hand.SortHand();
+            Hand.SortHand();
         }
 
         public void ReceiveCards(Card card)
         {
-            hand.AddCardToHand(card);
+            Hand.AddCardToHand(card);
         }
 
         public void DiscardCard(Card card)

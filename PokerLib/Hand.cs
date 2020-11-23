@@ -1,54 +1,52 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 namespace Poker
 {
-    class Hands : Deck, IComparable
+    class Hand : Deck, IEnumerable<Card>
     {
+        public IEnumerator GetEnumerator() => cards.GetEnumerator();
+
+        IEnumerator<Card> IEnumerable<Card>.GetEnumerator()
+        {
+            return cards.GetEnumerator();
+        }
         public HandType HandType { get; set; }
-        public List<Card> Hand{get;set;}
-        public List<Rank> CardRank { get; private set; }
-        public List<Rank> DuplicateRank { get; private set; }
-        public List<Rank> ThreeDuplicateRank { get; private set; }
+        public List<Rank> CardRank { get; set; }
+        public List<Rank> DuplicateRank { get; set; }
+        public List<Rank> ThreeDuplicateRank { get; set; }
         bool Contains(Rank Rk) => cards.Where(c => c.Rank == Rk).Any();
 
-        public Hands()
+        public Hand()
         {
-            Hand = new List<Card>(5);
+
         }
 
-        public int CompareTo(object other)
-        {   
-            Hands otherHand=(Hands)other;
-            if (this.HandType < otherHand.HandType){return 1;}
-            if (this.HandType > otherHand.HandType){return -1;}
-            return 0;
-        }
-
-        public HandType Eval() //returns the hands value and type
+        public HandType Eval(Hand hand) //returns the hands value and type
         {
+            HandType handType;
             if (IsRoyalStraightFlush)
-                 HandType = HandType.RoyalStraightFlush;
+                 handType = HandType.RoyalStraightFlush;
             else if (IsStraightFlush)
-                 HandType = HandType.StraightFlush;
+                 handType = HandType.StraightFlush;
             else if (IsFourOfAKind)
-                 HandType = HandType.FourOfAKind;
+                 handType = HandType.FourOfAKind;
             else if (IsFullHouse)
-                 HandType = HandType.FullHouse;
+                 handType = HandType.FullHouse;
             else if (IsFlush)
-                 HandType = HandType.Flush;
+                 handType = HandType.Flush;
             else if (IsStraight)
-                 HandType = HandType.Straight;
+                 handType = HandType.Straight;
             else if (IsThreeOfAKind)
-                 HandType = HandType.ThreeOfAKind;
+                 handType = HandType.ThreeOfAKind;
             else if (IsTwoPair)
-                 HandType = HandType.TwoPairs;
+                 handType = HandType.TwoPairs;
             else if (IsPair)
-                 HandType = HandType.Pair;
+                 handType = HandType.Pair;
             else
             {
-                 HandType = HandType.HighCard;
+                 handType = HandType.HighCard;
             }
 
             CardRank = cards.Select(card => card.Rank)
@@ -68,7 +66,8 @@ namespace Poker
                 .Select(group => group.Key)
                 .OrderByDescending(x => x).ToList();
             }
-            return HandType;
+            HandType = handType;
+            return handType;
         }
 
         public bool IsPair
@@ -160,16 +159,16 @@ namespace Poker
 
         public void SortHand() //sorts the hand first by rank and then by suit
         {
-            Hand = Hand.OrderBy(card => card.Rank).ToList();//stop
-            Hand = Hand.OrderBy(card => card.Suite).ToList();
+            cards = cards.OrderBy(card => card.Rank).ToList();//stop
+            cards = cards.OrderBy(card => card.Suite).ToList();
         }
         public void AddCardToHand(Card card)
         {
-            Hand.Add(card);
+            cards.Add(card);
         }
         public void RemoveCard(Card card)
         {
-            Hand.Remove(card);
+            cards.Remove(card);
         }
     }
 }
