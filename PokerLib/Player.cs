@@ -4,12 +4,10 @@ using System;
 
 namespace Poker
 {
-
     class Player : IPlayer
     {
         private string name{get; set;}
         public string Name { get => name; }
-        private int wins {get; set;}
         public int Wins { get; set; }
         private List<Card> discard = new List<Card>();
         public ICard[] Discard { get; set; }
@@ -21,13 +19,12 @@ namespace Poker
         public Player(string name)
         {
             this.name = name;
-            wins = 0;
-
+            Wins = 0;
         }
         public Player(string name, int wins)
         {
             this.name = name;
-            this.wins = wins;
+            this.Wins = wins;
 
         }
 
@@ -65,7 +62,7 @@ namespace Poker
 
         public void Win()
         {
-            wins++;
+            Wins++;
         }
     }
 }

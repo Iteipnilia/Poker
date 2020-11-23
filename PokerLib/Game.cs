@@ -29,19 +29,25 @@ namespace Poker
                 this.Players = new Player[names.Length];
                 for (int i = 0; i < names.Length; i++)
                 {
-                    this.Players[i] = new Player(names[i], wins[i]);   
+                    //this.Players[i] = new Player(names[i], wins[i]);   
                 }
             }
         }
-
+ 
         public Game(string[] playerNames)//ÄNDRAD
         {
             table = new Table();
-            foreach(string name in playerNames)
+            if (playerNames.Length == 0)
+            {
+                throw new Exception("Inga spelarnamn angivna!");
+            }
+            foreach(var name in playerNames)
             {
                 table.AddPlayerToTable(name);
             }
         }
+
+        
 
         public void RunGame()
         {
@@ -57,7 +63,7 @@ namespace Poker
                     {
                         player.DiscardCard(card);
                     }
-                    table.ReplacementCards(player, player.Discard.Length);
+                    table.ReplacementCards(player, player.Discard.Length);// HJÄLP
                     player.SortPlayerHand();
                     RecievedReplacementCards(player);
                     player.Hands.Eval();
@@ -93,7 +99,7 @@ namespace Poker
                 BestHand[0].Win();
                 Winner(BestHand[0]);
             }
-            else
+            else if (BestHand.Count > 1)
             {
                 if (BestHandType == HandType.Pair || BestHandType == HandType.ThreeOfAKind || 
                     BestHandType == HandType.FourOfAKind)
@@ -118,13 +124,17 @@ namespace Poker
                         BestHand = HighestRankCards(BestHand);
                     }
                 }
-                 else if (BestHandType == HandType.FullHouse)
+                else if (BestHandType == HandType.FullHouse)
                 {
                     BestHand = BestThreeDuplicate(BestHand);
                     if (BestHand.Count > 1)
                     {
                         BestHand = BestDuplicate(BestHand);
                     }
+                }
+                else if (BestHandType == HandType.FourOfAKind)
+                {
+                    BestHand = BestFourDuplicate(BestHand);
                 }
                 else if (BestHandType == HandType.RoyalStraightFlush)
                 {
@@ -177,10 +187,33 @@ namespace Poker
             }
             return players;
         }
+        private List<Player> BestFourDuplicate(List<Player> players)
+        {
+            Rank BestFourDuplicate = players.Select(player => player.Hands.FourDuplicateRank.First()).Max();
+            players = players.Where(player => player.Hands.FourDuplicateRank.First() == BestFourDuplicate).ToList();
+            if (players.Count > 1)
+            {
+                players = HighestRankCards(players);
+            }
+            return players;
+        }
 
         public void SaveGameAndExit(string fileName)
         {
-            string json = JsonConvert.SerializeObject(Players);
+            string[] names;
+            int[] wins;
+
+            names = new string[Players.Length];
+            wins = new int[Players.Length];
+
+            for (int i = 0; i < Players.Length; i++)
+            {
+                names[i] = Players[i].Name;
+                wins[i] = Players[i].Wins;
+            }
+     
+            string json = JsonConvert.SerializeObject(names);
+            json += (" " + JsonConvert.SerializeObject(wins));
             File.WriteAllText(fileName, json);
             Environment.Exit(0);
         }

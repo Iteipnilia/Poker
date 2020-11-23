@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 namespace Poker
 {
@@ -11,6 +10,7 @@ namespace Poker
         public List<Rank> CardRank { get; private set; }
         public List<Rank> DuplicateRank { get; private set; }
         public List<Rank> ThreeDuplicateRank { get; private set; }
+        public List<Rank> FourDuplicateRank { get; private set; }
         bool Contains(Rank Rk) => Hand.Where(c => c.Rank == Rk).Any();
 
         public Hands()
@@ -46,18 +46,24 @@ namespace Poker
 
             CardRank = Hand.Select(card => card.Rank)
                     .OrderBy(r => r).ToList();
-
-            if (handType == HandType.Pair || handType == HandType.TwoPairs ||
-                handType == HandType.ThreeOfAKind || handType == HandType.FourOfAKind)
+                    
+            if (handType == HandType.Pair || handType == HandType.TwoPairs)
             {
                 DuplicateRank = Hand.GroupBy(card => card.Rank)
                 .Where(group => group.Count() == 2)
                 .Select(group => group.Key)
                 .OrderByDescending(x => x).ToList();
             }
-            if (handType == HandType.FullHouse)
+            if (handType == HandType.ThreeOfAKind || handType == HandType.FullHouse)
             {
                 ThreeDuplicateRank = Hand.GroupBy(card => card.Rank)
+                .Where(group => group.Count() == 3)
+                .Select(group => group.Key)
+                .OrderByDescending(x => x).ToList();
+            }
+            if (handType == HandType.FourOfAKind)
+            {
+                FourDuplicateRank = Hand.GroupBy(card => card.Rank)
                 .Where(group => group.Count() == 3)
                 .Select(group => group.Key)
                 .OrderByDescending(x => x).ToList();

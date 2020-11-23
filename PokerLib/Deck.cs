@@ -1,12 +1,14 @@
 using System;
+using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
+
 namespace Poker
 {
-    class Deck
+    class Deck : IEnumerable<Card>
     {
 
         private List<Card>cards;
-        //public List<Card> Newcards=>cards;
 
         public Deck()
         {
@@ -19,23 +21,26 @@ namespace Poker
                     cards.Add(new Card((Suite)s, (Rank)r));
                 }
             }
-
             Shuffle();
         }
 
         public Card GetTopCard()
         {
+            if (!cards.Any())
+            {
+                throw new NullReferenceException("Leken är tom!");
+            }
             Card drawnCard;
 
-            drawnCard = cards[0];
-            this.cards.RemoveAt(0);
+            drawnCard = cards.First();
+            cards.Remove(drawnCard);
 
             return drawnCard;
         }
 
         public void PutBackCard(Card card)
         {
-            this.cards.Add(card);
+            cards.Add(card);
         }
 
         public void Shuffle()//Fisher-Yates
@@ -50,6 +55,12 @@ namespace Poker
                 cards[i] = cards[randomIndex]; // kort på 1a index blir kortet på random index
                 cards[randomIndex] = temp; // kort på random index blir kortet från 1a index
             }
+        }
+        public IEnumerator GetEnumerator() => cards.GetEnumerator();
+
+        IEnumerator<Card> IEnumerable<Card>.GetEnumerator()
+        {
+            return cards.GetEnumerator();
         }
     }
 }
