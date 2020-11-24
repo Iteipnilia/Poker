@@ -4,7 +4,7 @@ namespace Poker
     class Table
     {
         private Deck deck{get;set;}
-        public List<Player> Players=> players;
+        public List<Player> Players{get=> players; set =>players=value;}
         private List<Player> players;
         internal Deck Deck { get => deck; set => deck = value; }
         private List<Card> discardedCards;
@@ -23,6 +23,15 @@ namespace Poker
                 players.Add(new Player(name));
             }
         }
+        public void AddPlayerToTable(string name, int wins)
+        {
+            if(name !=null)
+            {
+                players.Add(new Player(name, wins));
+            }
+        }
+
+
         
 
         // Delar ut ett kort i taget fem gånger till alla spelare

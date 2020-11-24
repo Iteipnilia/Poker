@@ -22,14 +22,15 @@ namespace Poker
         {
             if (File.Exists(fileName))
             {
+                table=new Table();
                 string json = File.ReadAllText(fileName);
                 string[] data = json.Split(' ');
                 string[] names = JsonConvert.DeserializeObject<String[]>(data[0]);
                 int[] wins = JsonConvert.DeserializeObject<int[]>(data[1]);
-                this.Players = new Player[names.Length];
+
                 for (int i = 0; i < names.Length; i++)
                 {
-                    //this.Players[i] = new Player(names[i], wins[i]);   
+                    table.AddPlayerToTable(names[i],wins[i]);   
                 }
             }
         }
