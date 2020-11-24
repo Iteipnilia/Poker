@@ -8,7 +8,8 @@ namespace Poker
     {
         private string name{get; set;}
         public string Name { get => name; }
-        public int Wins { get; set; }
+        private int wins;
+        public int Wins { get=>wins; set=>wins=value; }
         private List<Card> discard = new List<Card>();
         public ICard[] Discard { get; set; }
         public HandType HandType { get => hand.HandType; }
@@ -19,12 +20,12 @@ namespace Poker
         public Player(string name)
         {
             this.name = name;
-            Wins = 0;
+            wins = 0;
         }
         public Player(string name, int wins)
         {
             this.name = name;
-            this.Wins = wins;
+            this.wins = wins;
 
         }
 
@@ -38,11 +39,6 @@ namespace Poker
         {
             get { return discard; }
             set { value = discard; }
-        }
-
-        public void DetermineHandType(Hands hand)
-        {
-            hand.Eval();
         }
 
         public void SortPlayerHand()
@@ -62,7 +58,7 @@ namespace Poker
 
         public void Win()
         {
-            Wins++;
+            wins++;
         }
     }
 }
