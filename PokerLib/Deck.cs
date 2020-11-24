@@ -30,6 +30,7 @@ namespace Poker
             {
                 throw new NullReferenceException("Leken är tom!");
             }
+            
             Card drawnCard;
 
             drawnCard = cards.First();
