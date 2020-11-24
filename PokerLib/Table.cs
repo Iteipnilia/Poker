@@ -45,31 +45,25 @@ namespace Poker
             }
         }
 
-        public void CollectPlayersDiscardedCards()
+        public void DiscardCard(Player player,Card card)
         {
-            foreach(Player player in players)
-            {
-                foreach(Card card in player.Discard_)
-                {
-                    discardedCards.Add(card);
-                    player.Discard_.RemoveAt(0);
-                }
-            }
+            player.Hands.RemoveCard(card);
+            discardedCards.Add(card);
         }
 
         public void RebuildDeck()
         {
-            foreach(Card card in discardedCards)
-            {
-                deck.PutBackCard(card);
-            }
             foreach (Player player in players)
             {
                 foreach (Card card in player.Hand)
                 {
                     deck.PutBackCard(card);
-                    player.DiscardCard(card);//?????
+                    DiscardCard(player,card);//?????ÄNDRAT
                 }
+            }
+            foreach(Card card in discardedCards)
+            {
+                deck.PutBackCard(card);
             }
         }
     }

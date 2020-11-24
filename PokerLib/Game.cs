@@ -61,7 +61,7 @@ namespace Poker
                     SelectCardsToDiscard(player);
                     foreach (Card card in player.Discard)
                     {
-                        player.DiscardCard(card);
+                        table.DiscardCard(player,card);// !!!!!!!!!!!!!!! ÄNDRAD
                     }
                     table.ReplacementCards(player, player.Discard.Length);// HJÄLP
                     player.SortPlayerHand();

@@ -49,11 +49,8 @@ namespace Poker
             Hands.AddCardToHand(card);
         }
 
-        public void DiscardCard(Card card)
-        {
-            Hands.RemoveCard(card);
-            discard.Add(card);
-        }
+        //=======!!!!!!!!!!!!!!=========
+        //Tog bort dicarded card och la i table
 
         public void Win()
         {
