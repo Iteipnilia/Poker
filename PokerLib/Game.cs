@@ -35,20 +35,21 @@ namespace Poker
             }
         }
  
-        public Game(string[] playerNames)//ÄNDRAD
+        public Game(string[] playerNames)
         {
             table = new Table();
-            if (playerNames.Length <2)
+            if (playerNames.Length <1)
             {
                 table.AddPlayerToTable("player1");
                 table.AddPlayerToTable("player2");
             }
             else
             {
-                for(int i=0; i<5; i++)
+                for(int i=0; i<playerNames.Length && i<5; i++)
                 {
                     table.AddPlayerToTable(playerNames[i]);
                 }
+                if(playerNames.Length<2){table.AddPlayerToTable("player");}
             }
         }
 

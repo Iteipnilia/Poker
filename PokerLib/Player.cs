@@ -9,7 +9,6 @@ namespace Poker
         public string Name { get => name; }
         private int wins;
         public int Wins { get=>wins; set=>wins=value; }
-        private List<Card> discard = new List<Card>();
         public ICard[] Discard { get; set; }
         public HandType HandType { get => hand.HandType; }
         private Hands hand = new Hands();
@@ -24,19 +23,12 @@ namespace Poker
         {
             this.name = name;
             this.wins = wins;
-
         }
 
         public Hands Hands
         {
             get { return hand; }
             set { value = hand; }
-        }
-
-        public List<Card> Discard_
-        {
-            get { return discard; }
-            set { value = discard; }
         }
 
         public void SortPlayerHand()

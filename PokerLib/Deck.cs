@@ -8,11 +8,10 @@ namespace Poker
     class Deck : IEnumerable<Card>
     {
 
-        private List<Card>cards;
+        private List<Card>cards= new List<Card>(52);
 
         public Deck()
         {
-            cards= new List<Card>(52);
 
             foreach(Suite s in Enum.GetValues(typeof(Suite)))
             {
@@ -33,15 +32,15 @@ namespace Poker
             
             Card drawnCard;
 
-            drawnCard = cards.First();
-            cards.Remove(drawnCard);
+            drawnCard = this.cards.First();
+            this.cards.Remove(drawnCard);
 
             return drawnCard;
         }
 
         public void PutBackCard(Card card)
         {
-            cards.Add(card);
+            this.cards.Add(card);
         }
 
         public void Shuffle()//Fisher-Yates

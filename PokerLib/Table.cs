@@ -4,14 +4,14 @@ namespace Poker
     class Table
     {
         private Deck deck{get;set;}
-        public List<Player> Players{get=> players; set =>players=value;}
         private List<Player> players;
-        internal Deck Deck { get => deck; set => deck = value; }
+        public List<Player> Players{get=> players; set =>players=value;}
         private List<Card> discardedCards;
+
 
         public Table()
         {
-            players= new List<Player>();//ÄNDRAD
+            players= new List<Player>();
             discardedCards= new List<Card>();
             deck=new Deck();
             deck.Shuffle();
@@ -63,7 +63,6 @@ namespace Poker
             {
                 foreach (Card card in player.Hand)
                 {
-                    deck.PutBackCard(card);
                     DiscardCard(player,card);
                 }
             }
@@ -71,6 +70,7 @@ namespace Poker
             {
                 deck.PutBackCard(card);
             }
+            discardedCards.Clear();         
         }
     }
 }
