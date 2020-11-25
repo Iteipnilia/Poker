@@ -8,15 +8,15 @@ namespace Poker
     class Deck : IEnumerable<Card>
     {
 
-        private List<Card>cards;
+        private List<Card> cards;
 
         public Deck()
         {
-            cards= new List<Card>(52);
+            cards = new List<Card>(52);
 
-            foreach(Suite s in Enum.GetValues(typeof(Suite)))
+            foreach (Suite s in Enum.GetValues(typeof(Suite)))
             {
-                foreach(Rank r in Enum.GetValues(typeof(Rank)))
+                foreach (Rank r in Enum.GetValues(typeof(Rank)))
                 {
                     cards.Add(new Card((Suite)s, (Rank)r));
                 }
@@ -30,18 +30,18 @@ namespace Poker
             {
                 throw new NullReferenceException("Leken är tom!");
             }
-            
+
             Card drawnCard;
 
-            drawnCard = cards.First();
-            cards.Remove(drawnCard);
+            drawnCard = this.cards.First();
+            this.cards.Remove(drawnCard);
 
             return drawnCard;
         }
 
         public void PutBackCard(Card card)
         {
-            cards.Add(card);
+            this.cards.Add(card);
         }
 
         public void Shuffle()//Fisher-Yates

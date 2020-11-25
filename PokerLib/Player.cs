@@ -1,19 +1,18 @@
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace Poker
 {
     class Player : IPlayer
     {
-        private string name{get; set;}
+        private string name { get; set; }
         public string Name { get => name; }
         private int wins;
-        public int Wins { get=>wins; set=>wins=value; }
+        public int Wins { get => wins; set => wins = value; }
         private List<Card> discard = new List<Card>();
         public ICard[] Discard { get; set; }
         public HandType HandType { get => hand.HandType; }
         private Hands hand = new Hands();
-        public ICard[] Hand { get => (hand.Hand).ToArray(); }        
+        public ICard[] Hand { get => (hand.Hand).ToArray(); }
 
         public Player(string name)
         {

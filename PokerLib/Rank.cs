@@ -2,15 +2,15 @@ namespace Poker
 {
     public enum Rank
     {
-        Two = 2, 
-        Three, 
+        Two = 2,
+        Three,
         Four,
         Five,
-        Six, 
-        Seven, 
+        Six,
+        Seven,
         Eight,
         Nine,
-        Ten, 
+        Ten,
         Jack,
         Queen,
         King,
