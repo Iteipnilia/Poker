@@ -68,7 +68,7 @@ namespace Poker
                 }
             }
             foreach(Card card in discardedCards)
-            {
+           // {
                 deck.PutBackCard(card);
             }
         }
