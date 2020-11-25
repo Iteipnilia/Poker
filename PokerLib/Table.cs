@@ -15,7 +15,6 @@ namespace Poker
             players = new List<Player>();//ÄNDRAD
             discardedCards = new List<Card>();
             deck = new Deck();
-            deck.Shuffle();
         }
         public void AddPlayerToTable(string name)
         {
@@ -71,6 +70,7 @@ namespace Poker
             {
                 deck.PutBackCard(card);
             }
+            discardedCards.Clear();
         }
     }
 }

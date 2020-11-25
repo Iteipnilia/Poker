@@ -58,6 +58,7 @@ namespace Poker
             while (true)
             {
                 NewDeal();
+                table.Deck.Shuffle();
                 table.DealTable();
                 foreach (Player player in Players)
                 {

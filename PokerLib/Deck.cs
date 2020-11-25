@@ -8,11 +8,10 @@ namespace Poker
     class Deck : IEnumerable<Card>
     {
 
-        private List<Card> cards;
+        private List<Card> cards = new List<Card>();
 
         public Deck()
         {
-            cards = new List<Card>(52);
 
             foreach (Suite s in Enum.GetValues(typeof(Suite)))
             {
