@@ -6,7 +6,7 @@ namespace Poker
     class Hands
     {
         public HandType HandType { get; set; }
-        public List<Card> Hand{get;set;}
+        public List<Card> Hand { get; set; }
         public List<Rank> CardRank { get; private set; }
         public List<Rank> DuplicateRank { get; private set; }
         public List<Rank> ThreeDuplicateRank { get; private set; }
@@ -22,31 +22,31 @@ namespace Poker
         {
             HandType handType;
             if (IsRoyalStraightFlush)
-                 handType = HandType.RoyalStraightFlush;
+                handType = HandType.RoyalStraightFlush;
             else if (IsStraightFlush)
-                 handType = HandType.StraightFlush;
+                handType = HandType.StraightFlush;
             else if (IsFourOfAKind)
-                 handType = HandType.FourOfAKind;
+                handType = HandType.FourOfAKind;
             else if (IsFullHouse)
-                 handType = HandType.FullHouse;
+                handType = HandType.FullHouse;
             else if (IsFlush)
-                 handType = HandType.Flush;
+                handType = HandType.Flush;
             else if (IsStraight)
-                 handType = HandType.Straight;
+                handType = HandType.Straight;
             else if (IsThreeOfAKind)
-                 handType = HandType.ThreeOfAKind;
+                handType = HandType.ThreeOfAKind;
             else if (IsTwoPair)
-                 handType = HandType.TwoPairs;
+                handType = HandType.TwoPairs;
             else if (IsPair)
-                 handType = HandType.Pair;
+                handType = HandType.Pair;
             else
             {
-                 handType = HandType.HighCard;
+                handType = HandType.HighCard;
             }
 
             CardRank = Hand.Select(card => card.Rank)
                     .OrderBy(r => r).ToList();
-                    
+
             if (handType == HandType.Pair || handType == HandType.TwoPairs)
             {
                 DuplicateRank = Hand.GroupBy(card => card.Rank)
@@ -133,7 +133,7 @@ namespace Poker
             {
                 var ordered = Hand.OrderBy(h => h.Rank).ToList();//STOP
                 var straightStart = (int)ordered.First().Rank;
-                for (var i = 1; i< ordered.Count; i++)
+                for (var i = 1; i < ordered.Count; i++)
                 {
                     if ((int)ordered[i].Rank != straightStart + i)
                         return false;
@@ -161,7 +161,7 @@ namespace Poker
 
         public void SortHand() //sorts the hand first by rank and then by suit
         {
-            Hand = Hand.OrderBy(card => card.Rank).ThenBy(cards=>cards.Suite).ToList();
+            Hand = Hand.OrderBy(card => card.Rank).ThenBy(cards => cards.Suite).ToList();
         }
         public void AddCardToHand(Card card)
         {

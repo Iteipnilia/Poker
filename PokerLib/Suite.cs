@@ -2,9 +2,9 @@ namespace Poker
 {
     public enum Suite
     {
-        Clubs, 
+        Clubs,
         Diamonds,
         Hearts,
         Spades
-    } 
+    }
 }

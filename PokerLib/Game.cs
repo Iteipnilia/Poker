@@ -15,14 +15,14 @@ namespace Poker
         public event OnShowAllHands ShowAllHands;
         public event OnWinner Winner;
         public event OnDraw Draw;
-        public IPlayer[] Players { get=>table.Players.ToArray(); set=>Players=table.Players.ToArray();}
+        public IPlayer[] Players { get => table.Players.ToArray(); set => Players = table.Players.ToArray(); }
         private Table table;
 
         public Game(string fileName)
         {
             if (File.Exists(fileName))
             {
-                table=new Table();
+                table = new Table();
                 string json = File.ReadAllText(fileName);
                 string[] data = json.Split(' ');
                 string[] names = JsonConvert.DeserializeObject<String[]>(data[0]);
@@ -30,7 +30,7 @@ namespace Poker
 
                 for (int i = 0; i < names.Length; i++)
                 {
-                    table.AddPlayerToTable(names[i],wins[i]);   
+                    table.AddPlayerToTable(names[i], wins[i]);
                 }
             }
         }
@@ -45,11 +45,11 @@ namespace Poker
             }
             else
             {
-                for(int i=0; i<playerNames.Length && i<5; i++)
+                for (int i = 0; i < playerNames.Length && i < 5; i++)
                 {
                     table.AddPlayerToTable(playerNames[i]);
                 }
-                if(playerNames.Length<2){table.AddPlayerToTable("player");}
+                if (playerNames.Length < 2) { table.AddPlayerToTable("player"); }
             }
         }
 
@@ -65,7 +65,7 @@ namespace Poker
                     SelectCardsToDiscard(player);
                     foreach (Card card in player.Discard)
                     {
-                        table.DiscardCard(player,card);
+                        table.DiscardCard(player, card);
                     }
                     table.ReplacementCards(player, player.Discard.Length);
                     player.SortPlayerHand();
@@ -75,7 +75,7 @@ namespace Poker
                 ShowAllHands();
                 CompareHands();
                 table.RebuildDeck();
-            } 
+            }
         }
 
         public void CompareHands()
@@ -86,7 +86,7 @@ namespace Poker
             // Om två spelare har samma rank: oavgjort
             List<Player> BestHand = new List<Player>();
             HandType BestHandType = HandType.HighCard;
-            foreach(Player player in Players)
+            foreach (Player player in Players)
             {
                 if ((int)player.Hands.HandType > (int)BestHandType)
                 {
@@ -109,7 +109,7 @@ namespace Poker
                 {
                     BestHand = BestDuplicate(BestHand);
                 }
-                else if (BestHandType == HandType.HighCard || BestHandType == HandType.Straight || 
+                else if (BestHandType == HandType.HighCard || BestHandType == HandType.Straight ||
                             BestHandType == HandType.Flush || BestHandType == HandType.StraightFlush)
                 {
                     BestHand = HighestRankCards(BestHand);
@@ -171,11 +171,11 @@ namespace Poker
         {
             Rank BestDuplicate = players.Select(player => player.Hands.DuplicateRank.First()).Max();
             players = players.Where(player => player.Hands.DuplicateRank.First() == BestDuplicate).ToList();
-                if (players.Count > 1)
-                {
-                    players = HighestRankCards(players);
-                }
-                return players;
+            if (players.Count > 1)
+            {
+                players = HighestRankCards(players);
+            }
+            return players;
         }
 
         private List<Player> BestThreeDuplicate(List<Player> players)
@@ -212,7 +212,7 @@ namespace Poker
                 names[i] = Players[i].Name;
                 wins[i] = Players[i].Wins;
             }
-     
+
             string json = JsonConvert.SerializeObject(names);
             json += (" " + JsonConvert.SerializeObject(wins));
             File.WriteAllText(fileName, json);

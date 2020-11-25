@@ -8,14 +8,14 @@ namespace Poker
     class Deck : IEnumerable<Card>
     {
 
-        private List<Card>cards= new List<Card>(52);
+        private List<Card> cards = new List<Card>();
 
         public Deck()
         {
 
-            foreach(Suite s in Enum.GetValues(typeof(Suite)))
+            foreach (Suite s in Enum.GetValues(typeof(Suite)))
             {
-                foreach(Rank r in Enum.GetValues(typeof(Rank)))
+                foreach (Rank r in Enum.GetValues(typeof(Rank)))
                 {
                     cards.Add(new Card((Suite)s, (Rank)r));
                 }
@@ -29,7 +29,7 @@ namespace Poker
             {
                 throw new NullReferenceException("Leken är tom!");
             }
-            
+
             Card drawnCard;
 
             drawnCard = this.cards.First();
