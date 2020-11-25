@@ -30,7 +30,7 @@ namespace Poker
 
                 for (int i = 0; i < names.Length; i++)
                 {
-                   // table.AddPlayerToTable(names[i],wins[i]);   
+                    table.AddPlayerToTable(names[i],wins[i]);   
                 }
             }
         }
@@ -64,7 +64,7 @@ namespace Poker
                     SelectCardsToDiscard(player);
                     foreach (Card card in player.Discard)
                     {
-                        //table.DiscardCard(player,card);
+                        table.DiscardCard(player,card);
                     }
                     table.ReplacementCards(player, player.Discard.Length);
                     player.SortPlayerHand();
