@@ -10,13 +10,9 @@ namespace Poker
         private int wins;
         public int Wins { get=>wins; set=>wins=value; }
         private List<Card> discard = new List<Card>();
-
-        [JsonIgnore]
         public ICard[] Discard { get; set; }
-        [JsonIgnore]
         public HandType HandType { get => hand.HandType; }
         private Hands hand = new Hands();
-        [JsonIgnore]
         public ICard[] Hand { get => (hand.Hand).ToArray(); }        
 
         public Player(string name)
@@ -52,9 +48,6 @@ namespace Poker
         {
             Hands.AddCardToHand(card);
         }
-
-        //=======!!!!!!!!!!!!!!=========
-        //Tog bort dicarded card och la i table
 
         public void Win()
         {

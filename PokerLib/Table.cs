@@ -31,9 +31,6 @@ namespace Poker
             }
         }
 
-
-        
-
         // Delar ut ett kort i taget fem gånger till alla spelare
         public void DealTable()
         {
@@ -67,7 +64,7 @@ namespace Poker
                 foreach (Card card in player.Hand)
                 {
                     deck.PutBackCard(card);
-                    DiscardCard(player,card);//?????ÄNDRAT
+                    DiscardCard(player,card);
                 }
             }
             foreach(Card card in discardedCards)

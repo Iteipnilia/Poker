@@ -15,8 +15,8 @@ namespace Poker
         public event OnShowAllHands ShowAllHands;
         public event OnWinner Winner;
         public event OnDraw Draw;
-        public IPlayer[] Players { get=>table.Players.ToArray(); set=>Players=table.Players.ToArray();}//ÄNDRAD
-        private Table table;//=new Table();//ÄNDRAD
+        public IPlayer[] Players { get=>table.Players.ToArray(); set=>Players=table.Players.ToArray();}
+        private Table table;
 
         public Game(string fileName)
         {
@@ -38,17 +38,19 @@ namespace Poker
         public Game(string[] playerNames)//ÄNDRAD
         {
             table = new Table();
-            if (playerNames.Length == 0)
+            if (playerNames.Length <2)
             {
-                throw new Exception("Inga spelarnamn angivna!");
+                table.AddPlayerToTable("player1");
+                table.AddPlayerToTable("player2");
             }
-            foreach(var name in playerNames)
+            else
             {
-                table.AddPlayerToTable(name);
+                for(int i=0; i<5; i++)
+                {
+                    table.AddPlayerToTable(playerNames[i]);
+                }
             }
         }
-
-        
 
         public void RunGame()
         {
@@ -62,9 +64,9 @@ namespace Poker
                     SelectCardsToDiscard(player);
                     foreach (Card card in player.Discard)
                     {
-                        table.DiscardCard(player,card);// !!!!!!!!!!!!!!! ÄNDRAD
+                        table.DiscardCard(player,card);
                     }
-                    table.ReplacementCards(player, player.Discard.Length);// HJÄLP
+                    table.ReplacementCards(player, player.Discard.Length);
                     player.SortPlayerHand();
                     RecievedReplacementCards(player);
                     player.Hands.Eval();
@@ -102,8 +104,7 @@ namespace Poker
             }
             else if (BestHand.Count > 1)
             {
-                if (BestHandType == HandType.Pair || BestHandType == HandType.ThreeOfAKind || 
-                    BestHandType == HandType.FourOfAKind)
+                if (BestHandType == HandType.Pair)
                 {
                     BestHand = BestDuplicate(BestHand);
                 }
@@ -141,17 +142,15 @@ namespace Poker
                 {
                     Draw(BestHand.ToArray());
                 }
-                foreach (Player player in Players)
+
+                if (BestHand.Count == 1)
                 {
-                    if (BestHand.Count == 1)
-                    {
-                        BestHand[0].Win();
-                        Winner(BestHand[0]);
-                    }
-                    else
-                    {
-                        Draw(BestHand.ToArray());
-                    }
+                    BestHand[0].Win();
+                    Winner(BestHand[0]);
+                }
+                else
+                {
+                    Draw(BestHand.ToArray());
                 }
             }
         }
