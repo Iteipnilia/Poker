@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using Poker;
-using PokerLib;
 
 namespace Poker.Lib.UnitTest
 {
