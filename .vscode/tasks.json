@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "test",
-                "${workspaceFolder}/Poker.Lib.UnitTest/Poker.Lib.UnitTest.csproj",
+                "${workspaceFolder}/PokerLib.UnitTest/PokerLib.UnitTest.csproj",
                 "/p:CollectCoverage=true",
                 "/p:CoverletOutputFormat=\"opencover,lcov\"",
                 "/p:CoverletOutput=../lcov"
