@@ -1,7 +1,7 @@
 using NUnit.Framework;
-using Poker;
+using Poker.Lib;
 
-namespace Poker.Lib.UnitTest
+namespace PokerLib.UnitTest
 {
     public class Tests
     {

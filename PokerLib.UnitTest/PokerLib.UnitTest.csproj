@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Poker.Lib\Poker.Lib.csproj" />
+    <ProjectReference Include="..\PokerLib\PokerLib.csproj" />
   </ItemGroup>
 
 </Project>
