@@ -4,6 +4,8 @@ using System.Linq;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Poker.Lib;
+using System.Runtime.CompilerServices;
+[assembly:InternalsVisibleTo("Poker.Lib.UnitTest")]
 
 namespace Poker
 {

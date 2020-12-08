@@ -1,3 +1,5 @@
+
+
 namespace Poker
 {
     class Card : ICard
