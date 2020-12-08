@@ -9,7 +9,7 @@ using static Poker.Rank;
 
 namespace PokerLib.UnitTest
 {
-    public class HandTests
+    public class TestsHand
     {
 
         [SetUp]
