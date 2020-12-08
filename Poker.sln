@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poker.Lib", "Poker.Lib\Poker.Lib.csproj", "{50835538-2061-4ABB-B400-1C2FF457E2F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLib", "PokerLib\PokerLib.csproj", "{50835538-2061-4ABB-B400-1C2FF457E2F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poker.Lib.UnitTest", "Poker.Lib.UnitTest\Poker.Lib.UnitTest.csproj", "{9BBCF904-6F0E-42AC-BD86-AF707B777529}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLib.UnitTest", "PokerLib.UnitTest\PokerLib.UnitTest.csproj", "{9BBCF904-6F0E-42AC-BD86-AF707B777529}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
