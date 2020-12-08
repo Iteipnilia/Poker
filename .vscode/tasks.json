@@ -21,11 +21,11 @@
                 "test",
                 "${workspaceFolder}/PokerLib.UnitTest/PokerLib.UnitTest.csproj",
                 "/p:CollectCoverage=true",
-                "/p:CoverletOutputFormat=\"opencover,lcov\"",
+                "/p:CoverletOutputFormat=\"opencover,lcov\"", 
                 "/p:CoverletOutput=../lcov"
             ],
             "problemMatcher": "$msCompile"
-        }
+        },
         {
             "label": "publish",
             "command": "dotnet",
