@@ -6,11 +6,10 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using static Poker.Suite;
 using static Poker.Rank;
-using static Poker.HandType;
 
 namespace PokerLib.UnitTest
 {
-    public class Tests
+    public class HandTests
     {
 
         [SetUp]
@@ -146,9 +145,11 @@ namespace PokerLib.UnitTest
     };
             foreach (var cardSet in cardSets.Select(cs => ToCards(cs)))
             {
+                Player player = new Player("TestSpelare");
                 Hands Hand = new Hands();
                 foreach (var card in cardSet)
                     Hand.AddCardToHand(card);
+                player.Hands.Eval();
                 Assert.AreEqual(HandType.Pair, Hand.HandType);
             }
         }
@@ -167,6 +168,7 @@ namespace PokerLib.UnitTest
                 Assert.AreEqual(HandType.HighCard, Hand.HandType);
             }
         }
+
 
         static Card[] ToCards(string text)
         {
