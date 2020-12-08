@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLib", "PokerLib\PokerL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLib.UnitTest", "PokerLib.UnitTest\PokerLib.UnitTest.csproj", "{9BBCF904-6F0E-42AC-BD86-AF707B777529}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poker.Lib.UnitTest", "Poker.Lib.UnitTest\Poker.Lib.UnitTest.csproj", "{41E82E21-3817-48D1-A60F-402F728B3836}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

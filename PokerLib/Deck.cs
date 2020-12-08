@@ -20,7 +20,6 @@ namespace Poker
                     cards.Add(new Card((Suite)s, (Rank)r));
                 }
             }
-            Shuffle();
         }
 
         public Card GetTopCard()

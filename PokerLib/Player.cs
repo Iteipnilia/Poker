@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-[assembly:InternalsVisibleTo("PokerLib.UnitTest")]
 
 namespace Poker
 {
