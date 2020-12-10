@@ -4,12 +4,14 @@ namespace Poker.Lib.UnitTest
 {
     public class TestsDeck
     {
-        Deck testDeck= new Deck();
+        Deck testDeck;
+        Deck tempDeck;
 
         [SetUp]
-        public void Setup()
+        public void DeckSetup()
         {
-            
+            testDeck= new Deck();
+            tempDeck= new Deck();
         }
 
         [Test]
@@ -17,24 +19,38 @@ namespace Poker.Lib.UnitTest
         {
             Assert.That(testDeck, Has.Exactly(52).Items);
         }
+
         [Test]
         public void IsDeckWithoutDuplicates()
         {
-            Assert.That(testDeck, Is.Unique);
+            CollectionAssert.AllItemsAreUnique(testDeck);
         }
 
 
         [Test]
         public void DoesShuffleWork()
         {
-            Deck tempDeck=new Deck();
+            CollectionAssert.AreEqual(tempDeck, testDeck);
 
             tempDeck.Shuffle();
             tempDeck.Shuffle();
             tempDeck.Shuffle();
 
-            Assert.That(tempDeck, Is.Not.EqualTo(testDeck));
+            CollectionAssert.AreNotEqual(tempDeck, testDeck);
+            CollectionAssert.AreEquivalent(tempDeck, testDeck);
+            CollectionAssert.AllItemsAreUnique(tempDeck);
+            Assert.That(tempDeck, Has.Exactly(52).Items);
         }
+
+        [Test]
+        public void IsCardRemovedFromDeck()
+        {
+            Card tempCard= testDeck.GetTopCard();
+
+            CollectionAssert.DoesNotContain(testDeck, tempCard);
+        }
+
+        
 
 
     }
