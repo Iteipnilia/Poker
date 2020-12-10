@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using static Poker.Suite;
 using static Poker.Rank;
+using static Poker.HandType;
 
 namespace PokerLib.UnitTest
 {
@@ -16,7 +17,7 @@ namespace PokerLib.UnitTest
         public void Setup()
         {
         }
-        
+
         [Test]
         public void HandCanBeRoyalStraightFlush()
         {
@@ -25,28 +26,30 @@ namespace PokerLib.UnitTest
     };
             foreach (var cardSet in cardSets.Select(cs => ToCards(cs)))
             {
-                Hands Hand = new Hands();
-                foreach (var card in cardSet)
-                    Hand.AddCardToHand(card);
-                Assert.AreEqual(HandType.RoyalStraightFlush, Hand.HandType);
+                Player player = new Player("");
+                foreach (var Card in cardSet)
+                    player.Hands.AddCardToHand(Card);
+                player.Hands.Eval();
+                Assert.AreEqual(RoyalStraightFlush, player.Hands.HandType);
             }
         }
-        
+
         [Test]
         public void HandCanBeStraightFlush()
         {
             var cardSets = new string[] {
-        "♥A♥2♥3♥4♥5", "♠10♠J♠Q♠K♠A", "♦8♦9♦10♦J♦Q", "♣6♣7♣8♣9♣10"
+        "♥A♥2♥3♥4♥5", "♠9♠10♠J♠Q♠K", "♦8♦9♦10♦J♦Q", "♣6♣7♣8♣9♣10"
     };
             foreach (var cardSet in cardSets.Select(cs => ToCards(cs)))
             {
-                Hands Hand = new Hands();
+                Player player = new Player("");
                 foreach (var card in cardSet)
-                    Hand.AddCardToHand(card);
-                Assert.AreEqual(HandType.StraightFlush, Hand.HandType);
+                    player.Hands.AddCardToHand(card);
+                player.Hands.Eval();
+                Assert.AreEqual(StraightFlush, player.Hands.HandType);
             }
         }
-        
+
         [Test]
         public void HandCanBeFourOfAKind()
         {
@@ -55,10 +58,11 @@ namespace PokerLib.UnitTest
     };
             foreach (var cardSet in cardSets.Select(cs => ToCards(cs)))
             {
-                Hands Hand = new Hands();
+                Player player = new Player("");
                 foreach (var card in cardSet)
-                    Hand.AddCardToHand(card);
-                Assert.AreEqual(HandType.FourOfAKind, Hand.HandType);
+                    player.Hands.AddCardToHand(card);
+                player.Hands.Eval();
+                Assert.AreEqual(FourOfAKind, player.Hands.HandType);
             }
         }
 
@@ -70,10 +74,11 @@ namespace PokerLib.UnitTest
     };
             foreach (var cardSet in cardSets.Select(cs => ToCards(cs)))
             {
-                Hands Hand = new Hands();
+                Player player = new Player("");
                 foreach (var card in cardSet)
-                    Hand.AddCardToHand(card);
-                Assert.AreEqual(HandType.FullHouse, Hand.HandType);
+                    player.Hands.AddCardToHand(card);
+                player.Hands.Eval();
+                Assert.AreEqual(FullHouse, player.Hands.HandType);
             }
         }
 
@@ -85,10 +90,11 @@ namespace PokerLib.UnitTest
     };
             foreach (var cardSet in cardSets.Select(cs => ToCards(cs)))
             {
-                Hands Hand = new Hands();
+                Player player = new Player("");
                 foreach (var card in cardSet)
-                    Hand.AddCardToHand(card);
-                Assert.AreEqual(HandType.Flush, Hand.HandType);
+                    player.Hands.AddCardToHand(card);
+                player.Hands.Eval();
+                Assert.AreEqual(Flush, player.Hands.HandType);
             }
         }
 
@@ -100,13 +106,14 @@ namespace PokerLib.UnitTest
     };
             foreach (var cardSet in cardSets.Select(cs => ToCards(cs)))
             {
-                Hands Hand = new Hands();
+                Player player = new Player("");
                 foreach (var card in cardSet)
-                    Hand.AddCardToHand(card);
-                Assert.AreEqual(HandType.Straight, Hand.HandType);
+                    player.Hands.AddCardToHand(card);
+                player.Hands.Eval();
+                Assert.AreEqual(Straight, player.Hands.HandType);
             }
         }
-        
+
         [Test]
         public void HandCanBeThreeOfAKind()
         {
@@ -115,25 +122,27 @@ namespace PokerLib.UnitTest
     };
             foreach (var cardSet in cardSets.Select(cs => ToCards(cs)))
             {
-                Hands Hand = new Hands();
+                Player player = new Player("");
                 foreach (var card in cardSet)
-                    Hand.AddCardToHand(card);
-                Assert.AreEqual(HandType.ThreeOfAKind, Hand.HandType);
+                    player.Hands.AddCardToHand(card);
+                player.Hands.Eval();
+                Assert.AreEqual(ThreeOfAKind, player.Hands.HandType);
             }
         }
-        
+
         [Test]
         public void HandCanBeTwoPair()
         {
             var cardSets = new string[] {
-        "♣2♦2♦3♥3♥5", "♠3♥7♠7♠8♠9", "♣10♦J♥J♣Q♦Q", "♣Q♦Q♦K♣A♠A"
+        "♣2♦2♦3♥3♥5", "♠3♥7♠7♠8♠8", "♣10♦J♥J♣Q♦Q", "♣Q♦Q♦K♣A♠A"
     };
             foreach (var cardSet in cardSets.Select(cs => ToCards(cs)))
             {
-                Hands Hand = new Hands();
+                Player player = new Player("");
                 foreach (var card in cardSet)
-                    Hand.AddCardToHand(card);
-                Assert.AreEqual(HandType.TwoPairs, Hand.HandType);
+                    player.Hands.AddCardToHand(card);
+                player.Hands.Eval();
+                Assert.AreEqual(TwoPairs, player.Hands.HandType);
             }
         }
 
@@ -145,12 +154,11 @@ namespace PokerLib.UnitTest
     };
             foreach (var cardSet in cardSets.Select(cs => ToCards(cs)))
             {
-                Player player = new Player("TestSpelare");
-                Hands Hand = new Hands();
+                Player player = new Player("");
                 foreach (var card in cardSet)
-                    Hand.AddCardToHand(card);
+                    player.Hands.AddCardToHand(card);
                 player.Hands.Eval();
-                Assert.AreEqual(HandType.Pair, Hand.HandType);
+                Assert.AreEqual(Pair, player.Hands.HandType);
             }
         }
 
@@ -162,10 +170,11 @@ namespace PokerLib.UnitTest
     };
             foreach (var cardSet in cardSets.Select(cs => ToCards(cs)))
             {
-                Hands Hand = new Hands();
+                Player player = new Player("");
                 foreach (var card in cardSet)
-                    Hand.AddCardToHand(card);
-                Assert.AreEqual(HandType.HighCard, Hand.HandType);
+                    player.Hands.AddCardToHand(card);
+                player.Hands.Eval();
+                Assert.AreEqual(HighCard, player.Hands.HandType);
             }
         }
 
