@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+[assembly:InternalsVisibleTo("PokerLib.UnitTest")]
 
 namespace Poker
 {
@@ -132,6 +134,10 @@ namespace Poker
             get
             {
                 var ordered = Hand.OrderBy(h => h.Rank).ToList();//STOP
+                if ((int)ordered.Last().Rank == 14 && (int)ordered.First().Rank == 2 && (int)ordered.ElementAt(1).Rank == 3 && (int)ordered.ElementAt(2).Rank == 4 && (int)ordered.ElementAt(3).Rank == 5)
+                {
+                    return true;                    
+                }
                 var straightStart = (int)ordered.First().Rank;
                 for (var i = 1; i < ordered.Count; i++)
                 {
