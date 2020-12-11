@@ -4,11 +4,12 @@ namespace Poker.Lib.UnitTest
 {
     class TestsTable
     {
-        Table testTable= new Table();
+        Table testTable;
         
         [SetUp]
         public void TableSetUp()
         {
+            testTable= new Table();
             testTable.AddPlayerToTable("Name1");
             testTable.AddPlayerToTable("Name2");
             testTable.AddPlayerToTable("Name3");
@@ -33,6 +34,34 @@ namespace Poker.Lib.UnitTest
             Assert.That(testTable.Players[1].Hand, Has.Exactly(5).Items);
             Assert.That(testTable.Players[2].Hand, Has.Exactly(5).Items);
 
+        }
+
+        [Test]
+        public void CanDiscardCards()
+        {
+
+        }
+
+        [Test]
+        public void CanReplaceCards()
+        {
+
+        }
+
+        [Test]
+        public void CanRebuildDeck()
+        {
+            
+        }
+
+        [Test]
+        public void CantAddMoreThanFivePlayers()
+        {
+            testTable.AddPlayerToTable("Name4");
+            testTable.AddPlayerToTable("Name5");
+            testTable.AddPlayerToTable("Name6");
+
+            Assert.That(testTable.Players, Has.Exactly(5).Items);
         }
 
         

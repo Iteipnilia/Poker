@@ -7,12 +7,11 @@ namespace Poker
 {
     class Deck : IEnumerable<Card>
     {
-
         private List<Card> cards = new List<Card>();
+        public List<Card> Cards {get=> cards; set =>cards=value;}
 
         public Deck()
         {
-
             foreach (Suite s in Enum.GetValues(typeof(Suite)))
             {
                 foreach (Rank r in Enum.GetValues(typeof(Rank)))

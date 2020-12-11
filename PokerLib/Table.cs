@@ -20,21 +20,22 @@ namespace Poker
 
         //=====================================================
         // ADD PLAYER: First method, Adds a new Player object 
-        // to table<List> if the name is not null.
+        // to table<List> if the name is not null and the list
+        // contains of less than five objects.
         //
         // Second method, also takes number of wins and is 
         // called when resuming a saved game.
         //=====================================================
         public void AddPlayerToTable(string name)
         {
-            if (name != null)
+            if (name != null && players.Count < 5)
             {
                 players.Add(new Player(name));
             }
         }
         public void AddPlayerToTable(string name, int wins)
         {
-            if (name != null)
+            if (name != null && players.Count < 5)
             {
                 players.Add(new Player(name, wins));
             }

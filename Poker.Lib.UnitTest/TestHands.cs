@@ -19,6 +19,53 @@ namespace PokerLib.UnitTest
         }
 
         [Test]
+        public void HandIsSortedCorrect()
+        {
+            int i=0;
+            int j=0;
+
+            List<Player> player= new List<Player>();
+            player.Add(new Player("Zero"));
+            player.Add(new Player("One"));
+            player.Add(new Player("Two"));
+
+            List<Hands> hands = new List<Hands>();
+            hands.Add(new Hands());
+            hands.Add(new Hands());
+            hands.Add(new Hands());       
+            
+            var cardSets = new string[] {
+        "♦1♥1♠1♥1♣1", "♦K♥1♠10♥2♣1", "♦A♦8♦2♦K♦5"
+    };
+            foreach (var cardSet in cardSets.Select(cs => ToCards(cs)))
+            {
+                foreach (var Card in cardSet)
+                {
+                    player[i].Hands.AddCardToHand(Card);
+                }
+                player[i].SortPlayerHand();
+                i++;
+            }
+
+            var handSets = new string[] {
+        "♣1♦1♥1♥1♠1", "♣1♥1♥2♠10♦K", "♦2♦5♦8♦K♦A"
+    };
+            foreach (var handSet in handSets.Select(cs => ToCards(cs)))
+            {
+                foreach (var Card in handSet)
+                {
+                    hands[j].AddCardToHand(Card);
+                }
+                j++;
+            }
+
+            CollectionAssert.AreEqual(hands[0].Hand,player[0].Hand);
+            CollectionAssert.AreEqual(hands[1].Hand,player[1].Hand);
+            CollectionAssert.AreEqual(hands[2].Hand,player[2].Hand);
+
+        }
+
+        [Test]
         public void HandCanBeRoyalStraightFlush()
         {
             var cardSets = new string[] {
