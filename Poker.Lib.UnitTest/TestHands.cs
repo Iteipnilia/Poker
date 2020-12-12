@@ -19,7 +19,7 @@ namespace PokerLib.UnitTest
         }
 
         [Test]
-        public void HandIsSortedCorrect()
+        public void IsHandSortedCorrect()
         {
             int i=0;
             int j=0;
@@ -34,6 +34,7 @@ namespace PokerLib.UnitTest
             hands.Add(new Hands());
             hands.Add(new Hands());       
             
+            // Temporary hands for sorting
             var cardSets = new string[] {
         "♦1♥1♠1♥1♣1", "♦K♥1♠10♥2♣1", "♦A♦8♦2♦K♦5"
     };
@@ -47,6 +48,7 @@ namespace PokerLib.UnitTest
                 i++;
             }
 
+            // Temporary Hands with expected result
             var handSets = new string[] {
         "♣1♦1♥1♥1♠1", "♣1♥1♥2♠10♦K", "♦2♦5♦8♦K♦A"
     };

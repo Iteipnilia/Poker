@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace Poker.Lib.UnitTest
 {
+    [TestFixture]
     public class TestsDeck
     {
         Deck testDeck;
@@ -48,9 +49,8 @@ namespace Poker.Lib.UnitTest
         [Test]
         public void TakesCardAtFirstIndexOfList()
         {
-            Deck scoopDeck= new Deck();
-            CollectionAssert.AreEqual(scoopDeck, tempDeck);
-            Card tempCardOne= scoopDeck.GetTopCard();
+            CollectionAssert.AreEqual(testDeck, tempDeck);
+            Card tempCardOne= testDeck.GetTopCard();
             Card tempCardTwo= tempDeck.GetTopCard();
             Assert.AreEqual(tempCardOne,tempCardTwo );
         }
@@ -67,17 +67,37 @@ namespace Poker.Lib.UnitTest
         [Test]
         public void CanPutBackCard()
         {
-            Deck scoopDeck= new Deck();
-
-            scoopDeck.Cards.Clear();
+            tempDeck.Cards.Clear();
 
             foreach(Card card in testDeck)
             {
-                scoopDeck.PutBackCard(card);
+                tempDeck.PutBackCard(card);
             }
 
-            CollectionAssert.AreEquivalent(scoopDeck, testDeck);          
+            CollectionAssert.AreEquivalent(tempDeck, testDeck);
+            Assert.That(tempDeck, Has.Exactly(52).Items);          
 
+        }
+        [Test]
+        public void PutBackCardDoesThrowException()
+        {
+            Card tempCard= new Card(Suite.Hearts, Rank.Five);
+
+            Assert.Throws<ArgumentException>(
+            () => testDeck.PutBackCard(tempCard));
+
+            Assert.That(testDeck, Has.Exactly(52).Items);
+
+        }
+
+        [Test]
+        public void GetTopCardDoesThrowException()
+        {
+            testDeck.Cards.Clear();
+            Assert.IsEmpty(testDeck);
+
+            Assert.Throws<NullReferenceException>(
+            () => testDeck.GetTopCard());
         }
 
         

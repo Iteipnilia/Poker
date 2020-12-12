@@ -1,13 +1,16 @@
+
 using System.Collections.Generic;
 
 namespace Poker
 {
     class Table
     {
-        private Deck deck{get;set;}
+        private Deck deck{ get; set; }
+        public Deck Deck{get=>deck;}
         private List<Player> players;
         public List<Player> Players{get=> players; set =>players=value;}
         private List<Card> discardedCards;
+        public List<Card> DiscardedCards{get=>discardedCards;}
 
 
         public Table()
@@ -56,6 +59,17 @@ namespace Poker
             }
         }
 
+        //====================================================
+        // DISCARD CARD: Removes choosen card from
+        // a players hand and adds it to discardedCard<List>,
+        // wich holds all players discarded cards
+        //====================================================
+        public void DiscardCard(Player player, Card card)
+        {
+            discardedCards.Add(card);
+            player.Hands.RemoveCard(card);
+        }
+
         //===========================================
         // REPLACEMENTCARDS: Gives a specific player,
         // a specific number of new cards, depending 
@@ -67,17 +81,6 @@ namespace Poker
             {
                 player.ReceiveCards(deck.GetTopCard());
             }
-        }
-
-        //====================================================
-        // DISCARD CARD: Removes choosen card from
-        // a players hand and adds it to discardedCard<List>,
-        // wich holds all players discarded cards
-        //====================================================
-        public void DiscardCard(Player player, Card card)
-        {
-            player.Hands.RemoveCard(card);
-            discardedCards.Add(card);
         }
 
         //==========================================================
