@@ -38,6 +38,11 @@ namespace Poker
 
         public void PutBackCard(Card card)
         {
+            if(cards.Count()>=52)
+            {
+                throw new ArgumentException("The deck is full, can not add more cards", nameof(cards));
+            }
+            
             this.cards.Add(card);
         }
 
