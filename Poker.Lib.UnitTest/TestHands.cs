@@ -18,6 +18,27 @@ namespace Poker.Lib.UnitTest
         }
 
         [Test]
+        public void CardsCanBeAddedToHand() 
+        {
+            List<Card> cards = new List<Card> 
+            { 
+                (Clubs, Two), (Diamonds, Three), (Hearts, Four), 
+                (Spades, Five), (Clubs, Six) 
+            };
+            
+            Hands hand = new Hands();
+            
+            CollectionAssert.IsEmpty(hand.Hand);
+
+            foreach(Card card in cards)
+            {
+                hand.AddCardToHand(card);
+            }
+
+            CollectionAssert.AreEqual(cards, hand.Hand);
+        }
+
+        [Test]
         public void IsHandSortedCorrect()
         {
             int i=0;
