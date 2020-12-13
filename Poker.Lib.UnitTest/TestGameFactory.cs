@@ -1,14 +1,7 @@
 using NUnit.Framework;
-using Poker;
 using System;
 using System.IO;
-using System.Linq;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using static Poker.Suite;
-using static Poker.Rank;
-using static Poker.HandType;
 
 namespace Poker.Lib.UnitTest
 {
