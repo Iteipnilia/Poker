@@ -1,0 +1,6 @@
+{
+    "workbench.colorTheme": "Visual Studio 2019 Dark",
+    "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+    "coverage-gutters.lcovname": "lcov.opencover.xml",
+    "dotnet-test-explorer.testProjectPath": "Poker.Lib.UnitTest"
+}

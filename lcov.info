@@ -1,0 +1,865 @@
+SF:c:\Users\Linus\Documents\Programmering\Poker\PokerLib\Card.cs
+FN:5,Poker.Suite Poker.Card::get_suite()
+FNDA:15157,Poker.Suite Poker.Card::get_suite()
+DA:6,15157
+FN:6,Poker.Suite Poker.Card::get_Suite()
+FNDA:12159,Poker.Suite Poker.Card::get_Suite()
+DA:7,12159
+FN:7,Poker.Rank Poker.Card::get_rank()
+FNDA:9579,Poker.Rank Poker.Card::get_rank()
+DA:8,9579
+FN:8,Poker.Rank Poker.Card::get_Rank()
+FNDA:6581,Poker.Rank Poker.Card::get_Rank()
+DA:9,6581
+FN:17,Poker.Card Poker.Card::op_Implicit(System.ValueTuple`2<Poker.Suite,Poker.Rank>)
+FNDA:395,Poker.Card Poker.Card::op_Implicit(System.ValueTuple`2<Poker.Suite,Poker.Rank>)
+DA:18,395
+FN:20,System.String Poker.Card::ToString()
+FNDA:0,System.String Poker.Card::ToString()
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:34,0
+DA:35,0
+DA:36,0
+BRDA:22,9,0,0
+BRDA:22,9,1,0
+BRDA:22,13,3,0
+BRDA:22,13,4,0
+BRDA:22,13,1,0
+BRDA:22,13,0,0
+BRDA:22,13,2,0
+BRDA:27,69,0,0
+BRDA:27,69,1,0
+BRDA:22,82,0,0
+BRDA:22,82,1,0
+BRDA:28,89,4,0
+BRDA:28,89,3,0
+BRDA:28,89,2,0
+BRDA:28,89,1,0
+BRDA:28,89,0,0
+BRDA:34,165,0,0
+BRDA:34,165,1,0
+FN:38,System.Boolean Poker.Card::Equals(System.Object)
+FNDA:5852,System.Boolean Poker.Card::Equals(System.Object)
+DA:39,5852
+DA:41,5852
+DA:42,0
+DA:43,0
+DA:46,5852
+DA:47,5852
+DA:48,5852
+DA:50,5852
+BRDA:41,2,0,5852
+BRDA:41,2,1,0
+BRDA:41,29,0,0
+BRDA:41,29,1,5852
+BRDA:48,56,0,1658
+BRDA:48,56,1,4194
+FN:52,System.Boolean Poker.Card::op_Equality(Poker.Card,Poker.Card)
+FNDA:0,System.Boolean Poker.Card::op_Equality(Poker.Card,Poker.Card)
+DA:53,0
+DA:55,0
+DA:56,0
+DA:57,0
+DA:58,0
+DA:60,0
+DA:63,0
+DA:66,0
+DA:67,0
+BRDA:55,7,0,0
+BRDA:57,16,0,0
+BRDA:57,16,1,0
+BRDA:55,7,1,0
+FN:68,System.Boolean Poker.Card::op_Inequality(Poker.Card,Poker.Card)
+FNDA:0,System.Boolean Poker.Card::op_Inequality(Poker.Card,Poker.Card)
+DA:69,0
+DA:70,0
+DA:71,0
+FN:10,System.Void Poker.Card::.ctor(Poker.Suite,Poker.Rank)
+FNDA:2998,System.Void Poker.Card::.ctor(Poker.Suite,Poker.Rank)
+DA:11,2998
+DA:12,2998
+DA:13,2998
+DA:14,2998
+DA:15,2998
+LF:46
+LH:16
+BRF:28
+BRH:4
+FNF:10
+FNH:7
+end_of_record
+SF:c:\Users\Linus\Documents\Programmering\Poker\PokerLib\Deck.cs
+FN:10,System.Collections.Generic.List`1<Poker.Card> Poker.Deck::get_Cards()
+FNDA:6,System.Collections.Generic.List`1<Poker.Card> Poker.Deck::get_Cards()
+DA:11,6
+FN:24,Poker.Card Poker.Deck::GetTopCard()
+FNDA:159,Poker.Card Poker.Deck::GetTopCard()
+DA:25,159
+DA:26,159
+DA:27,1
+DA:28,1
+DA:33,158
+DA:34,158
+DA:36,158
+DA:37,158
+BRDA:26,17,0,1
+BRDA:26,17,1,158
+FN:39,System.Void Poker.Deck::PutBackCard(Poker.Card)
+FNDA:83,System.Void Poker.Deck::PutBackCard(Poker.Card)
+DA:40,83
+DA:41,83
+DA:42,1
+DA:43,1
+DA:46,82
+DA:47,82
+BRDA:41,21,0,1
+BRDA:41,21,1,82
+FN:49,System.Void Poker.Deck::Shuffle()
+FNDA:36,System.Void Poker.Deck::Shuffle()
+DA:50,36
+DA:51,36
+DA:53,3744
+DA:54,1836
+DA:55,1836
+DA:57,1836
+DA:58,1836
+DA:59,1836
+DA:60,1836
+DA:61,36
+BRDA:53,100,1,1836
+BRDA:53,100,0,36
+FN:61,System.Collections.IEnumerator Poker.Deck::GetEnumerator()
+FNDA:22,System.Collections.IEnumerator Poker.Deck::GetEnumerator()
+DA:62,22
+FN:64,System.Collections.Generic.IEnumerator`1<Poker.Card> Poker.Deck::System.Collections.Generic.IEnumerable<Poker.Card>.GetEnumerator()
+FNDA:0,System.Collections.Generic.IEnumerator`1<Poker.Card> Poker.Deck::System.Collections.Generic.IEnumerable<Poker.Card>.GetEnumerator()
+DA:65,0
+DA:66,0
+DA:67,0
+FN:9,System.Void Poker.Deck::.ctor()
+FNDA:50,System.Void Poker.Deck::.ctor()
+DA:10,50
+DA:13,50
+DA:14,50
+DA:15,550
+DA:16,200
+DA:17,5800
+DA:18,2600
+DA:19,2600
+DA:20,2600
+DA:21,200
+DA:22,50
+BRDA:15,151,1,200
+BRDA:17,119,1,2600
+BRDA:17,119,0,200
+BRDA:15,151,0,50
+LF:40
+LH:37
+BRF:10
+BRH:10
+FNF:7
+FNH:6
+end_of_record
+SF:c:\Users\Linus\Documents\Programmering\Poker\PokerLib\Game.cs
+FN:19,Poker.IPlayer[] Poker.Game::get_Players()
+FNDA:0,Poker.IPlayer[] Poker.Game::get_Players()
+DA:20,0
+FN:59,System.Void Poker.Game::RunGame()
+FNDA:0,System.Void Poker.Game::RunGame()
+DA:60,0
+DA:61,0
+DA:62,0
+DA:63,0
+DA:64,0
+DA:65,0
+DA:66,0
+DA:67,0
+DA:68,0
+DA:69,0
+DA:70,0
+DA:71,0
+DA:72,0
+DA:73,0
+DA:74,0
+DA:75,0
+DA:76,0
+DA:77,0
+DA:78,0
+DA:79,0
+DA:80,0
+DA:81,0
+BRDA:65,192,1,0
+BRDA:69,128,1,0
+BRDA:69,128,0,0
+BRDA:65,192,0,0
+FN:84,System.Void Poker.Game::CompareHands(Poker.IPlayer[])
+FNDA:17,System.Void Poker.Game::CompareHands(Poker.IPlayer[])
+DA:85,17
+DA:90,17
+DA:91,17
+DA:92,125
+DA:93,37
+DA:94,37
+DA:95,15
+DA:96,15
+DA:97,15
+DA:98,15
+DA:99,37
+DA:100,33
+DA:101,33
+DA:102,33
+DA:103,37
+DA:104,17
+DA:105,1
+DA:106,1
+DA:107,1
+DA:108,1
+DA:109,16
+DA:110,16
+DA:111,16
+DA:112,2
+DA:113,2
+DA:114,2
+DA:115,14
+DA:116,14
+DA:117,8
+DA:118,8
+DA:119,8
+DA:120,6
+DA:121,2
+DA:122,10
+DA:123,4
+DA:124,12
+DA:125,12
+DA:126,5
+DA:127,3
+DA:128,2
+DA:129,1
+DA:130,1
+DA:131,1
+DA:132,2
+DA:133,4
+DA:134,2
+DA:135,2
+DA:136,2
+DA:137,0
+DA:138,0
+DA:139,0
+DA:140,2
+DA:141,2
+DA:142,1
+DA:143,1
+DA:144,1
+DA:145,1
+DA:146,1
+DA:147,1
+DA:148,1
+DA:150,16
+DA:151,12
+DA:152,12
+DA:153,12
+DA:154,12
+DA:156,4
+DA:157,4
+DA:158,4
+DA:159,16
+DA:160,17
+BRDA:92,114,1,37
+BRDA:94,46,0,15
+BRDA:94,46,1,37
+BRDA:99,92,0,33
+BRDA:99,92,1,37
+BRDA:92,114,0,17
+BRDA:104,129,0,1
+BRDA:107,152,0,1
+BRDA:107,152,1,0
+BRDA:104,129,1,16
+BRDA:109,189,0,16
+BRDA:111,203,0,2
+BRDA:111,203,1,14
+BRDA:115,221,0,12
+BRDA:115,225,0,10
+BRDA:115,229,0,8
+BRDA:115,221,1,6
+BRDA:115,225,1,6
+BRDA:115,229,1,6
+BRDA:115,242,0,8
+BRDA:115,242,1,6
+BRDA:120,267,0,2
+BRDA:122,420,1,4
+BRDA:126,381,1,3
+BRDA:126,381,0,2
+BRDA:122,420,0,2
+BRDA:128,438,0,1
+BRDA:128,438,1,2
+BRDA:120,267,1,4
+BRDA:133,455,0,3
+BRDA:133,455,1,1
+BRDA:133,468,0,2
+BRDA:136,492,0,0
+BRDA:136,492,1,2
+BRDA:133,468,1,2
+BRDA:141,515,0,1
+BRDA:141,515,1,1
+BRDA:145,538,0,1
+BRDA:147,548,0,1
+BRDA:147,548,1,0
+BRDA:145,538,1,16
+BRDA:150,583,0,12
+BRDA:153,606,0,12
+BRDA:153,606,1,0
+BRDA:150,583,1,4
+BRDA:157,635,0,4
+BRDA:157,635,1,0
+BRDA:109,189,1,17
+FN:162,System.Collections.Generic.List`1<Poker.Player> Poker.Game::HighestRankCards(System.Collections.Generic.List`1<Poker.Player>)
+FNDA:14,System.Collections.Generic.List`1<Poker.Player> Poker.Game::HighestRankCards(System.Collections.Generic.List`1<Poker.Player>)
+DA:163,14
+DA:164,64
+DA:165,29
+DA:166,87
+DA:167,87
+DA:168,40
+DA:169,18
+DA:170,14
+DA:171,14
+BRDA:164,134,1,29
+BRDA:168,100,1,18
+BRDA:168,100,0,14
+BRDA:164,134,0,14
+FN:173,System.Collections.Generic.List`1<Poker.Player> Poker.Game::BestDuplicate(System.Collections.Generic.List`1<Poker.Player>)
+FNDA:6,System.Collections.Generic.List`1<Poker.Player> Poker.Game::BestDuplicate(System.Collections.Generic.List`1<Poker.Player>)
+DA:174,6
+DA:175,18
+DA:176,18
+DA:177,6
+DA:178,4
+DA:179,4
+DA:180,4
+DA:181,6
+DA:182,6
+BRDA:177,91,0,4
+BRDA:177,91,1,6
+FN:184,System.Collections.Generic.List`1<Poker.Player> Poker.Game::BestThreeDuplicate(System.Collections.Generic.List`1<Poker.Player>)
+FNDA:3,System.Collections.Generic.List`1<Poker.Player> Poker.Game::BestThreeDuplicate(System.Collections.Generic.List`1<Poker.Player>)
+DA:185,3
+DA:186,9
+DA:187,9
+DA:188,3
+DA:189,0
+DA:190,0
+DA:191,0
+DA:192,3
+DA:193,3
+BRDA:188,91,0,0
+BRDA:188,91,1,3
+FN:194,System.Collections.Generic.List`1<Poker.Player> Poker.Game::BestFourDuplicate(System.Collections.Generic.List`1<Poker.Player>)
+FNDA:1,System.Collections.Generic.List`1<Poker.Player> Poker.Game::BestFourDuplicate(System.Collections.Generic.List`1<Poker.Player>)
+DA:195,1
+DA:196,3
+DA:197,3
+DA:198,1
+DA:199,0
+DA:200,0
+DA:201,0
+DA:202,1
+DA:203,1
+BRDA:198,91,0,0
+BRDA:198,91,1,1
+FN:205,System.Void Poker.Game::SaveGameAndExit(System.String)
+FNDA:0,System.Void Poker.Game::SaveGameAndExit(System.String)
+DA:206,0
+DA:210,0
+DA:211,0
+DA:213,0
+DA:214,0
+DA:215,0
+DA:216,0
+DA:217,0
+DA:219,0
+DA:220,0
+DA:221,0
+DA:222,0
+DA:223,0
+BRDA:213,86,1,0
+BRDA:213,86,0,0
+FN:225,System.Void Poker.Game::Exit()
+FNDA:0,System.Void Poker.Game::Exit()
+DA:226,0
+DA:227,0
+DA:228,0
+FN:20,System.Void Poker.Game::.ctor(System.String)
+FNDA:0,System.Void Poker.Game::.ctor(System.String)
+DA:21,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+BRDA:26,27,0,0
+BRDA:34,122,1,0
+BRDA:34,122,0,0
+BRDA:26,27,1,0
+FN:40,System.Void Poker.Game::.ctor(System.String[])
+FNDA:21,System.Void Poker.Game::.ctor(System.String[])
+DA:41,21
+DA:42,21
+DA:43,21
+DA:44,21
+DA:45,0
+DA:46,0
+DA:47,0
+DA:48,0
+DA:50,21
+DA:51,132
+DA:52,45
+DA:53,45
+DA:54,45
+DA:55,0
+DA:56,21
+DA:57,21
+BRDA:44,38,0,0
+BRDA:44,38,1,21
+BRDA:51,119,1,45
+BRDA:51,108,0,45
+BRDA:51,108,1,21
+BRDA:51,119,0,21
+BRDA:55,129,0,0
+BRDA:55,129,1,21
+LF:177
+LH:108
+BRF:76
+BRH:57
+FNF:11
+FNH:6
+end_of_record
+SF:c:\Users\Linus\Documents\Programmering\Poker\PokerLib\Hands.cs
+FN:9,Poker.HandType Poker.Hands::get_HandType()
+FNDA:223,Poker.HandType Poker.Hands::get_HandType()
+DA:10,223
+FN:10,System.Collections.Generic.List`1<Poker.Card> Poker.Hands::get_Hand()
+FNDA:1353,System.Collections.Generic.List`1<Poker.Card> Poker.Hands::get_Hand()
+DA:11,1353
+FN:11,System.Collections.Generic.List`1<Poker.Rank> Poker.Hands::get_CardRank()
+FNDA:282,System.Collections.Generic.List`1<Poker.Rank> Poker.Hands::get_CardRank()
+DA:12,282
+FN:12,System.Collections.Generic.List`1<Poker.Rank> Poker.Hands::get_DuplicateRank()
+FNDA:64,System.Collections.Generic.List`1<Poker.Rank> Poker.Hands::get_DuplicateRank()
+DA:13,64
+FN:13,System.Collections.Generic.List`1<Poker.Rank> Poker.Hands::get_ThreeDuplicateRank()
+FNDA:26,System.Collections.Generic.List`1<Poker.Rank> Poker.Hands::get_ThreeDuplicateRank()
+DA:14,26
+FN:14,System.Collections.Generic.List`1<Poker.Rank> Poker.Hands::get_FourDuplicateRank()
+FNDA:11,System.Collections.Generic.List`1<Poker.Rank> Poker.Hands::get_FourDuplicateRank()
+DA:15,11
+FN:15,System.Boolean Poker.Hands::Contains(Poker.Rank)
+FNDA:133,System.Boolean Poker.Hands::Contains(Poker.Rank)
+DA:16,133
+FN:23,Poker.HandType Poker.Hands::Eval()
+FNDA:72,Poker.HandType Poker.Hands::Eval()
+DA:24,72
+DA:26,72
+DA:27,7
+DA:28,65
+DA:29,9
+DA:30,56
+DA:31,5
+DA:32,51
+DA:33,5
+DA:34,46
+DA:35,8
+DA:36,38
+DA:37,8
+DA:38,30
+DA:39,5
+DA:40,25
+DA:41,8
+DA:42,17
+DA:43,8
+DA:45,9
+DA:46,9
+DA:47,9
+DA:49,432
+DA:50,432
+DA:52,72
+DA:53,16
+DA:54,96
+DA:55,72
+DA:56,40
+DA:57,40
+DA:58,16
+DA:59,72
+DA:60,10
+DA:61,60
+DA:62,35
+DA:63,20
+DA:64,20
+DA:65,10
+DA:66,72
+DA:67,5
+DA:68,30
+DA:69,15
+DA:70,10
+DA:71,10
+DA:72,5
+DA:73,72
+DA:74,72
+DA:75,72
+BRDA:26,9,0,7
+BRDA:26,9,1,65
+BRDA:28,27,0,9
+BRDA:28,27,1,56
+BRDA:30,41,0,5
+BRDA:30,41,1,51
+BRDA:32,57,0,5
+BRDA:32,57,1,46
+BRDA:34,73,0,8
+BRDA:34,73,1,38
+BRDA:36,89,0,8
+BRDA:36,89,1,30
+BRDA:38,105,0,5
+BRDA:38,105,1,25
+BRDA:40,121,0,8
+BRDA:40,121,1,17
+BRDA:42,137,0,8
+BRDA:42,137,1,9
+BRDA:52,239,0,64
+BRDA:52,239,1,8
+BRDA:52,252,0,16
+BRDA:52,252,1,72
+BRDA:59,423,0,67
+BRDA:59,423,1,5
+BRDA:59,436,0,10
+BRDA:59,436,1,72
+BRDA:66,613,0,5
+BRDA:66,613,1,72
+FN:79,System.Boolean Poker.Hands::get_IsPair()
+FNDA:68,System.Boolean Poker.Hands::get_IsPair()
+DA:80,68
+DA:81,408
+DA:82,351
+DA:83,68
+DA:84,68
+FN:88,System.Boolean Poker.Hands::get_IsTwoPair()
+FNDA:25,System.Boolean Poker.Hands::get_IsTwoPair()
+DA:89,25
+DA:90,150
+DA:91,126
+DA:92,25
+DA:93,25
+FN:98,System.Boolean Poker.Hands::get_IsThreeOfAKind()
+FNDA:43,System.Boolean Poker.Hands::get_IsThreeOfAKind()
+DA:99,43
+DA:100,258
+DA:101,197
+DA:102,43
+DA:103,43
+FN:108,System.Boolean Poker.Hands::get_IsFourOfAKind()
+FNDA:56,System.Boolean Poker.Hands::get_IsFourOfAKind()
+DA:109,56
+DA:110,336
+DA:111,271
+DA:112,56
+DA:113,56
+FN:118,System.Boolean Poker.Hands::get_IsFlush()
+FNDA:87,System.Boolean Poker.Hands::get_IsFlush()
+DA:119,87
+DA:120,522
+DA:121,87
+FN:126,System.Boolean Poker.Hands::get_IsFullHouse()
+FNDA:51,System.Boolean Poker.Hands::get_IsFullHouse()
+DA:127,51
+DA:128,51
+DA:129,51
+BRDA:128,7,0,13
+BRDA:128,7,1,38
+FN:134,System.Boolean Poker.Hands::get_IsStraight()
+FNDA:175,System.Boolean Poker.Hands::get_IsStraight()
+DA:135,175
+DA:136,1050
+DA:137,175
+DA:138,5
+DA:139,5
+DA:141,170
+DA:142,778
+DA:143,345
+DA:144,345
+DA:145,126
+DA:146,219
+DA:147,44
+DA:148,175
+BRDA:137,62,0,75
+BRDA:137,76,0,11
+BRDA:137,91,0,5
+BRDA:137,106,0,5
+BRDA:137,62,1,170
+BRDA:137,76,1,170
+BRDA:137,91,1,170
+BRDA:137,106,1,170
+BRDA:137,128,0,5
+BRDA:137,128,1,170
+BRDA:142,206,1,345
+BRDA:144,179,0,126
+BRDA:144,179,1,219
+BRDA:142,206,0,44
+FN:154,System.Boolean Poker.Hands::get_IsStraightFlush()
+FNDA:65,System.Boolean Poker.Hands::get_IsStraightFlush()
+DA:155,65
+DA:156,65
+DA:157,65
+BRDA:156,7,0,17
+BRDA:156,7,1,48
+FN:162,System.Boolean Poker.Hands::get_IsRoyalStraightFlush()
+FNDA:72,System.Boolean Poker.Hands::get_IsRoyalStraightFlush()
+DA:163,72
+DA:164,72
+DA:165,72
+BRDA:164,7,0,24
+BRDA:164,15,0,16
+BRDA:164,25,0,8
+BRDA:164,7,1,64
+BRDA:164,15,1,64
+BRDA:164,25,1,64
+FN:168,System.Void Poker.Hands::SortHand()
+FNDA:4,System.Void Poker.Hands::SortHand()
+DA:169,4
+DA:170,44
+DA:171,4
+FN:172,System.Void Poker.Hands::AddCardToHand(Poker.Card)
+FNDA:551,System.Void Poker.Hands::AddCardToHand(Poker.Card)
+DA:173,551
+DA:174,551
+DA:175,551
+FN:176,System.Void Poker.Hands::RemoveCard(Poker.Card)
+FNDA:31,System.Void Poker.Hands::RemoveCard(Poker.Card)
+DA:177,31
+DA:178,31
+DA:179,31
+FN:17,System.Void Poker.Hands::.ctor()
+FNDA:158,System.Void Poker.Hands::.ctor()
+DA:18,158
+DA:19,158
+DA:20,158
+DA:21,158
+LF:113
+LH:113
+BRF:52
+BRH:52
+FNF:21
+FNH:21
+end_of_record
+SF:c:\Users\Linus\Documents\Programmering\Poker\PokerLib\Player.cs
+FN:5,System.String Poker.Player::get_name()
+FNDA:159,System.String Poker.Player::get_name()
+DA:6,159
+FN:6,System.String Poker.Player::get_Name()
+FNDA:4,System.String Poker.Player::get_Name()
+DA:7,4
+FN:8,System.Int32 Poker.Player::get_Wins()
+FNDA:0,System.Int32 Poker.Player::get_Wins()
+DA:9,0
+FN:9,Poker.ICard[] Poker.Player::get_Discard()
+FNDA:0,Poker.ICard[] Poker.Player::get_Discard()
+DA:10,0
+FN:10,Poker.HandType Poker.Player::get_HandType()
+FNDA:0,Poker.HandType Poker.Player::get_HandType()
+DA:11,0
+FN:12,Poker.ICard[] Poker.Player::get_Hand()
+FNDA:20,Poker.ICard[] Poker.Player::get_Hand()
+DA:13,20
+FN:27,Poker.Hands Poker.Player::get_Hands()
+FNDA:3225,Poker.Hands Poker.Player::get_Hands()
+DA:28,3225
+FN:28,System.Void Poker.Player::set_Hands(Poker.Hands)
+FNDA:0,System.Void Poker.Player::set_Hands(Poker.Hands)
+DA:29,0
+FN:32,System.Void Poker.Player::SortPlayerHand()
+FNDA:4,System.Void Poker.Player::SortPlayerHand()
+DA:33,4
+DA:34,4
+DA:35,4
+FN:37,System.Void Poker.Player::ReceiveCards(Poker.Card)
+FNDA:351,System.Void Poker.Player::ReceiveCards(Poker.Card)
+DA:38,351
+DA:39,351
+DA:40,351
+FN:42,System.Void Poker.Player::Win()
+FNDA:15,System.Void Poker.Player::Win()
+DA:43,15
+DA:44,15
+DA:45,15
+FN:11,System.Void Poker.Player::.ctor(System.String)
+FNDA:155,System.Void Poker.Player::.ctor(System.String)
+DA:12,155
+DA:15,118
+DA:16,118
+DA:17,118
+DA:18,118
+DA:19,118
+FN:19,System.Void Poker.Player::.ctor(System.String,System.Int32)
+FNDA:37,System.Void Poker.Player::.ctor(System.String,System.Int32)
+DA:20,37
+DA:21,37
+DA:22,37
+DA:23,37
+DA:24,37
+LF:28
+LH:24
+BRF:0
+BRH:0
+FNF:13
+FNH:9
+end_of_record
+SF:c:\Users\Linus\Documents\Programmering\Poker\PokerLib\Table.cs
+FN:8,Poker.Deck Poker.Table::get_deck()
+FNDA:256,Poker.Deck Poker.Table::get_deck()
+DA:9,256
+FN:9,Poker.Deck Poker.Table::get_Deck()
+FNDA:3,Poker.Deck Poker.Table::get_Deck()
+DA:10,3
+FN:11,System.Collections.Generic.List`1<Poker.Player> Poker.Table::get_Players()
+FNDA:0,System.Collections.Generic.List`1<Poker.Player> Poker.Table::get_Players()
+DA:12,0
+FN:13,System.Collections.Generic.List`1<Poker.Card> Poker.Table::get_DiscardedCards()
+FNDA:2,System.Collections.Generic.List`1<Poker.Card> Poker.Table::get_DiscardedCards()
+DA:14,2
+FN:33,System.Void Poker.Table::AddPlayerToTable(System.String)
+FNDA:78,System.Void Poker.Table::AddPlayerToTable(System.String)
+DA:34,78
+DA:35,78
+DA:36,76
+DA:37,76
+DA:38,76
+DA:39,78
+BRDA:35,2,0,78
+BRDA:35,2,1,0
+BRDA:35,23,0,76
+BRDA:35,23,1,78
+FN:40,System.Void Poker.Table::AddPlayerToTable(System.String,System.Int32)
+FNDA:0,System.Void Poker.Table::AddPlayerToTable(System.String,System.Int32)
+DA:41,0
+DA:42,0
+DA:43,0
+DA:44,0
+DA:45,0
+DA:46,0
+BRDA:42,2,0,0
+BRDA:42,2,1,0
+BRDA:42,23,0,0
+BRDA:42,23,1,0
+FN:52,System.Void Poker.Table::DealTable()
+FNDA:10,System.Void Poker.Table::DealTable()
+DA:53,10
+DA:54,120
+DA:55,50
+DA:56,450
+DA:57,150
+DA:58,150
+DA:59,150
+DA:60,50
+DA:61,10
+BRDA:54,86,1,50
+BRDA:56,56,1,150
+BRDA:56,56,0,50
+BRDA:54,86,0,10
+FN:68,System.Void Poker.Table::DiscardCard(Poker.Player,Poker.Card)
+FNDA:31,System.Void Poker.Table::DiscardCard(Poker.Player,Poker.Card)
+DA:69,31
+DA:70,31
+DA:71,31
+DA:72,31
+FN:79,System.Void Poker.Table::ReplacementCards(Poker.Player,System.Int32)
+FNDA:1,System.Void Poker.Table::ReplacementCards(Poker.Player,System.Int32)
+DA:80,1
+DA:81,12
+DA:82,5
+DA:83,5
+DA:84,5
+DA:85,1
+BRDA:81,35,1,5
+BRDA:81,35,0,1
+FN:93,System.Void Poker.Table::RebuildDeck()
+FNDA:2,System.Void Poker.Table::RebuildDeck()
+DA:94,2
+DA:95,12
+DA:96,3
+DA:97,39
+DA:98,15
+DA:99,15
+DA:100,15
+DA:101,3
+DA:102,66
+DA:103,30
+DA:104,30
+DA:105,30
+DA:106,2
+DA:108,2
+DA:109,1
+DA:110,1
+DA:112,1
+BRDA:95,77,1,3
+BRDA:97,67,1,15
+BRDA:97,67,0,3
+BRDA:95,77,0,2
+BRDA:102,144,1,30
+BRDA:102,144,0,2
+BRDA:108,199,0,1
+BRDA:108,199,1,1
+FN:16,System.Void Poker.Table::.ctor()
+FNDA:33,System.Void Poker.Table::.ctor()
+DA:17,33
+DA:18,33
+DA:19,33
+DA:20,33
+DA:21,33
+DA:22,33
+DA:23,33
+LF:59
+LH:52
+BRF:22
+BRH:17
+FNF:11
+FNH:9
+end_of_record
+SF:c:\Users\Linus\Documents\Programmering\Poker\PokerLib\GameFactory.cs
+FN:5,Poker.Lib.IPokerGame Poker.Lib.GameFactory::NewGame(System.String[])
+FNDA:0,Poker.Lib.IPokerGame Poker.Lib.GameFactory::NewGame(System.String[])
+DA:6,0
+DA:7,0
+DA:8,0
+DA:9,0
+FN:11,Poker.Lib.IPokerGame Poker.Lib.GameFactory::LoadGame(System.String)
+FNDA:0,Poker.Lib.IPokerGame Poker.Lib.GameFactory::LoadGame(System.String)
+DA:12,0
+DA:13,0
+DA:14,0
+DA:15,0
+LF:8
+LH:0
+BRF:0
+BRH:0
+FNF:2
+FNH:0
+end_of_record
