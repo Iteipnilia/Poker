@@ -133,10 +133,6 @@ namespace Poker
                 else if (BestHandType == HandType.ThreeOfAKind || BestHandType == HandType.FullHouse)
                 {
                     BestHand = BestThreeDuplicate(BestHand);
-                    if (BestHand.Count > 1)
-                    {
-                        BestHand = BestDuplicate(BestHand);
-                    }
                 }
                 else if (BestHandType == HandType.FourOfAKind)
                 {
@@ -185,20 +181,12 @@ namespace Poker
         {
             Rank BestThreeDuplicate = players.Select(player => player.Hands.ThreeDuplicateRank.First()).Max();
             players = players.Where(player => player.Hands.ThreeDuplicateRank.First() == BestThreeDuplicate).ToList();
-            if (players.Count > 1)
-            {
-                players = HighestRankCards(players);
-            }
             return players;
         }
         public List<Player> BestFourDuplicate(List<Player> players)
         {
             Rank BestFourDuplicate = players.Select(player => player.Hands.FourDuplicateRank.First()).Max();
             players = players.Where(player => player.Hands.FourDuplicateRank.First() == BestFourDuplicate).ToList();
-            if (players.Count > 1)
-            {
-                players = HighestRankCards(players);
-            }
             return players;
         }
 
