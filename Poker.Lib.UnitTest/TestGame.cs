@@ -1,14 +1,8 @@
 using NUnit.Framework;
-using Poker;
 using System;
 using System.IO;
-using System.Linq;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using static Poker.Suite;
-using static Poker.Rank;
-using static Poker.HandType;
 
 namespace Poker.Lib.UnitTest
 {
@@ -26,7 +20,7 @@ namespace Poker.Lib.UnitTest
         public void PokerGameCreatesPlayersIfZero()
         {
             Table table = new Table();
-            Game Game = new Game(new string[0] {});
+            Game Game = new Game(new string[0] { });
             table.AddPlayerToTable("");
 
             Assert.AreEqual(2, game.Players.Length);
@@ -65,9 +59,9 @@ namespace Poker.Lib.UnitTest
             int[] Wins = JsonConvert.DeserializeObject<int[]>(data[1]);
 
             for (int i = 0; i < names.Length; i++)
-                {
-                    table.AddPlayerToTable(names[i], wins[i]);
-                }
+            {
+                table.AddPlayerToTable(names[i], wins[i]);
+            }
 
 
             game = GameFactory.LoadGame(fileName);
@@ -129,12 +123,23 @@ namespace Poker.Lib.UnitTest
         [Test]
         public void GameSaveAndExitAfterSave()
         {
-            
-        }
-
-        [Test]
-        public void GameCanRunAGame()
-        {
+            string fileName = "savedGame.txt";
+            IPokerGame Game;
+            Game = GameFactory.NewGame(new string[2] { "Test1", "Test2" });
+            game = (Game)Game;
+            Assert.IsTrue(game.GameIsRunning);
+            //act
+            game.SaveGameAndExit(fileName);
+            string Json = File.ReadAllText(fileName);
+            string[] data = Json.Split(' ');
+            string[] Names = JsonConvert.DeserializeObject<String[]>(data[0]);
+            int[] Wins = JsonConvert.DeserializeObject<int[]>(data[1]);
+            //assert
+            Assert.IsFalse(game.GameIsRunning);
+            Assert.AreEqual(Names[0], "Test1");
+            Assert.AreEqual(Names[1], "Test2");
+            Assert.AreEqual(Wins[0], 0);
+            Assert.AreEqual(Wins[1], 0);
         }
 
         [Test]
@@ -223,7 +228,7 @@ namespace Poker.Lib.UnitTest
             game.BestThreeDuplicate(players);
             for (int i = 0; i < 1; i++)
             {
-            Assert.Greater(player1.Hands.ThreeDuplicateRank[i], player2.Hands.ThreeDuplicateRank[i]);
+                Assert.Greater(player1.Hands.ThreeDuplicateRank[i], player2.Hands.ThreeDuplicateRank[i]);
             }
         }
 
@@ -509,9 +514,9 @@ namespace Poker.Lib.UnitTest
             {
                 game.CompareHands(Players);
                 for (int i = 0; i < 1; i++)
-            {
-                Assert.Greater(player1.Hands.ThreeDuplicateRank[i], player2.Hands.ThreeDuplicateRank[i]);
-            }
+                {
+                    Assert.Greater(player1.Hands.ThreeDuplicateRank[i], player2.Hands.ThreeDuplicateRank[i]);
+                }
                 Assert.Greater(player1.Wins, player2.Wins);
             }
         }
@@ -542,7 +547,7 @@ namespace Poker.Lib.UnitTest
                 game.CompareHands(Players);
                 for (int i = 0; i < 1; i++)
                 {
-                   Assert.Greater(player1.Hands.FourDuplicateRank[i], player2.Hands.FourDuplicateRank[i]);
+                    Assert.Greater(player1.Hands.FourDuplicateRank[i], player2.Hands.FourDuplicateRank[i]);
                 }
                 Assert.Greater(player1.Wins, player2.Wins);
             }
@@ -690,7 +695,7 @@ namespace Poker.Lib.UnitTest
             Assert.Greater(player2.Hands.HandType, player3.Hands.HandType);
             Assert.Greater(player3.Hands.HandType, player4.Hands.HandType);
             Assert.Greater(player4.Hands.HandType, player5.Hands.HandType);
-            
+
             Assert.Greater(player1.Wins, player2.Wins);
             Assert.Greater(player1.Wins, player3.Wins);
             Assert.Greater(player1.Wins, player4.Wins);
@@ -704,6 +709,14 @@ namespace Poker.Lib.UnitTest
         [Test]
         public void CanExitGame()
         {
+            IPokerGame Game;
+            Game = GameFactory.NewGame(new string[2] { "Test1", "Test2" });
+            game = (Game)Game;
+            Assert.IsTrue(game.GameIsRunning);
+            //act
+            game.Exit();
+            //assert
+            Assert.IsFalse(game.GameIsRunning);
         }
     }
 }
