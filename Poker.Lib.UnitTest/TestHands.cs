@@ -36,6 +36,24 @@ namespace Poker.Lib.UnitTest
             }
 
             CollectionAssert.AreEqual(cards, hand.Hand);
+            Assert.That(hand.Hand, Has.Exactly(5).Items);
+        }
+
+        [Test]
+        public void CardsCanRemovedFromHand() 
+        {
+            List<Card> cards = new List<Card> 
+            {(Clubs, Two), (Diamonds, Three), (Hearts, Four), 
+            (Spades, Five), (Clubs, Six) };    
+            Hands hand = new Hands();
+
+            foreach(Card card in cards)
+            { hand.Hand.Add(card);}
+            CollectionAssert.AreEqual(cards, hand.Hand);
+
+            hand.RemoveCard(cards[0]);
+            CollectionAssert.DoesNotContain(hand.Hand, cards[0]);
+            Assert.That(hand.Hand, Has.Exactly(4).Items);          
         }
 
         [Test]
