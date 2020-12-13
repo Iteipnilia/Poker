@@ -22,9 +22,27 @@ namespace Poker.Lib.UnitTest
         }
 
         [Test]
-        public void GameCanSaveToFile()
+        public void PokerGameCreatesPlayersIfZero()
         {
+            Table table = new Table();
+            Game Game = new Game(new string[0] {});
+            table.AddPlayerToTable("");
 
+            Assert.AreEqual(2, game.Players.Length);
+            Assert.AreEqual("player1", Game.Players[0].Name);
+            Assert.AreEqual("player2", Game.Players[1].Name);
+        }
+
+        [Test]
+        public void PokerGameCreatesPlayerIfOne()
+        {
+            Table table = new Table();
+            Game Game = new Game(new string[1] { "Test1" });
+            table.AddPlayerToTable("Test1");
+
+            Assert.AreEqual(2, game.Players.Length);
+            Assert.AreEqual("Test1", Game.Players[0].Name);
+            Assert.AreEqual("player", Game.Players[1].Name);
         }
 
         [Test]
