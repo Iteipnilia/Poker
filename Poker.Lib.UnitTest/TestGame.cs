@@ -3,6 +3,7 @@ using Poker;
 using System;
 using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using static Poker.Suite;
@@ -48,10 +49,91 @@ namespace Poker.Lib.UnitTest
         [Test]
         public void GameCanLoadFile()
         {
+            IPokerGame game;
+            Table table = new Table();
+            string fileName = "savedGame.txt";
+            string[] names = new string[2] { "Test1", "Test2" };
+            int[] wins = new int[2] { 7, 3 };
+
+            string json = JsonConvert.SerializeObject(names);
+            json += (" " + JsonConvert.SerializeObject(wins));
+            File.WriteAllText(fileName, json);
+
+            string Json = File.ReadAllText(fileName);
+            string[] data = Json.Split(' ');
+            string[] Names = JsonConvert.DeserializeObject<String[]>(data[0]);
+            int[] Wins = JsonConvert.DeserializeObject<int[]>(data[1]);
+
+            for (int i = 0; i < names.Length; i++)
+                {
+                    table.AddPlayerToTable(names[i], wins[i]);
+                }
+
+
+            game = GameFactory.LoadGame(fileName);
+
+            Assert.AreEqual(game.Players[0].Name, "Test1");
+            Assert.AreEqual(game.Players[1].Name, "Test2");
+            Assert.AreEqual(game.Players[0].Wins, 7);
+            Assert.AreEqual(game.Players[1].Wins, 3);
+        }
+
+        [Test, Sequential]
+        public void GameEventsWorkandRunGame([Values(0, 1, 2, 3, 4)] int i)
+        {
+            Game game = new Game(new string[2] { "Test1", "Test2" });
+            int count = 0;
+            bool WorkingEvents = false;
+
+            game.NewDeal += IfNewDealWorks;
+            game.SelectCardsToDiscard += IfSelectCardsToDiscardWorks;
+            game.RecievedReplacementCards += IfRecievedReplacementCardsWorks;
+            game.ShowAllHands += IfShowAllHandsWorks;
+            game.Winner += IfWinnerWorks;
+            game.Draw += IfDrawWorks;
+
+            void IfNewDealWorks()
+            {
+                WorkingEvents = true;
+                count++;
+            }
+            void IfSelectCardsToDiscardWorks(IPlayer player)
+            {
+                player.Discard = new ICard[] { player.Hand[i] };
+                player.Discard = new ICard[] { player.Hand[i] };
+                WorkingEvents = true;
+                count++;
+                game.GameRunning();
+            }
+
+            void IfShowAllHandsWorks()
+            {
+                WorkingEvents = true;
+                count++;
+                game.GameRunning();
+            }
+            void IfWinnerWorks(IPlayer player)
+            {
+                WorkingEvents = true;
+                count++;
+                game.GameRunning();
+            }
+            void IfRecievedReplacementCardsWorks(IPlayer player) { }
+            void IfDrawWorks(IPlayer[] player) { }
+
+
+            game.RunGame();
+            Assert.IsTrue(WorkingEvents);
         }
 
         [Test]
-        public void GameExitAfterSave()
+        public void GameSaveAndExitAfterSave()
+        {
+            
+        }
+
+        [Test]
+        public void GameCanRunAGame()
         {
         }
 
@@ -617,6 +699,11 @@ namespace Poker.Lib.UnitTest
             Assert.AreEqual(player2.Wins, player3.Wins);
             Assert.AreEqual(player3.Wins, player4.Wins);
             Assert.AreEqual(player4.Wins, player5.Wins);
+        }
+
+        [Test]
+        public void CanExitGame()
+        {
         }
     }
 }
