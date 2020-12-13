@@ -1,4 +1,5 @@
-
+using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Poker
@@ -102,7 +103,12 @@ namespace Poker
             {
                 deck.PutBackCard(card);
             }
-            discardedCards.Clear();         
+            discardedCards.Clear();
+
+            if(deck.Cards.Count < 52)
+            {
+                throw new ArgumentException("The deck is incomplete, rebuilding failed", nameof(Deck.Cards));
+            }   
         }
     }
 }

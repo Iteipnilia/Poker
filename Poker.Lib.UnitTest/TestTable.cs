@@ -1,4 +1,6 @@
 using NUnit.Framework;
+using System;
+
 
 namespace Poker.Lib.UnitTest
 {
@@ -31,6 +33,7 @@ namespace Poker.Lib.UnitTest
         [Test]
         public void CantAddMoreThanFivePlayers()
         {
+            testTable.AddPlayerToTable("");
             testTable.AddPlayerToTable("");
             testTable.AddPlayerToTable("");
             testTable.AddPlayerToTable("");
@@ -92,6 +95,19 @@ namespace Poker.Lib.UnitTest
             testTable.RebuildDeck();
 
             CollectionAssert.AreEquivalent(tempDeck, testTable.Deck);      
-        }        
+        } 
+
+        [Test]
+        public void CantRebuildDeckWithoutCards()
+        {
+            Table tempTable= new Table();
+            tempTable.Deck.Cards.Clear();
+            
+            Assert.IsEmpty(tempTable.Deck.Cards);
+            
+            Assert.Throws<ArgumentException>(
+            () => tempTable.RebuildDeck());
+            
+        }       
     }
 }

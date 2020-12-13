@@ -8,7 +8,7 @@ namespace Poker
     class Deck : IEnumerable<Card>
     {
         private List<Card> cards = new List<Card>();
-        public List<Card> Cards {get=> cards; set =>cards=value;}
+        public List<Card> Cards {get=> cards;}
 
         public Deck()
         {
@@ -27,7 +27,7 @@ namespace Poker
             {
                 throw new NullReferenceException("Leken är tom!");
             }
-
+            
             Card drawnCard;
 
             drawnCard = this.cards.First();
@@ -38,7 +38,7 @@ namespace Poker
 
         public void PutBackCard(Card card)
         {
-            if(cards.Count()>=52)
+            if(cards.Count>=52)
             {
                 throw new ArgumentException("The deck is full, can not add more cards", nameof(cards));
             }
