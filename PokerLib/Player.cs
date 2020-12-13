@@ -1,4 +1,3 @@
-
 namespace Poker
 {
     class Player : IPlayer
@@ -26,7 +25,7 @@ namespace Poker
         public Hands Hands
         {
             get { return hand; }
-            set { value = hand; }
+            //set { value = hand; }
         }
 
         public void SortPlayerHand()
