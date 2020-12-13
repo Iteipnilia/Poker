@@ -27,7 +27,8 @@ namespace Poker.Lib.UnitTest
             Assert.That(testTable.Players[0].Name, Is.EqualTo("Name1"));
             Assert.That(testTable.Players[1].Name, Is.EqualTo("Name2"));
             Assert.That(testTable.Players[2].Name, Is.EqualTo("Name3"));
-            
+
+            Assert.IsInstanceOf<Player>(testTable.Players[0]);            
         }
 
         [Test]
