@@ -14,12 +14,12 @@ namespace Poker
         public Player(string name)
         {
             this.name = name;
-            wins = 0;
+            Wins = 0;
         }
         public Player(string name, int wins)
         {
             this.name = name;
-            this.wins = wins;
+            this.Wins = wins;
         }
 
         public Hands Hands
@@ -40,7 +40,7 @@ namespace Poker
 
         public void Win()
         {
-            wins++;
+            Wins++;
         }
     }
 }
