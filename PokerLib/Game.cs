@@ -20,6 +20,7 @@ namespace Poker
         public IPlayer[] Players { get => table.Players.ToArray(); set => Players = table.Players.ToArray(); }
         private List<Player> players = new List<Player>();
         private Table table;
+        public Table Table{get=>table;}/////////
         public bool GameIsRunning = true;
 
         public Game(string fileName)
