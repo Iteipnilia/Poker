@@ -119,6 +119,41 @@ namespace Poker.Lib.UnitTest
             game.RunGame();
             Assert.IsTrue(WorkingEvents);
         }
+        [Test,Sequential]
+        public void GameCanDealTable([Values(0, 1, 2, 3, 4)] int i)
+        {
+            game.Table.DealTable();
+            Assert.That(game.Table.Players, Has.Exactly(2).Items);
+            Assert.That(game.Table.Players[0].Hand, Has.Exactly(5).Items);
+            Assert.That(game.Table.Players[1].Hand, Has.Exactly(5).Items);
+            Assert.IsInstanceOf<Card>(game.Table.Players[0].Hand[i]);
+        }
+        [Test]
+        public void GameCanDiscardCards()
+        {   
+            Card testCard= new Card(Suite.Hearts, Rank.Ace);
+            Card[] hand1 = TestsHand.ToCards("♣4♥J♠Q♥K♥A");
+            foreach (Card cards in hand1)
+            {
+                game.Table.Players[0].ReceiveCards(cards);
+            }
+
+            Assert.That(game.Table.Players[0].Hand, Has.Exactly(5).Items);
+            game.Table.DiscardCard(game.Table.Players[0],testCard );
+
+            CollectionAssert.DoesNotContain(game.Table.Players[0].Hand, testCard);
+            Assert.That(game.Table.Players[0].Hand, Has.Exactly(4).Items);
+        }
+
+        [Test]
+        public void GameCanReplaceCards([Values(0, 1, 2, 3, 4)] int i)
+        {
+            game.Table.ReplacementCards(game.Table.Players[0], 5);
+            Assert.That(game.Table.Players[0].Hand, Has.Exactly(5).Items);
+            Assert.IsInstanceOf<Card>(game.Table.Players[0].Hand[i]);
+        }
+
+
 
         [Test]
         public void GameSaveAndExitAfterSave()
