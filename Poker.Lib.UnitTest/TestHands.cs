@@ -8,7 +8,7 @@ using static Poker.Suite;
 using static Poker.Rank;
 using static Poker.HandType;
 
-namespace PokerLib.UnitTest
+namespace Poker.Lib.UnitTest
 {
     public class TestsHand
     {
@@ -228,7 +228,7 @@ namespace PokerLib.UnitTest
         }
 
 
-        static Card[] ToCards(string text)
+        internal static Card[] ToCards(string text)
         {
             List<Card> cards = new List<Card>();
             int i = 0;

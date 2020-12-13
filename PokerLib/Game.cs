@@ -18,6 +18,7 @@ namespace Poker
         public event OnWinner Winner;
         public event OnDraw Draw;
         public IPlayer[] Players { get => table.Players.ToArray(); set => Players = table.Players.ToArray(); }
+        private List<Player> players = new List<Player>();
         private Table table;
 
         public Game(string fileName)
@@ -75,12 +76,12 @@ namespace Poker
                     player.Hands.Eval();
                 }
                 ShowAllHands();
-                CompareHands();
+                CompareHands(Players);
                 table.RebuildDeck();
             }
         }
 
-        public void CompareHands()
+        public void CompareHands(IPlayer[] Players)
         {
             // Varje spelares handtype jämförs
             // bästa handen vinner
@@ -103,7 +104,7 @@ namespace Poker
             if (BestHand.Count == 1)
             {
                 BestHand[0].Win();
-                Winner(BestHand[0]);
+                Winner?.Invoke(BestHand[0]);
             }
             else if (BestHand.Count > 1)
             {
@@ -132,10 +133,6 @@ namespace Poker
                 else if (BestHandType == HandType.ThreeOfAKind || BestHandType == HandType.FullHouse)
                 {
                     BestHand = BestThreeDuplicate(BestHand);
-                    if (BestHand.Count > 1)
-                    {
-                        BestHand = BestDuplicate(BestHand);
-                    }
                 }
                 else if (BestHandType == HandType.FourOfAKind)
                 {
@@ -143,22 +140,22 @@ namespace Poker
                 }
                 else if (BestHandType == HandType.RoyalStraightFlush)
                 {
-                    Draw(BestHand.ToArray());
+                    Draw?.Invoke(BestHand.ToArray());
                 }
 
                 if (BestHand.Count == 1)
                 {
                     BestHand[0].Win();
-                    Winner(BestHand[0]);
+                    Winner?.Invoke(BestHand[0]);
                 }
                 else
                 {
-                    Draw(BestHand.ToArray());
+                    Draw?.Invoke(BestHand.ToArray());
                 }
             }
         }
 
-        private List<Player> HighestRankCards(List<Player> players)
+        public List<Player> HighestRankCards(List<Player> players)
         {
             for (int i = 0; i < 5; i++)
             {
@@ -169,7 +166,7 @@ namespace Poker
             return players;
         }
 
-        private List<Player> BestDuplicate(List<Player> players)
+        public List<Player> BestDuplicate(List<Player> players)
         {
             Rank BestDuplicate = players.Select(player => player.Hands.DuplicateRank.First()).Max();
             players = players.Where(player => player.Hands.DuplicateRank.First() == BestDuplicate).ToList();
@@ -180,24 +177,16 @@ namespace Poker
             return players;
         }
 
-        private List<Player> BestThreeDuplicate(List<Player> players)
+        public List<Player> BestThreeDuplicate(List<Player> players)
         {
             Rank BestThreeDuplicate = players.Select(player => player.Hands.ThreeDuplicateRank.First()).Max();
             players = players.Where(player => player.Hands.ThreeDuplicateRank.First() == BestThreeDuplicate).ToList();
-            if (players.Count > 1)
-            {
-                players = HighestRankCards(players);
-            }
             return players;
         }
-        private List<Player> BestFourDuplicate(List<Player> players)
+        public List<Player> BestFourDuplicate(List<Player> players)
         {
             Rank BestFourDuplicate = players.Select(player => player.Hands.FourDuplicateRank.First()).Max();
             players = players.Where(player => player.Hands.FourDuplicateRank.First() == BestFourDuplicate).ToList();
-            if (players.Count > 1)
-            {
-                players = HighestRankCards(players);
-            }
             return players;
         }
 

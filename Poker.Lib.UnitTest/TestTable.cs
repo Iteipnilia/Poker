@@ -32,6 +32,25 @@ namespace Poker.Lib.UnitTest
         }
 
         [Test]
+        public void CanAddPlayersWithWinsToTable()
+        {
+            Table TestTable= new Table();
+            TestTable.AddPlayerToTable("Name1", 1);
+            TestTable.AddPlayerToTable("Name2", 0);
+            TestTable.AddPlayerToTable("Name3", 5);
+
+            Assert.That(TestTable.Players, Has.Exactly(3).Items);
+            Assert.That(TestTable.Players[0].Name, Is.EqualTo("Name1"));
+            Assert.That(TestTable.Players[0].Wins, Is.EqualTo(1));
+            Assert.That(TestTable.Players[1].Name, Is.EqualTo("Name2"));
+            Assert.That(TestTable.Players[1].Wins, Is.EqualTo(0));
+            Assert.That(TestTable.Players[2].Name, Is.EqualTo("Name3"));
+            Assert.That(TestTable.Players[2].Wins, Is.EqualTo(5));
+
+            Assert.IsInstanceOf<Player>(TestTable.Players[0]);            
+        }
+
+        [Test]
         public void CantAddMoreThanFivePlayers()
         {
             testTable.AddPlayerToTable("");

@@ -66,7 +66,7 @@ namespace Poker
             if (handType == HandType.FourOfAKind)
             {
                 FourDuplicateRank = Hand.GroupBy(card => card.Rank)
-                .Where(group => group.Count() == 3)
+                .Where(group => group.Count() == 4)
                 .Select(group => group.Key)
                 .OrderByDescending(x => x).ToList();
             }
