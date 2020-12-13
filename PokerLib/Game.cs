@@ -20,6 +20,7 @@ namespace Poker
         public IPlayer[] Players { get => table.Players.ToArray(); set => Players = table.Players.ToArray(); }
         private List<Player> players = new List<Player>();
         private Table table;
+        public bool GameIsRunning;
 
         public Game(string fileName)
         {
@@ -56,9 +57,15 @@ namespace Poker
             }
         }
 
+        public bool GameRunning()
+        {
+            return GameIsRunning = false;
+        }
+
         public void RunGame()
         {
-            while (true)
+            GameIsRunning = true;
+            while (GameIsRunning)
             {
                 NewDeal();
                 table.DealTable();
@@ -207,11 +214,13 @@ namespace Poker
             string json = JsonConvert.SerializeObject(names);
             json += (" " + JsonConvert.SerializeObject(wins));
             File.WriteAllText(fileName, json);
+            GameIsRunning = false;
             Environment.Exit(0);
         }
 
         public void Exit()
         {
+            GameIsRunning = false;
             Environment.Exit(0);
         }
     }
