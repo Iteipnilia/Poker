@@ -48,26 +48,5 @@ namespace Poker
                 return (Suite == c.Suite) && (Rank == c.Rank);
             }
         }
-
-        public static bool operator ==(Card lhs, Card rhs)
-        {
-            // Check for null on left side.
-            if (Object.ReferenceEquals(lhs, null))
-            {
-                if (Object.ReferenceEquals(rhs, null))
-                {
-                    // null == null = true.
-                    return true;
-                }
-                // Only the left side is null.
-                return false;
-            }
-            // Equals handles case of null on right side.
-            return lhs.Equals(rhs);
-        }
-        public static bool operator !=(Card lhs, Card rhs)
-        {
-            return !(lhs == rhs);
-        }
     }
 }
